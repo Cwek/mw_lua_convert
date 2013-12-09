@@ -94,30 +94,39 @@ local Convect.output_together={
 local Convect.temperature_range={"C-change","F-change"}
 
 --2+单元修饰词
-local Convect.range_embellish_key={"to","and","or","-"}
-local Convect.range_embellish_val={"至","和","或","-"}
+local Convect.range_embellish={
+                                ["to"]="到",
+                                ["and"]="和",
+                                ["or"]="或",
+                                ["to(-)"]="到",
+                                ["+/-"]="±",
+                                ["x"]="到"
+                                ["-"]="-"
+                                }
 
---从方法开始--
+--[[
+    从方法开始
+--]]
 function Convect.unit_check__(unit)--单位检查工具
-	local flag=false
-	local group=nil
+    local flag=false
+    local group=nil
 
-	if(tonumber(unit)~=nil)then
-		return group,flag
-	end
+    if(tonumber(unit)~=nil)then
+        return group,flag
+    end
 
-	for group_name in Convect.group_name do
-		for unit_name in Convect.value[group_name] do
-			if unit_name==unit then
-				group=group_name
-				flag=true
+    for group_name in Convect.group_name do
+        for unit_name in Convect.value[group_name] do
+            if unit_name==unit then
+                group=group_name
+                flag=true
 
-				return group,flag
-			end
-		end
-	end
+                return group,flag
+            end
+        end
+    end
 
-	return group,flag
+    return group,flag
 end
 
 function Convect.unit_convect_value(group,unit)--单位转换值查找
@@ -226,7 +235,9 @@ function Convert.convert(group,in_unit,out_unit)--转换参数构造函数
     end
 end
 
---主方法开始--
+--[[
+    主方法开始
+--]]
 function Convect.init__(frame)--传入参数初始化，和部分简单参数的设定
     local args_from_templatein=frame:getParent().args
     local args_from_invokein=frame.args
@@ -305,7 +316,7 @@ function Convect.init__(frame)--传入参数初始化，和部分简单参数的
     --传入disp，disp处理复杂，由cheak__完成
     if disp~=nil then
         args["disp"]=disp
-		args["have_sigfig"]=true
+        args["have_sigfig"]=true
     else
         args["disp"]="b"
     end--disp 传入done
@@ -574,41 +585,41 @@ function Convert.bind_1__(args)
         out=out..table.concat(in_unit,"，")
         return out
     end
-	
-	if(not args["out_unit_instead"])then
-		for v in in_unit do--获得转换参数公式<---------<------
-			table.insert(function_convert,Convert.convert(v,out_unit[1]))
-		end
-		
-		for k,v in pairs(in_value) do--转换中和sigfig的处理和args["sigfig5"]
-			local t_number=function_convert[k](v)
-			
-			t_number=Convert.sigfig_func(t_number,args["sigfig"])
-			if(args["sigfig5"])then t_number=Convert.sigfig5_func(tonumber(t_number)).."" end
-			table.insert(out_value,t_number,k)
-		end
-		local sum_out_value=0
-		for v in out_value do--汇总
-			sum_out_value=sum_out_value+v
-		end
-	else
-		out_unit=args["out_unit_instead"]--args["out_unit_instead"]的转换生成
-		for v in out_unit do
-			table.insert(function_convert,Convert.convert(in_unit[1],v))
-		end
-		
-		for k,v in pairs(function_convert) do
-			local t_number=v(in_value[1])
-			
-			t_number=Convert.sigfig_func(t_number,args["sigfig"])
-			if(args["sigfig5"])then t_number=Convert.sigfig5_func(tonumber(t_number)).."" end
-			table.insert(out_value,t_number,k)
-		end				
-	end    
+    
+    if(not args["out_unit_instead"])then
+        for v in in_unit do--获得转换参数公式<---------<------
+            table.insert(function_convert,Convert.convert(v,out_unit[1]))
+        end
+        
+        for k,v in pairs(in_value) do--转换中和sigfig的处理和args["sigfig5"]
+            local t_number=function_convert[k](v)
+            
+            t_number=Convert.sigfig_func(t_number,args["sigfig"])
+            if(args["sigfig5"])then t_number=Convert.sigfig5_func(tonumber(t_number)).."" end
+            table.insert(out_value,t_number,k)
+        end
+        local sum_out_value=0
+        for v in out_value do--汇总
+            sum_out_value=sum_out_value+v
+        end
+    else
+        out_unit=args["out_unit_instead"]--args["out_unit_instead"]的转换生成
+        for v in out_unit do
+            table.insert(function_convert,Convert.convert(in_unit[1],v))
+        end
+        
+        for k,v in pairs(function_convert) do
+            local t_number=v(in_value[1])
+            
+            t_number=Convert.sigfig_func(t_number,args["sigfig"])
+            if(args["sigfig5"])then t_number=Convert.sigfig5_func(tonumber(t_number)).."" end
+            table.insert(out_value,t_number,k)
+        end             
+    end    
 
     local in_out,out_out="",""
-	
-	--输入显示处理，并处理连个控制参数
+    
+    --输入显示处理，并处理连个控制参数
     if(not args["outputOnly"])then--args["outputOnly"]
         for k,v in pairs(in_value)do
             in_out=in_out..v..Convert.link_builder__
@@ -618,9 +629,9 @@ function Convert.bind_1__(args)
                     (group_name,in_unit[k],["display_shortin"])
                 )
         end
-	end
-	
-	--输出显示处理
+    end
+    
+    --输出显示处理
     if not args["out_unit_instead"] then
         out_out=out_out..sum_out_value
 
@@ -631,15 +642,15 @@ function Convert.bind_1__(args)
                     Convert.display_builder__
                     (group_name,in_unit[k],["display_shortout"])
                 )
-	else--<<<<<<<<<<
-		if args["out_only_val"] then--args["out_only_val"]
+    else--<<<<<<<<<<
+        if args["out_only_val"] then--args["out_only_val"]
         out_out=out_out..Convert.link_builder__
                 (args["link_out"],group_name,in_unit[k],
                     (args["display_valonly"] and "") or --args[display_valonly]
                     Convert.display_builder__
                     (group_name,in_unit[k],["display_shortout"])
                 )
-	
+    
     end
 
     local a,b=in_out,out_out
