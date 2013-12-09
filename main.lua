@@ -1,23 +1,23 @@
-local Convect={}
+ï»¿local Convect={}
 
---×éÃû
+--ç»„å
 local Convect.group_name={"length","area","volume","speed","force","energy","temperature","mass","torque"}
---»ù×¼µ¥Î»
+--åŸºå‡†å•ä½
 local Convect.baseunit={"m","m2","m3","m/s","N","J","K","kg","Nm"}
---»ù´¡Êı¾İ
-local Convect_Date=mw.loadData("Ä£¿é:É³ºĞ/cwek/Convert/data")
+--åŸºç¡€æ•°æ®
+local Convect_Date=mw.loadData("æ¨¡å—:æ²™ç›’/cwek/Convert/data")
 
---ÌØ±ğÄÚÈİ--
---Ö§³Ö2ÖµËãµ¥ÖµµÄµ¥Î»
+--ç‰¹åˆ«å†…å®¹--
+--æ”¯æŒ2å€¼ç®—å•å€¼çš„å•ä½
 local Convect.input_sepceil={
                             ["ft"]={{"ft","in"}},
                             ["st"]={{"st","lb"}},
                             ["lb"]={{"lb","oz"}}
                             }
---Ö§³Ö×éºÏÊä³öµ¥Î»µÄ
---{µ¥Î»={ÔÊĞíµÄµ¥Î»,...},...}
+--æ”¯æŒç»„åˆè¾“å‡ºå•ä½çš„
+--{å•ä½={å…è®¸çš„å•ä½,...},...}
 local Convect.output_together={
-                            --³¤¶È
+                            --é•¿åº¦
                             ["km"]={"mi"},
                             ["m"]={"ft","ftin"},
                             ["cm"]={"in"},
@@ -25,7 +25,7 @@ local Convect.output_together={
                             ["mi"]={"km"},
                             ["ft"]={"m"},
                             ["in"]={"cm","mm"},
-                            --Ãæ»ı
+                            --é¢ç§¯
                             ["km2"]={"sqmi"},
                             ["m2"]={"sqft"},
                             ["cm2"]={"sqin"},
@@ -34,7 +34,7 @@ local Convect.output_together={
                             ["sqft"]={"m2"},
                             ["sqfoot"]={"m2"},
                             ["sqin"]={"cm2"},
-                            --Ìå»ı
+                            --ä½“ç§¯
                             ["l"]={"impgal","USgal","U.S.gal","USdrygal","U.S.drygal"},
                             ["L"]={"impgal","USgal","U.S.gal","USdrygal","U.S.drygal"},
                             ["ml"]={"impoz","USoz","U.S.oz"},
@@ -47,36 +47,36 @@ local Convect.output_together={
                             ["U.S.oz"]="ml","mL","impoz",
                             ["USdrygal"]={"l","L","impgal"},
                             ["U.S.drygal"]={"l","L","impgal"},
-                            --ËÙ¶È
+                            --é€Ÿåº¦
                             ["m/s"]={"ft/s","foot/s"},
                             ["km/h"]={"mph"},
                             ["mph"]={"km/h","kn"},
                             ["ft/s"]={"m/s"},
                             ["kn"]={"mph"},
-                            --Á¦Á¿
+                            --åŠ›é‡
                             ["GN"]={"LT-f","LTf","ST-f","STf"},
                             ["MN"]={"LT-f","LTf","ST-f","STf"},
                             ["kN"]={"LT-f","LTf","ST-f","STf"},
                             ["N"]={"lb-f","lbf","oz-f","ozf"},
                             ["mN"]={"oz-f","ozf","gr-f","grf"},
-                            ["¦ÌN"]={"gr-f","grf"},
+                            ["Î¼N"]={"gr-f","grf"},
                             ["uN"]={"gr-f","grf"},
                             ["nN"]={"gr-f","grf"},
                             ["LT-f"]={"ST-f"},
                             ["LTf"]={"STf"},
                             ["ST-f"]={"LT-f"},
                             ["STf"]={"LTf"},
-                            --ÄÜÁ¿
+                            --èƒ½é‡
 
-                            --ÎÂ¶È
-                            ["K"]={"¡ãC","¡ãR","¡ãF","C","R","F"},
-                            ["¡ãC"]={"K","¡ãR","¡ãF","R","F"},
-                            ["C"]={"K","¡ãR","¡ãF","R","F"},
-                            ["¡ãR"]={"K","¡ãC","¡ãF","C","F"},
-                            ["R"]={"K","¡ãC","¡ãF","C","F"},
-                            ["¡ãF"]={"K","¡ãC","¡ãR","C","R"},
-                            ["F"]={"K","¡ãC","¡ãR","C","R"},
-                            --ÖÊÁ¿
+                            --æ¸©åº¦
+                            ["K"]={"Â°C","Â°R","Â°F","C","R","F"},
+                            ["Â°C"]={"K","Â°R","Â°F","R","F"},
+                            ["C"]={"K","Â°R","Â°F","R","F"},
+                            ["Â°R"]={"K","Â°C","Â°F","C","F"},
+                            ["R"]={"K","Â°C","Â°F","C","F"},
+                            ["Â°F"]={"K","Â°C","Â°R","C","R"},
+                            ["F"]={"K","Â°C","Â°R","C","R"},
+                            --è´¨é‡
                             ["kg"]={"lb","st"},
                             ["g"]={"oz"},
                             ["mg"]={"gr"},
@@ -87,18 +87,18 @@ local Convect.output_together={
                             ["st"]={"kg","lb"},
                             ["lb"]={"kg","st"},
                             ["oz"]={"g"},
-                            --Á¦¾Ø
+                            --åŠ›çŸ©
                             ["Nm"]={"lbft","lbfft"}
 }
---ÎÂ¶È²î´¦Àí
+--æ¸©åº¦å·®å¤„ç†
 local Convect.temperature_range={"C-change","F-change"}
 
---2+µ¥ÔªĞŞÊÎ´Ê
+--2+å•å…ƒä¿®é¥°è¯
 local Convect.range_embellish_key={"to","and","or","-"}
-local Convect.range_embellish_val={"ÖÁ","ºÍ","»ò","-"}
+local Convect.range_embellish_val={"è‡³","å’Œ","æˆ–","-"}
 
---´Ó·½·¨¿ªÊ¼--
-function Convect.unit_check__(unit)--µ¥Î»¼ì²é¹¤¾ß
+--ä»æ–¹æ³•å¼€å§‹--
+function Convect.unit_check__(unit)--å•ä½æ£€æŸ¥å·¥å…·
 	local flag=false
 	local group=nil
 
@@ -120,13 +120,13 @@ function Convect.unit_check__(unit)--µ¥Î»¼ì²é¹¤¾ß
 	return group,flag
 end
 
-function Convect.unit_convect_value(group,unit)--µ¥Î»×ª»»Öµ²éÕÒ
+function Convect.unit_convect_value(group,unit)--å•ä½è½¬æ¢å€¼æŸ¥æ‰¾
     local value=Convect.value[group][unit]
 
     return value
 end
 
-function Convert.embellish_binder__(input)--ĞŞÊÎ´Ê½¨ÔìÕß
+function Convert.embellish_binder__(input)--ä¿®é¥°è¯å»ºé€ è€…
     local k=Convert.embellish_cheaker__(input)
     if k>0 then
         return Convert.range_embellish_val[k]
@@ -135,7 +135,7 @@ function Convert.embellish_binder__(input)--ĞŞÊÎ´Ê½¨ÔìÕß
     end
 end
 
-function Convert.embellish_cheaker__(input)--ĞŞÊÎ´ÊËÑÑ°Õß£¬·¢ÏÖ·ûºÏ×ª»»µÄĞŞÊÎ´Ê£¬·µ»Ø¼üÖµ£¬·ñÔò·µ»Ø-1
+function Convert.embellish_cheaker__(input)--ä¿®é¥°è¯æœå¯»è€…ï¼Œå‘ç°ç¬¦åˆè½¬æ¢çš„ä¿®é¥°è¯ï¼Œè¿”å›é”®å€¼ï¼Œå¦åˆ™è¿”å›-1
     for k,v in pairs(Convert.range_embellish_key) do
         if v==input then
             return k
@@ -145,7 +145,7 @@ function Convert.embellish_cheaker__(input)--ĞŞÊÎ´ÊËÑÑ°Õß£¬·¢ÏÖ·ûºÏ×ª»»µÄĞŞÊÎ´Ê£
     return -1
 end
 
-function Convert.link_finder__(group,unit)--µ¥Î»Á´½ÓÖµ²éÕÒ
+function Convert.link_finder__(group,unit)--å•ä½é“¾æ¥å€¼æŸ¥æ‰¾
     for k,v in pairs(Convert.link[group]) do
         local linkname=k
         for t in v do
@@ -157,7 +157,7 @@ function Convert.link_finder__(group,unit)--µ¥Î»Á´½ÓÖµ²éÕÒ
     return false
 end
 
-function Convert.link_builder__(flag,group,unit,display)--µ¥Î»Á´½ÓÖµ½¨Ôì
+function Convert.link_builder__(flag,group,unit,display)--å•ä½é“¾æ¥å€¼å»ºé€ 
     local code=""
     local t=link_finder__(group,unit)
 
@@ -168,7 +168,7 @@ function Convert.link_builder__(flag,group,unit,display)--µ¥Î»Á´½ÓÖµ½¨Ôì
     end
 end
 
-function Convert.display_builder__(group,unit,flag)--µ¥Î»ÏÔÊ¾Öµ½¨Ôì£¨ÖĞÎÄÈ«³Æ»òËõÃû£©
+function Convert.display_builder__(group,unit,flag)--å•ä½æ˜¾ç¤ºå€¼å»ºé€ ï¼ˆä¸­æ–‡å…¨ç§°æˆ–ç¼©åï¼‰
     local code=""
     local t_arr=Convert.display[group][unit]
 
@@ -179,7 +179,7 @@ function Convert.display_builder__(group,unit,flag)--µ¥Î»ÏÔÊ¾Öµ½¨Ôì£¨ÖĞÎÄÈ«³Æ»òË
     end
 end
 
-function Convert.base_unit__(group)--¸ù¾İ×é²éÔÄ×éµÄ»ù×¼µ¥Î»
+function Convert.base_unit__(group)--æ ¹æ®ç»„æŸ¥é˜…ç»„çš„åŸºå‡†å•ä½
     for k,v in pairs(Convert.group_name) do
         if v==group then
             return Convert.baseunit[k]
@@ -189,7 +189,7 @@ function Convert.base_unit__(group)--¸ù¾İ×é²éÔÄ×éµÄ»ù×¼µ¥Î»
     return false
 end
 
-function Convert.sigfig_func(input,sigfig)--È¡Õû
+function Convert.sigfig_func(input,sigfig)--å–æ•´
     local t,_=math.modf(input*math.pow(10,sigfig)+0.5)
 
     if(sigfig<0)
@@ -199,7 +199,7 @@ function Convert.sigfig_func(input,sigfig)--È¡Õû
     end
 end
     
-function Convert.sigfig5_func(input)--È¡5Õû
+function Convert.sigfig5_func(input)--å–5æ•´
     local t=sigfig_func(input,0)
     local x=(math.fmod(t,10))
     if(x<2.5)then
@@ -213,42 +213,42 @@ function Convert.sigfig5_func(input)--È¡5Õû
     end
 end
 
-function Convert.convert(group,in_unit,out_unit)--×ª»»²ÎÊı¹¹Ôìº¯Êı
+function Convert.convert(group,in_unit,out_unit)--è½¬æ¢å‚æ•°æ„é€ å‡½æ•°
     local a_t=Convect.value[group][in_unit]
     local b_t=Convect.value[group][out_unit]
 
-    if type(a_t)=="number" and type(b_t)=="number" then--Èç¹ûÊÇÆÕÍ¨Êı£¨·ÇÎÂ¶ÈÀà£©
+    if type(a_t)=="number" and type(b_t)=="number" then--å¦‚æœæ˜¯æ™®é€šæ•°ï¼ˆéæ¸©åº¦ç±»ï¼‰
         local a,b=a_t,b_t
         return function(input) return input*a/b end
-    else--ÎÂ¶ÈÀàµÄ´¦Àí
+    else--æ¸©åº¦ç±»çš„å¤„ç†
         local a_K,K_b=a_t[1],a_t[2]
         return function(input) return K_b(a_K(input)) end
     end
 end
 
---Ö÷·½·¨¿ªÊ¼--
-function Convect.init__(frame)--´«Èë²ÎÊı³õÊ¼»¯£¬ºÍ²¿·Ö¼òµ¥²ÎÊıµÄÉè¶¨
+--ä¸»æ–¹æ³•å¼€å§‹--
+function Convect.init__(frame)--ä¼ å…¥å‚æ•°åˆå§‹åŒ–ï¼Œå’Œéƒ¨åˆ†ç®€å•å‚æ•°çš„è®¾å®š
     local args_from_templatein=frame:getParent().args
     local args_from_invokein=frame.args
 
-    --³õÊ¼»¯ÔØ¾ß
+    --åˆå§‹åŒ–è½½å…·
     args={}
 
-    --½ÓÊÜÈ«²¿ÃüÃû²ÎÊı
+    --æ¥å—å…¨éƒ¨å‘½åå‚æ•°
     local lk=((args_from_templatein["lk"]~=nil and args_from_templatein["lk"]) or "off")
     local abbr=((args_from_templatein["abbr"]~=nil and args_from_templatein["abbr"]) or "off")
     local disp=((args_from_templatein["disp"]~=nil and args_from_templatein["disp"]) or "b")
     local sigfig=args_from_templatein["sigfig"]
     local sortable=args_from_templatein["sortable"]
 
-    --½ÓÊÜÖ´ĞĞµÄ±¸Ñ¡²ÎÊı
+    --æ¥å—æ‰§è¡Œçš„å¤‡é€‰å‚æ•°
     local ismore=tonumber(args_from_invokein[1])
     args["processCount"]=ismore
 
-    --³õÊ¼»¯³ĞÔØ´«ÈëË÷Òı²ÎÊıµÄÊı×é
+    --åˆå§‹åŒ–æ‰¿è½½ä¼ å…¥ç´¢å¼•å‚æ•°çš„æ•°ç»„
     args["args"]={}
     local i=1
-    while true do--½ÓÊÕÈ«²¿Ë÷Òı²ÎÊı£¬ÒòÎªframe.argsÎª²»ÍêÈ«±í£¬ÎŞ·¨Ì½ÖªÔªËØ¸öÊı£¬ÓÃËÀÑ­»·Ì½Öª½ÓÊÕ
+    while true do--æ¥æ”¶å…¨éƒ¨ç´¢å¼•å‚æ•°ï¼Œå› ä¸ºframe.argsä¸ºä¸å®Œå…¨è¡¨ï¼Œæ— æ³•æ¢çŸ¥å…ƒç´ ä¸ªæ•°ï¼Œç”¨æ­»å¾ªç¯æ¢çŸ¥æ¥æ”¶
         t=args[i]
         if t~=nil then
             args.args[i]=t
@@ -257,7 +257,7 @@ function Convect.init__(frame)--´«Èë²ÎÊı³õÊ¼»¯£¬ºÍ²¿·Ö¼òµ¥²ÎÊıµÄÉè¶¨
         end
     end
 
-    --´¦Àílk
+    --å¤„ç†lk
     args["link_in"]=false
     args["link_out"]=false
     if lk~=nil then
@@ -269,7 +269,7 @@ function Convect.init__(frame)--´«Èë²ÎÊı³õÊ¼»¯£¬ºÍ²¿·Ö¼òµ¥²ÎÊıµÄÉè¶¨
         switch_link[lk]()
     end--lk done
 
-    --´¦Àíabbr
+    --å¤„ç†abbr
     args["display_shortin"]=false
     args["display_shortout"]=false
     args["display_valonly"]=false
@@ -284,7 +284,7 @@ function Convect.init__(frame)--´«Èë²ÎÊı³õÊ¼»¯£¬ºÍ²¿·Ö¼òµ¥²ÎÊıµÄÉè¶¨
         switch_abbr[abbr]()
     end--abbr done
 
-    --´¦Àísigfig
+    --å¤„ç†sigfig
     if sigfig~=nil then
         local t=tonumber(sigfig)
         if t~=nil and t>0 then
@@ -295,20 +295,20 @@ function Convect.init__(frame)--´«Èë²ÎÊı³õÊ¼»¯£¬ºÍ²¿·Ö¼òµ¥²ÎÊıµÄÉè¶¨
         args["have_sigfig"]=true
     else
         args["have_sigfig"]=false
-    end--sigfig ³õ²½´¦Àídone
+    end--sigfig åˆæ­¥å¤„ç†done
 
-    --´¦Àísortable
+    --å¤„ç†sortable
     if sortable~=nil then
         args["sortable"]=true
-    end--sortable ´«Èëdone
+    end--sortable ä¼ å…¥done
 
-    --´«Èëdisp£¬disp´¦Àí¸´ÔÓ£¬ÓÉcheak__Íê³É
+    --ä¼ å…¥dispï¼Œdispå¤„ç†å¤æ‚ï¼Œç”±cheak__å®Œæˆ
     if disp~=nil then
         args["disp"]=disp
 		args["have_sigfig"]=true
     else
         args["disp"]="b"
-    end--disp ´«Èëdone
+    end--disp ä¼ å…¥done
 
 
     return args
@@ -316,25 +316,25 @@ end
 
 function Convect.cheak__(args)
     --[[
-    ½øÀ´Ê±argsÖÁÉÙÓĞ£º
-    [args]:´«ÈëµÄË÷Òı²ÎÊı
-    [processCount]<3,4»ònil>:Òª´¦ÀíµÄµ¥ÔªÊı
-    [link_in],[link_out]:¿ØÖÆÊÇ·ñÉú³Éµ¥Î»Á´½Ó
-    [display_shortin],[display_shortout],[display_valonly]:¿ØÖÆµ¥Î»ÏÔÊ¾Éú³É
-    [sigfig]:ÓĞĞ§Î»Êı
-    [disp]:´«ÈëµÄdisp
-    [sortable]:´«ÈëµÄsortable
-    [have_sigfig]=´æÔÚsigfig
+    è¿›æ¥æ—¶argsè‡³å°‘æœ‰ï¼š
+    [args]:ä¼ å…¥çš„ç´¢å¼•å‚æ•°
+    [processCount]<3,4æˆ–nil>:è¦å¤„ç†çš„å•å…ƒæ•°
+    [link_in],[link_out]:æ§åˆ¶æ˜¯å¦ç”Ÿæˆå•ä½é“¾æ¥
+    [display_shortin],[display_shortout],[display_valonly]:æ§åˆ¶å•ä½æ˜¾ç¤ºç”Ÿæˆ
+    [sigfig]:æœ‰æ•ˆä½æ•°
+    [disp]:ä¼ å…¥çš„disp
+    [sortable]:ä¼ å…¥çš„sortable
+    [have_sigfig]=å­˜åœ¨sigfig
     --]]
 
-    --¸ù¾İË÷Òı²ÎÊı×éµÄÊı×ÖÅÅĞòÅĞ¶Ï´¦Àíµ¥ÔªÊı
+    --æ ¹æ®ç´¢å¼•å‚æ•°ç»„çš„æ•°å­—æ’åºåˆ¤æ–­å¤„ç†å•å…ƒæ•°
     local t_processCount=0
-    if tonumber(args.args[1])~=nil--´¦Àí1¸öµ¥Ôª
+    if tonumber(args.args[1])~=nil--å¤„ç†1ä¸ªå•å…ƒ
         t_processCount=1
-    elseif tonumber(args.args[3])~=nil--´¦Àí2¸öµ¥Ôª
+    elseif tonumber(args.args[3])~=nil--å¤„ç†2ä¸ªå•å…ƒ
         t_processCount=2
 
-        --´ÓÌØÊâ2×ª1ÊäÈëÖĞÕÒ³öÆ¥ÅäÏî
+        --ä»ç‰¹æ®Š2è½¬1è¾“å…¥ä¸­æ‰¾å‡ºåŒ¹é…é¡¹
         local find_in_inputSepceil=function(input1,input2)
             for k,v in pairs(input_sepceil) do
                 if k==input1 then
@@ -347,14 +347,14 @@ function Convect.cheak__(args)
             end
             return false
         end
-        if find_in_inputSepceil(args.args[2],args.args[4]) then--Èç¹ûË÷Òı2ºÍË÷Òı4ÔÚ2×ª1ÊäÈëÖĞ£¬¸Ä»Ø´¦Àí1¸öµ¥Ôª
+        if find_in_inputSepceil(args.args[2],args.args[4]) then--å¦‚æœç´¢å¼•2å’Œç´¢å¼•4åœ¨2è½¬1è¾“å…¥ä¸­ï¼Œæ”¹å›å¤„ç†1ä¸ªå•å…ƒ
             args["2in1"]=true
             t_processCount=1
         else
             args["2in1"]=false
         end
 
-        --ÎÂ¶È×ª»»¼ì²â
+        --æ¸©åº¦è½¬æ¢æ£€æµ‹
         local find_temperatureChange=function(input1)
             for v in Convect.temperature_range do
                 if input1==v then
@@ -363,22 +363,22 @@ function Convect.cheak__(args)
             end
             return false
         end
-        if find_temperatureChange(args.args[2]) then--Èç¹ûË÷Òı2ÓĞÌØ¶¨µÄÎÂ¶È×ª»»²ÎÊı£¬¸Ä»Ø´¦Àí1¸öµ¥Ôª
+        if find_temperatureChange(args.args[2]) then--å¦‚æœç´¢å¼•2æœ‰ç‰¹å®šçš„æ¸©åº¦è½¬æ¢å‚æ•°ï¼Œæ”¹å›å¤„ç†1ä¸ªå•å…ƒ
             t_processCount=1
             args["t_c"]=true
         else
             args["t_c"]=false
         end
-    elseif tonumber(args.args[5])~=nil and args["processCount"]==3 then--´¦Àí3¸öµ¥Ôª
+    elseif tonumber(args.args[5])~=nil and args["processCount"]==3 then--å¤„ç†3ä¸ªå•å…ƒ
         t_processCount=3
-    elseif tonumber(args.args[7])~=nil and args["processCount"]==4 then--´¦Àí4¸öµ¥Ôª
+    elseif tonumber(args.args[7])~=nil and args["processCount"]==4 then--å¤„ç†4ä¸ªå•å…ƒ
         t_processCount=4
     end
     args["processCount"]=t_processCount
-    --´¦Àíµ¥ÔªÅĞ¶Ïdone
+    --å¤„ç†å•å…ƒåˆ¤æ–­done
 
-    --´¦Àísigfig£¬dispÏà¹ØµÄ»ùÊı
-    local base=0--¶ÔÓ¦Êä³öµ¥Î»Î»ÖÃµÄ»ùÖµ
+    --å¤„ç†sigfigï¼Œdispç›¸å…³çš„åŸºæ•°
+    local base=0--å¯¹åº”è¾“å‡ºå•ä½ä½ç½®çš„åŸºå€¼
     if args["processCount"]==1 then
         base=3
     elseif args["processCount"]==2 then
@@ -388,8 +388,8 @@ function Convect.cheak__(args)
     elseif args["processCount"]==4 then
         base=9
     end
-        if(args["processCount"]==1 and string.find(args.args[base]," "))then--¼ì²éÊÇ·ñº¬ÓĞ¸´ºÏÊä³ö£¬ÒÔÅĞ¶ÏÊÇ·ñ´øÓĞ¿Õ¸ñ
-            --½«¿ÉÄÜÊÇ×éºÏµ¥Î»Êä³öµÄÏàÓ¦²ÎÊı½øĞĞ·ÖÀë
+        if(args["processCount"]==1 and string.find(args.args[base]," "))then--æ£€æŸ¥æ˜¯å¦å«æœ‰å¤åˆè¾“å‡ºï¼Œä»¥åˆ¤æ–­æ˜¯å¦å¸¦æœ‰ç©ºæ ¼
+            --å°†å¯èƒ½æ˜¯ç»„åˆå•ä½è¾“å‡ºçš„ç›¸åº”å‚æ•°è¿›è¡Œåˆ†ç¦»
             local t_out={}
             local i=0
             while true do--
@@ -403,10 +403,10 @@ function Convect.cheak__(args)
                 end
             end
 
-            local a,b=t_out[1],t_out[2]--¶ÁÈ¡Á½¸ö·ÖÀëµ¥Î»
+            local a,b=t_out[1],t_out[2]--è¯»å–ä¸¤ä¸ªåˆ†ç¦»å•ä½
             local flag=false
 
-            for k,v in pairs(Convect.output_together) do--½øĞĞ¶Ô±ÈÈ·ÈÏ
+            for k,v in pairs(Convect.output_together) do--è¿›è¡Œå¯¹æ¯”ç¡®è®¤
                 if(k==a)then
                     for t in v do
                         if(b==t)then
@@ -419,14 +419,14 @@ function Convect.cheak__(args)
                     break
                 end
             end
-            if(not flag)then--Èç¹û²»ÊÇ×éºÏµ¥Î»
-                args.args[base]=a--Ö±½ÓĞŞ¸Ä²ÎÊı£¬¸ÄÎªÇ°Ò»¸öµ¥Î»
+            if(not flag)then--å¦‚æœä¸æ˜¯ç»„åˆå•ä½
+                args.args[base]=a--ç›´æ¥ä¿®æ”¹å‚æ•°ï¼Œæ”¹ä¸ºå‰ä¸€ä¸ªå•ä½
             end
 
         end
         --args.args
 
-        --ÅĞ¶ÏÓĞÃ»Ê¡ÂÔÊä³öµ¥Î»
+        --åˆ¤æ–­æœ‰æ²¡çœç•¥è¾“å‡ºå•ä½
         local _,unit_flag=Convect.unit_check__(args.args[base])
         if out_unit_flag then
             args["out_unit_miss"]=false
@@ -437,7 +437,7 @@ function Convect.cheak__(args)
                 args["out_unit_miss"]=true
             end
         end
-        --´¦Àísigfig
+        --å¤„ç†sigfig
         local t_sigfig=args["sigfig"]
         if tonumber(args.args[base])~=nil and (not args["have_sigfig"])then
             t_sigfig=tonumber(args.args[base])
@@ -446,14 +446,14 @@ function Convect.cheak__(args)
             t_sigfig=args["sigfig"]
         end
         args["sigfig"]=t_sigfig
-        --disp=xµÄ´¦Àí
+        --disp=xçš„å¤„ç†
         if args["disp"]=="x" then
             args["modelX_a"]=(args.args[base]~=nil and args.args[base])or ""
             args["modelX_b"]=(args.args[base+1]~=nil and args.args[base+1])or ""
         end
-    --´¦ÀíÍê±Ï
+    --å¤„ç†å®Œæ¯•
 
-    --´¦Àídisp²ÎÊı
+    --å¤„ç†dispå‚æ•°
     local disp_b_model="%s[%s]"
     args["model"]=disp_b_model
 
@@ -463,7 +463,7 @@ function Convect.cheak__(args)
                                 --args["model"]=disp_b_model
                             end
     switch_disp["comma"]=   function()
-                                args["model"]="%s£¬%s"
+                                args["model"]="%sï¼Œ%s"
                             end
     switch_disp["output only"]=function()
                                 --args["model"]=disp_b_model
@@ -502,41 +502,41 @@ function Convect.cheak__(args)
     return args
 end
 --[[
-×ª»»´¦ÀíÁ÷³Ì¸Å¿ö
-in_value[x](in_unit[x])£º»ñµÃÊäÈëÖµ£¬ÊäÈëµ¥Î»²¢¼ÆËãÊä³öµ¥Î»£¨»ñµÃ»ò¸ù¾İµ¥Î»ËùÊô×é»ñµÃ»ù×¼µ¥Î»£©
-         |             £º¼ÆËã×ª»»¹«Ê½
+è½¬æ¢å¤„ç†æµç¨‹æ¦‚å†µ
+in_value[x](in_unit[x])ï¼šè·å¾—è¾“å…¥å€¼ï¼Œè¾“å…¥å•ä½å¹¶è®¡ç®—è¾“å‡ºå•ä½ï¼ˆè·å¾—æˆ–æ ¹æ®å•ä½æ‰€å±ç»„è·å¾—åŸºå‡†å•ä½ï¼‰
+         |             ï¼šè®¡ç®—è½¬æ¢å…¬å¼
         \|/
-function_convert[x]    £º¼ÆËãÖµ
+function_convert[x]    ï¼šè®¡ç®—å€¼
          |
         \|/
-out_value[x](out_unit[1])£º¼ÆËã³öÊä³öÖµ
+out_value[x](out_unit[1])ï¼šè®¡ç®—å‡ºè¾“å‡ºå€¼
          |
         \|/
-out_value_sum£ººÏ²¢²¿·ÖÊä³öÖµ
+out_value_sumï¼šåˆå¹¶éƒ¨åˆ†è¾“å‡ºå€¼
 --]]
 --[[
-args¿ÉÄÜ´«ÈëÊı¾İ£º
-    initÉú³ÉµÄ£º
-        [args]:´«ÈëµÄË÷Òı²ÎÊı-table
-        [processCount]<3,4»ònil>:Òª´¦ÀíµÄµ¥ÔªÊı-number
-        [link_in],[link_out]:¿ØÖÆÊÇ·ñÉú³Éµ¥Î»Á´½Ó-bool
-        [display_shortin],[display_shortout],[display_valonly]:¿ØÖÆµ¥Î»ÏÔÊ¾Éú³É-bool
-        [sigfig]:ÓĞĞ§Î»Êı-number
-        [disp]:´«ÈëµÄdisp-string
-        [sortable]:´«ÈëµÄsortable-bool
-        [have_sigfig]£º´æÔÚsigfig-bool
-    checkÉú³ÉµÄ£º
-        [2in1]:2×ª1±ê¼Ç-bool
-        [t_c]:ÎÂ¶È·¶Î§×ª»»±ê¼Ç-bool
-        [out_unit_miss]:È±ÉÙÊä³öµ¥Î»±ê¼Ç-bool
-        [modelX_a],[modelX_b]:disp=xµÄ±ê¼ÇÄ£ĞÍ-string
-        [model]:Êä³öµÄÄ£ĞÍ-string
-        [outputOnly]:¿ØÖÆÖ»°üº¬Êä³ö±ê¼Ç-bool,nil
-        [out_only_val]:¿ØÖÆÖ»°üº¬Êä³öÖµ±ê¼Ç-bool,nil
-        [filp]:·­×ªÊäÈëÊä³öÎ»ÖÃ±ê¼Ç-bool.nil
-        [unitonly]:Ö»°üº¬µ¥Î»Êä³ö±ê¼Ç-bool,nil
-        [sigfig5]:Õû5È¡Õû±ê¼Ç-bool,nil
-        [out_unit_instead]:×éºÏÊä³öµ¥Î»£¬Ö»ÏŞ´¦Àí1¸öµ¥ÔªÊ±-table
+argså¯èƒ½ä¼ å…¥æ•°æ®ï¼š
+    initç”Ÿæˆçš„ï¼š
+        [args]:ä¼ å…¥çš„ç´¢å¼•å‚æ•°-table
+        [processCount]<3,4æˆ–nil>:è¦å¤„ç†çš„å•å…ƒæ•°-number
+        [link_in],[link_out]:æ§åˆ¶æ˜¯å¦ç”Ÿæˆå•ä½é“¾æ¥-bool
+        [display_shortin],[display_shortout],[display_valonly]:æ§åˆ¶å•ä½æ˜¾ç¤ºç”Ÿæˆ-bool
+        [sigfig]:æœ‰æ•ˆä½æ•°-number
+        [disp]:ä¼ å…¥çš„disp-string
+        [sortable]:ä¼ å…¥çš„sortable-bool
+        [have_sigfig]ï¼šå­˜åœ¨sigfig-bool
+    checkç”Ÿæˆçš„ï¼š
+        [2in1]:2è½¬1æ ‡è®°-bool
+        [t_c]:æ¸©åº¦èŒƒå›´è½¬æ¢æ ‡è®°-bool
+        [out_unit_miss]:ç¼ºå°‘è¾“å‡ºå•ä½æ ‡è®°-bool
+        [modelX_a],[modelX_b]:disp=xçš„æ ‡è®°æ¨¡å‹-string
+        [model]:è¾“å‡ºçš„æ¨¡å‹-string
+        [outputOnly]:æ§åˆ¶åªåŒ…å«è¾“å‡ºæ ‡è®°-bool,nil
+        [out_only_val]:æ§åˆ¶åªåŒ…å«è¾“å‡ºå€¼æ ‡è®°-bool,nil
+        [filp]:ç¿»è½¬è¾“å…¥è¾“å‡ºä½ç½®æ ‡è®°-bool.nil
+        [unitonly]:åªåŒ…å«å•ä½è¾“å‡ºæ ‡è®°-bool,nil
+        [sigfig5]:æ•´5å–æ•´æ ‡è®°-bool,nil
+        [out_unit_instead]:ç»„åˆè¾“å‡ºå•ä½ï¼Œåªé™å¤„ç†1ä¸ªå•å…ƒæ—¶-table
 --]]
 function Convert.bind_1__(args)
     local out=""
@@ -549,18 +549,18 @@ function Convert.bind_1__(args)
     local group_name=""
     local function_convert={}
 
-    --×ª»»²ÎÊıÊäÈëÕûÀí
+    --è½¬æ¢å‚æ•°è¾“å…¥æ•´ç†
     table.insert(in_value,args.args[1])
     table.insert(in_unit,args.args[2])
     group_name,_=Convert.unit_Convert_value(in_unit[1])
     local baseunit=Convert.base_unit__(group_name)
     table.insert(out_unit,(args.args[3] and args.args[3] )or baseunit)
-    if(args["2in1"])then--2×ª1µÄÊäÈë
+    if(args["2in1"])then--2è½¬1çš„è¾“å…¥
         table.insert(in_value,args.args[1])
         table.insert(in_unit,args.args[2])
         --table.insert(out_unit,(args.args[3] and args.args[3] )or baseunit)
     end
-    if(args["t_c"])then--ÎÂ¶È·¶Î§×ª»»
+    if(args["t_c"])then--æ¸©åº¦èŒƒå›´è½¬æ¢
         if in_unit[1]=="C-change" then
             in_unit[1]="C"
             out_unit[1]="F"
@@ -570,17 +570,17 @@ function Convert.bind_1__(args)
         end
         group_name="temperature"
     end
-    if(args["unitonly"])then--Ö»ÊäÈëµ¥Î»ÏÔÊ¾Êä³ö,´¦Àíargs["unitonly"]
-        out=out..table.concat(in_unit,"£¬")
+    if(args["unitonly"])then--åªè¾“å…¥å•ä½æ˜¾ç¤ºè¾“å‡º,å¤„ç†args["unitonly"]
+        out=out..table.concat(in_unit,"ï¼Œ")
         return out
     end
 	
 	if(not args["out_unit_instead"])then
-		for v in in_unit do--»ñµÃ×ª»»²ÎÊı¹«Ê½<---------<------
+		for v in in_unit do--è·å¾—è½¬æ¢å‚æ•°å…¬å¼<---------<------
 			table.insert(function_convert,Convert.convert(v,out_unit[1]))
 		end
 		
-		for k,v in pairs(in_value) do--×ª»»ÖĞºÍsigfigµÄ´¦ÀíºÍargs["sigfig5"]
+		for k,v in pairs(in_value) do--è½¬æ¢ä¸­å’Œsigfigçš„å¤„ç†å’Œargs["sigfig5"]
 			local t_number=function_convert[k](v)
 			
 			t_number=Convert.sigfig_func(t_number,args["sigfig"])
@@ -588,11 +588,11 @@ function Convert.bind_1__(args)
 			table.insert(out_value,t_number,k)
 		end
 		local sum_out_value=0
-		for v in out_value do--»ã×Ü
+		for v in out_value do--æ±‡æ€»
 			sum_out_value=sum_out_value+v
 		end
 	else
-		out_unit=args["out_unit_instead"]--args["out_unit_instead"]µÄ×ª»»Éú³É
+		out_unit=args["out_unit_instead"]--args["out_unit_instead"]çš„è½¬æ¢ç”Ÿæˆ
 		for v in out_unit do
 			table.insert(function_convert,Convert.convert(in_unit[1],v))
 		end
@@ -608,7 +608,7 @@ function Convert.bind_1__(args)
 
     local in_out,out_out="",""
 	
-	--ÊäÈëÏÔÊ¾´¦Àí£¬²¢´¦ÀíÁ¬¸ö¿ØÖÆ²ÎÊı
+	--è¾“å…¥æ˜¾ç¤ºå¤„ç†ï¼Œå¹¶å¤„ç†è¿ä¸ªæ§åˆ¶å‚æ•°
     if(not args["outputOnly"])then--args["outputOnly"]
         for k,v in pairs(in_value)do
             in_out=in_out..v..Convert.link_builder__
@@ -620,7 +620,7 @@ function Convert.bind_1__(args)
         end
 	end
 	
-	--Êä³öÏÔÊ¾´¦Àí
+	--è¾“å‡ºæ˜¾ç¤ºå¤„ç†
     if not args["out_unit_instead"] then
         out_out=out_out..sum_out_value
 

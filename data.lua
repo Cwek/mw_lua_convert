@@ -1,15 +1,15 @@
-local Convect_Date={
+ï»¿local Convect_Date={
 	["value"]={["length"]={},["area"]={},["volume"]={},["speed"]={},["force"]={},["energy"]={},["temperature"]={},["mass"]={},["torque"]={}},
 	["display"]={["length"]={},["area"]={},["volume"]={},["speed"]={},["force"]={},["energy"]={},["temperature"]={},["mass"]={},["torque"]={}},
 	["link"]={["length"]={},["area"]={},["volume"]={},["speed"]={},["force"]={},["energy"]={},["temperature"]={},["mass"]={},["torque"]={}}
 }
  
 --[[
-    ×ª»»Öµ
-    ³¤¶È£¬»ù×¼Îªm
+    è½¬æ¢å€¼
+    é•¿åº¦ï¼ŒåŸºå‡†ä¸ºm
 --]]
 Convect_Date.value.length={
-                            --¹ú¼Êµ¥Î»ÖÆ
+                            --å›½é™…å•ä½åˆ¶
                             ["m"]=1,
                             ["Mm"]=1000000,
                             ["km"]=1000,
@@ -17,9 +17,9 @@ Convect_Date.value.length={
                             ["mm"]=0.001,
                             ["um"]=0.000001,
                             ["nm"]=0.000000001,
-                            --·Ç¹ú¼Êµ¥Î»ÖÆ
+                            --éå›½é™…å•ä½åˆ¶
                             ["angstrom"]=0.0000000001,
-                            --Ó¢ÖÆºÍÃÀ¹ú³£ÓÃ
+                            --è‹±åˆ¶å’Œç¾å›½å¸¸ç”¨
                             ["mi"]=1609.344,
                             ["furlong"]=201.168,
                             ["chain"]=20.1168,
@@ -28,63 +28,63 @@ Convect_Date.value.length={
                             ["yd"]=0.9144,
                             ["foot"]=0.3048,
                             ["in"]=0.0254,
-                            --ÆäËû
+                            --å…¶ä»–
                             ["nmi"]=1852,
                             ["pc"]=3.0856775814672e16,
                             ["ly"]=9.4607304725808e15,
                             ["AU"]=149597870700
                             }
-Convect.value.length["¦Ìm"]=Convect.value.length["um"]
+Convect.value.length["Î¼m"]=Convect.value.length["um"]
 Convect.value.length["?"]=Convect.value.length["angstrom"]
 Convect.value.length["ft"]=Convect.value.length["foot"]
  
---Ãæ»ı£¬»ù×¼Îªm2
+--é¢ç§¯ï¼ŒåŸºå‡†ä¸ºm2
 Convect_Date.value.area={
-                          --¹ú¼Êµ¥Î»ÖÆ
+                          --å›½é™…å•ä½åˆ¶
                           ["m2"]=1,
                           ["km2"]=1000000,
                           ["cm2"]=0.0001,
                           ["mm2"]=0.000001,
-                          --·Ç¹ú¼Êµ¥Î»ÖÆ
+                          --éå›½é™…å•ä½åˆ¶
                           ["ha"]=10000,
-                          --ÊĞÖÆ
+                          --å¸‚åˆ¶
                           ["mu"]=((2/3)*1000),
-                          --Ó¢ÖÆºÍÃÀ¹ú³£ÓÃ
+                          --è‹±åˆ¶å’Œç¾å›½å¸¸ç”¨
                           ["sqmi"]=2589988.110336,
                           ["acre"]=4046.856422,
                           ["sqyd"]=0.83612736,
                           ["sqfoot"]=0.09290304,
                           ["sqin"]=0.00064516,
-                          --ÆäËû
+                          --å…¶ä»–
                           ["sqnmi"]=3429904,
                           ["dunam"]=1000,
                           ["tsubo"]=(400/121)
                          }
 Convect.value.area["sqft"]=Convect.value.area["sqfoot"]
  
---Ìå»ı£¬»ù×¼Îªm3
+--ä½“ç§¯ï¼ŒåŸºå‡†ä¸ºm3
 Convect_Date.value.volume={
-                            --¹ú¼Êµ¥Î»ÖÆ
+                            --å›½é™…å•ä½åˆ¶
                             ["m3"]=1,
                             ["cm3"]=0.000001,
                             ["mm3"]=0.000000001,
-                            --·Ç¹ú¼Êµ¥Î»ÖÆ
+                            --éå›½é™…å•ä½åˆ¶
                             ["kl"]=1,
                             ["l"]=0.001,
                             ["cl"]=0.00001,
                             ["ml"]=0.000001,
-                            --Ó¢ÖÆºÍÃÀ¹ú³£ÓÃ
+                            --è‹±åˆ¶å’Œç¾å›½å¸¸ç”¨
                             ["cuyd"]=0.764554857984,
                             ["cufoot"]=0.028316846592,
                             ["cuin"]=0.000016387064,
-                            --Ó¢ÖÆ
+                            --è‹±åˆ¶
                             ["impbbl"]=0.16365924,
                             ["impbsh"]=0.03636872,
                             ["impgal"]=0.00454609,
                             ["impqt"]=0.0011365225,
                             ["imppt"]=0.00056826125,
                             ["impoz"]=0.0000284130625,
-                            --ÃÀ¹ú³£ÓÃÒºÌå¼ÆÁ¿
+                            --ç¾å›½å¸¸ç”¨æ¶²ä½“è®¡é‡
                             ["USbbl"]=0.119240471196,
                             ["oilbbl"]=0.158987294928,
                             ["USbeerbbl"]=0.117347765304,
@@ -92,7 +92,7 @@ Convect_Date.value.volume={
                             ["USqt"]=0.000946352946,
                             ["USpt"]=0.000473176473,
                             ["USoz"]=0.0000295735295625,
-                            --ÃÀ¹ú³£ÓÃ¹ÌÌå¼ÆÁ¿
+                            --ç¾å›½å¸¸ç”¨å›ºä½“è®¡é‡
                             ["USdrybbl"]=0.11562819898508,
                             ["USbsh"]=0.03523907016688,
                             ["USbu"]=0.03523907016688,
@@ -124,24 +124,24 @@ Convect.value.volume["U.S.drygal"]=Convect.value.volume["USdrygal"]
 Convect.value.volume["U.S.dryqt"]=Convect.value.volume["USdryqt"]
 Convect.value.volume["U.S.drypt"]=Convect.value.volume["USdrypt"]
  
---ËÙ¶È£¬»ù×¼Îªm/s
+--é€Ÿåº¦ï¼ŒåŸºå‡†ä¸ºm/s
 Convect_Date.value.speed={
-                           --¹ú¼Êµ¥Î»ÖÆ
+                           --å›½é™…å•ä½åˆ¶
                            ["m/s"]=1,
-                           --·Ç¹ú¼Êµ¥Î»ÖÆ
+                           --éå›½é™…å•ä½åˆ¶
                            ["km/h"]=(5/18),
-                           --Ó¢ÖÆºÍÃÀ¹ú³£ÓÃ
+                           --è‹±åˆ¶å’Œç¾å›½å¸¸ç”¨
                            ["mph"]=0.44704,
                            ["ft/s"]=0.3048,
-                           --º£ÊÂµ¥Î»
+                           --æµ·äº‹å•ä½
                            ["knot"]=(4.63/9)
                            }
 Convect.value.speed["foot/s"]=Convect.value.speed["ft/s"]
 Convect.value.speed["kn"]=Convect.value.speed["knot"]
  
---Á¦£¬»ù×¼ÎªN
+--åŠ›ï¼ŒåŸºå‡†ä¸ºN
 Convect_Date.value.force={
-                           --¹ú¼Êµ¥Î»ÖÆ
+                           --å›½é™…å•ä½åˆ¶
                            ["N"]=1,
                            ["GN"]=1000000000,
                            ["MN"]=1000000,
@@ -149,24 +149,24 @@ Convect_Date.value.force={
                            ["mN"]=0.001,
                            ["uN"]=0.000001,
                            ["nN"]=0.000000001,
-                           --ÀåÃ×-¿Ë-Ãë
+                           --å˜ç±³-å…‹-ç§’
                            ["Mdyn"]=10,
                            ["kdyn"]=0.01,
                            ["dyn"]=0.00001,
                            ["mdyn"]=0.00000001,
-                           --¹«ÖÆÖØÁ¦µ¥Î»
+                           --å…¬åˆ¶é‡åŠ›å•ä½
                            ["t-f"]=9806.65,
                            ["kg-f"]=9.80665,
                            ["g-f"]=0.00980665,
                            ["mg-f"]=0.00000980665,
-                           --³£ºâ»ù´¡µ¥Î»
+                           --å¸¸è¡¡åŸºç¡€å•ä½
                            ["pdl"]=0.138254954376,
                            ["LT-f"]=9964.01641818352,
                            ["ST-f"]=8896.443230521,
                            ["lb-f"]=4.4482216152605,
                            ["gr-f"]=0.0006354602307515
                           }
-Convect.value.force["¦ÌN"]=Convect.value.force["uN"]
+Convect.value.force["Î¼N"]=Convect.value.force["uN"]
 Convect.value.force["dyne"]=Convect.value.force["dyn"]
 Convect.value.force["tf"]=Convect.value.force["t-f"]
 Convect.value.force["kgf"]=Convect.value.force["kg-f"]
@@ -177,9 +177,9 @@ Convect.value.force["STf"]=Convect.value.force["ST-f"]
 Convect.value.force["lbf"]=Convect.value.force["lb-f"]
 Convect.value.force["grf"]=Convect.value.force["gr-f"]
  
---ÄÜÁ¿£¬»ù×¼ÎªJ
+--èƒ½é‡ï¼ŒåŸºå‡†ä¸ºJ
 Convect_Date.value.energy={
-                           --¹ú¼Êµ¥Î»ÖÆ
+                           --å›½é™…å•ä½åˆ¶
                            ["J"]=1,
                            ["GJ"]=1000000000,
                            ["MJ"]=1000000 ,
@@ -191,42 +191,42 @@ Convect_Date.value.energy={
                            ["cj"]=0.001,
                            ["uj"]=0.000001,
                            ["nj"]=0.000000001,
-                           --ÀåÃ×-¿Ë-Ãë
+                           --å˜ç±³-å…‹-ç§’
                            ["Merg"]=0.1,
                            ["kerg"]=0.0001,
                            ["erg"]=0.0000001,
-                           --ÍßÌØÊ±¸´ºÏ
+                           --ç“¦ç‰¹æ—¶å¤åˆ
                            ["TWh"]=3.6e15,
                            ["GWh"]=3.6e12,
                            ["MWh"]=3600000000,
                            ["kWh"]=3600000,
                            ["Wh"]=3600,
-                           --µç×Ó·üÌØ
+                           --ç”µå­ä¼ç‰¹
                            ["GeV"]=0.0000000001602176487,
                            ["MeV"]=1.602176487e-13,
                            ["keV"]=1.602176487e-16,
                            ["eV"]=1.602176487e-19,
                            ["meV"]=1.602176487e-22,
-                           --¿¨Â·Àï¸´ºÏ
+                           --å¡è·¯é‡Œå¤åˆ
                            ["Cal"]=4184,
                            ["Mcal"]=4814000,
                            ["kcal"]=4184,
                            ["cal"]=4.184,
                            ["mcal"]=0.004814,
-                           --°õ/Á¦/-Ó¢´ç/Ó¢´ç-Ê±-·Ö-Ãë
+                           --ç£…/åŠ›/-è‹±å¯¸/è‹±å¯¸-æ—¶-åˆ†-ç§’
                            ["ftpdl"]=0.0421401100938048,
                            ["ftlbf"]=1.3558179483314004,
                            ["inlbf"]=0.1129848290276167,
                            ["inozf"]=0.00706155181422604375,
                            ["hph"]=2684519.537696172792,
-                           --Ó¢ÈÈµ¥Î»
+                           --è‹±çƒ­å•ä½
                            ["Btu"]=1,055.05585262,
-                           --±¬Õ¨µ±Á¿ÏµÁĞµ¥Î»
+                           --çˆ†ç‚¸å½“é‡ç³»åˆ—å•ä½
                            ["GtTNT"]=4.1840e18,
                            ["MtTNT"]=4.184e15,
                            ["ktTNT"]=4.184e12,
                            ["tTNT"]=4184000000,
-                           --ÆäËû
+                           --å…¶ä»–
                            ["Eh"]=4.35974417e-18,
                            ["Ry"]=2.1798741e-18,
                            ["toe"]=41868000000,
@@ -236,7 +236,7 @@ Convect_Date.value.energy={
                            ["impgalatm"]=460.63256925,
                            ["USgalatm"]=383.5568490138
                            }
-Convect.value.energy["¦ÌJ"]=Convect.value.energy["uj"]
+Convect.value.energy["Î¼J"]=Convect.value.energy["uj"]
 Convect.value.energy["TW.h"]=Convect.value.energy["TWh"]
 Convect.value.energy["GW.h"]=Convect.value.energy["GWh"]
 Convect.value.energy["MW.h"]=Convect.value.energy["MWh"]
@@ -255,29 +255,29 @@ Convect.value.energy["Latm"]=Convect.value.energy["latm"]
 Convect.value.energy["usgalatm"]=Convect.value.energy["USgalatm"]
 Convect.value.energy["U.S.galatm"]=Convect.value.energy["USgalatm"]
  
---ÎÂ¶È£¬»ù×¼ÎªK
+--æ¸©åº¦ï¼ŒåŸºå‡†ä¸ºK
 Convect_Date.value.temperature={
-                                 --¹ú¼Êµ¥Î»ÖÆ
+                                 --å›½é™…å•ä½åˆ¶
                                  ["K"]={function(input) return 1*input end,function(input) return 1*input end},
                                  ["C"]={function(input) return (input+273.15) end ,function(input) return input-273.15 end},
-                                 --Ó¢ÖÆºÍÃÀ¹ú³£ÓÃ
+                                 --è‹±åˆ¶å’Œç¾å›½å¸¸ç”¨
                                  ["R"]={function(input) return (input/1.8) end,function(input) return input*1.8 end},
                                  ["F"]={function(input) return ((input+459.67)/1.8) end,function(input) return input*1.8-459.67 end}
                                  }
-Convect.value.temperature["¡ãC"]=Convect.value.temperature["C"]
-Convect.value.temperature["¡ãR"]=Convect.value.temperature["R"]
-Convect.value.temperature["¡ãF"]=Convect.value.temperature["F"]
+Convect.value.temperature["Â°C"]=Convect.value.temperature["C"]
+Convect.value.temperature["Â°R"]=Convect.value.temperature["R"]
+Convect.value.temperature["Â°F"]=Convect.value.temperature["F"]
  
---ÖÊÁ¿£¬»ù×¼Îªkg
+--è´¨é‡ï¼ŒåŸºå‡†ä¸ºkg
 Convect_Date.value.mass={
-                          --¹ú¼Êµ¥Î»ÖÆ
+                          --å›½é™…å•ä½åˆ¶
                           ["kg"]=1,
                           ["g"]=0.001,
                           ["mg"]=0.000001,
                           ["ug"]=0.000000001,
-                          --·Ç¹ú¼Êµ¥Î»ÖÆ
+                          --éå›½é™…å•ä½åˆ¶
                           ["t"]=1000,
-                          --³£ºâ
+                          --å¸¸è¡¡
                           ["LT"]=1016.0469088,
                           ["ST"]=907.18474,
                           ["st"]=6.35029318,
@@ -285,125 +285,125 @@ Convect_Date.value.mass={
                           ["oz"]=0.028349523,
                           ["drachm"]=0.001771845195,
                           ["gr"]=0.00006479891,
-                          --½ğºâ
+                          --é‡‘è¡¡
                           ["ozt"]=0.0311034768,
-                          --ÆäËû
+                          --å…¶ä»–
                           ["carat"]=0.0002
                          }
-Convect.value.mass["¦Ìg"]=Convect.value.mass["ug"]
+Convect.value.mass["Î¼g"]=Convect.value.mass["ug"]
 Convect.value.mass["MT"]=Convect.value.mass["t"]
 Convect.value.mass["long ton"]=Convect.value.mass["LT"]
 Convect.value.mass["short ton"]=Convect.value.mass["ST"]
 Convect.value.mass["dram"]=Convect.value.mass["drachm"]
  
---Á¦¾Ø£¬»ù×¼ÎªNm
+--åŠ›çŸ©ï¼ŒåŸºå‡†ä¸ºNm
 Convect_Date.value.torque={
-                            --¹ú¼Êµ¥Î»ÖÆ
+                            --å›½é™…å•ä½åˆ¶
                             ["Nm"]=1,
-                            --·Ç¹ú¼Êµ¥Î»ÖÆ
+                            --éå›½é™…å•ä½åˆ¶
                             ["kgm"]=9.80665,
-                            --Ó¢ÖÆºÍÃÀ¹ú³£ÓÃ
+                            --è‹±åˆ¶å’Œç¾å›½å¸¸ç”¨
                             ["ftlb"]=1.3558179483314004
                            }
 Convect.value.torque["kgf.m"]=Convect.value.torque["kgm"]
 Convect.value.torque["lbfft"]=Convect.value.torque["ftlb"]
  
 --[[
-    ÏÔÊ¾Öµ£¨ÖĞÎÄÃû£¬ËõĞ´Ãûor·ûºÅ£©
+    æ˜¾ç¤ºå€¼ï¼ˆä¸­æ–‡åï¼Œç¼©å†™åorç¬¦å·ï¼‰
 --]]
---³¤¶È
+--é•¿åº¦
 Convect_Date.display.length={
-                                --¹ú¼Êµ¥Î»ÖÆ
-                                ["m"]={"Ã×","m"},
-                                ["Mm"]={"Õ×Ã×","Mm"},
-                                ["km"]={"Ç§Ã×","km"},
-                                ["cm"]={"ÀåÃ×","cm"},
-                                ["mm"]={"ºÁÃ×","mm"},
-                                ["um"]={"Î¢Ã×","¦Ìm"},
-                                ["nm"]={"ÄÉÃ×","nm"},
-                                --·Ç¹ú¼Êµ¥Î»ÖÆ
-                                ["angstrom"]={"°£","?"},
-                                --Ó¢ÖÆºÍÃÀ¹ú³£ÓÃ
-                                ["mi"]={"Ó¢Àï","Ó¢Àï"},
-                                ["furlong"]={"ÀË",nil},
-                                ["chain"]={"Á´",nil},
-                                ["rd"]={"°ô","rd"},
-                                ["fathom"]={"Ó¢Ñ°",nil},
-                                ["yd"]={"Âë","yd"},
-                                ["ft"]={"Ó¢³ß","ft"},
-                                ["in"]={"Ó¢´ç","in"},
-                                --ÆäËû
-                                ["nmi"]={"º£Àï","nmi"},
-                                ["pc"]={"Ãë²î¾à","pc"},
-                                ["ly"]={"¹âÄê","ly"},
-                                ["AU"]={"ÌìÎÄµ¥Î»","AU"},
+                                --å›½é™…å•ä½åˆ¶
+                                ["m"]={"ç±³","m"},
+                                ["Mm"]={"å…†ç±³","Mm"},
+                                ["km"]={"åƒç±³","km"},
+                                ["cm"]={"å˜ç±³","cm"},
+                                ["mm"]={"æ¯«ç±³","mm"},
+                                ["um"]={"å¾®ç±³","Î¼m"},
+                                ["nm"]={"çº³ç±³","nm"},
+                                --éå›½é™…å•ä½åˆ¶
+                                ["angstrom"]={"åŸƒ","?"},
+                                --è‹±åˆ¶å’Œç¾å›½å¸¸ç”¨
+                                ["mi"]={"è‹±é‡Œ","è‹±é‡Œ"},
+                                ["furlong"]={"æµª",nil},
+                                ["chain"]={"é“¾",nil},
+                                ["rd"]={"æ£’","rd"},
+                                ["fathom"]={"è‹±å¯»",nil},
+                                ["yd"]={"ç ","yd"},
+                                ["ft"]={"è‹±å°º","ft"},
+                                ["in"]={"è‹±å¯¸","in"},
+                                --å…¶ä»–
+                                ["nmi"]={"æµ·é‡Œ","nmi"},
+                                ["pc"]={"ç§’å·®è·","pc"},
+                                ["ly"]={"å…‰å¹´","ly"},
+                                ["AU"]={"å¤©æ–‡å•ä½","AU"},
                              }
-Convect.display.length["¦Ìm"]=Convect.display.length["um"]
+Convect.display.length["Î¼m"]=Convect.display.length["um"]
 Convect.display.length["?"]=Convect.display.length["angstrom"]
 Convect.display.length["foot"]=Convect.display.length["ft"]
     Convect.display.length["foot"][2]="foot"
  
---Ãæ»ı
+--é¢ç§¯
 Convect_Date.display.area={
-                              --¹ú¼Êµ¥Î»ÖÆ
-                              ["m2"]={"Æ½·½Ã×","m<sup>2</sup>"},
-                              ["km2"]={"Æ½·½Ç§Ã×","km<sup>2</sup>"},
-                              ["cm2"]={"Æ½·½ÀåÃ×","cm<sup>2</sup>"},
-                              ["mm2"]={"Æ½·½ºÁÃ×","mm<sup>2</sup>"},
-                              --·Ç¹ú¼Êµ¥Î»ÖÆ
-                              ["ha"]={"¹«Çê","ha"},
-                              --ÊĞÖÆ
-                              ["mu"]={"Ä¶","mu"},
-                              --Ó¢ÖÆºÍÃÀ¹ú³£ÓÃ
-                              ["sqmi"]={"Æ½·½Ó¢Àï","Æ½·½Ó¢Àï"},
-                              ["acre"]={"Ó¢Ä¶",nil},
-                              ["sqyd"]={"Æ½·½Âë","sq yd"},
-                              ["sqft"]={"Æ½·½Ó¢³ß","sq ft"},
-                              ["sqin"]={"Æ½·½Ó¢´ç","sq in"},
-                              --ÆäËû
-                              ["sqnmi"]={"Æ½·½º£Àï","sq nmi"},
-                              ["dunam"]={"µÂÄÏ",nil},
-                              ["tsubo"]={"Æº",nil}
+                              --å›½é™…å•ä½åˆ¶
+                              ["m2"]={"å¹³æ–¹ç±³","m<sup>2</sup>"},
+                              ["km2"]={"å¹³æ–¹åƒç±³","km<sup>2</sup>"},
+                              ["cm2"]={"å¹³æ–¹å˜ç±³","cm<sup>2</sup>"},
+                              ["mm2"]={"å¹³æ–¹æ¯«ç±³","mm<sup>2</sup>"},
+                              --éå›½é™…å•ä½åˆ¶
+                              ["ha"]={"å…¬é¡·","ha"},
+                              --å¸‚åˆ¶
+                              ["mu"]={"äº©","mu"},
+                              --è‹±åˆ¶å’Œç¾å›½å¸¸ç”¨
+                              ["sqmi"]={"å¹³æ–¹è‹±é‡Œ","å¹³æ–¹è‹±é‡Œ"},
+                              ["acre"]={"è‹±äº©",nil},
+                              ["sqyd"]={"å¹³æ–¹ç ","sq yd"},
+                              ["sqft"]={"å¹³æ–¹è‹±å°º","sq ft"},
+                              ["sqin"]={"å¹³æ–¹è‹±å¯¸","sq in"},
+                              --å…¶ä»–
+                              ["sqnmi"]={"å¹³æ–¹æµ·é‡Œ","sq nmi"},
+                              ["dunam"]={"å¾·å—",nil},
+                              ["tsubo"]={"åª",nil}
                            }
 Convect.display.area["sqfoot"]=Convect.display.area["sqft"]
     Convect.display.area["sqfoot"][2]="square foot"
---Ìå»ı
+--ä½“ç§¯
 Convect_Date.display.volume={
-                                --¹ú¼Êµ¥Î»ÖÆ
-                                ["m3"]={"Á¢·½Ã×","m<sup>3</sup>"},
-                                ["cm3"]={"Á¢·½ÀåÃ×","cm<sup>3</sup>"},
-                                ["mm3"]={"Á¢·½ºÁÃ×","mm<sup>3</sup>"},
-                                --·Ç¹ú¼Êµ¥Î»ÖÆ
-                                ["kl"]={"Ç§Éı","kL"},
-                                ["l"]={"Éı","L"},
-                                ["cl"]={"ÀåÉı","cL"},
-                                ["ml"]={"ºÁÉı","mL"},
-                                --Ó¢ÖÆºÍÃÀ¹ú³£ÓÃ
-                                ["cuyd"]={"Á¢·½Âë","cu yd"},
-                                ["cuft"]={"Á¢·½Ó¢³ß","cu ft"},
-                                ["cuin"]={"Á¢·½Ó¢´ç","cu in"},
-                                --Ó¢ÖÆ
-                                ["impbbl"]={"Ó¢ÖÆÍ°","imp bbl"},
-                                ["impbsh"]={"Ó¢ÖÆÆÑÊ½¶ú","imp bsh"},
-                                ["impgal"]={"Ó¢ÖÆ¼ÓÂØ","imp gal"},
-                                ["impqt"]={"Ó¢ÖÆ¿äÍÑ","imp qt"},
-                                ["imppt"]={"Ó¢ÖÆÆ·ÍÑ","imp pt"},
-                                ["impoz"]={"Ó¢ÖÆÒºÌå°»Ë¾","imp fl oz"},
-                                --ÃÀ¹ú³£ÓÃÒºÌå¼ÆÁ¿
-                                ["USbbl"]={"ÃÀÖÆÍ°","US bbl"},
-                                ["oilbbl"]={"Í°","bbl"},
-                                ["USbeerbbl"]={"ÃÀÖÆÆ¡¾ÆÍ°","US bbl"},
-                                ["USgal"]={"ÃÀÖÆ¼ÓÂØ","US gal"},
-                                ["USqt"]={"ÃÀÖÆ¿äÍÑ","US qt"},
-                                ["USpt"]={"ÃÀÖÆÆ·ÍÑ","US pt"},
-                                ["USoz"]={"ÃÀÖÆÒºÌå°»Ë¾","US fl oz"},
-                                --ÃÀ¹ú³£ÓÃ¹ÌÌå¼ÆÁ¿
-                                ["USdrybbl"]={"ÃÀÖÆ¸ÉÍ°","US dry bbl"},
-                                ["USbsh"]={"ÃÀÖÆÆÑÊ½¶ú","US bsh"},
-                                ["USbu"]={"ÃÀÖÆÆÑÊ½¶ú","US bu"},
-                                ["USdrygal"]={"ÃÀÖÆ¸ÉÁ¿¼ÓÂØ","US dry gal"},
-                                ["USdryqt"]={"ÃÀÖÆ¸ÉÁ¿¿äÍÑ","US dry qt"},
-                                ["USdrypt"]={"ÃÀÖÆ¸ÉÁ¿Æ·ÍÑ","US dry pt"}
+                                --å›½é™…å•ä½åˆ¶
+                                ["m3"]={"ç«‹æ–¹ç±³","m<sup>3</sup>"},
+                                ["cm3"]={"ç«‹æ–¹å˜ç±³","cm<sup>3</sup>"},
+                                ["mm3"]={"ç«‹æ–¹æ¯«ç±³","mm<sup>3</sup>"},
+                                --éå›½é™…å•ä½åˆ¶
+                                ["kl"]={"åƒå‡","kL"},
+                                ["l"]={"å‡","L"},
+                                ["cl"]={"å˜å‡","cL"},
+                                ["ml"]={"æ¯«å‡","mL"},
+                                --è‹±åˆ¶å’Œç¾å›½å¸¸ç”¨
+                                ["cuyd"]={"ç«‹æ–¹ç ","cu yd"},
+                                ["cuft"]={"ç«‹æ–¹è‹±å°º","cu ft"},
+                                ["cuin"]={"ç«‹æ–¹è‹±å¯¸","cu in"},
+                                --è‹±åˆ¶
+                                ["impbbl"]={"è‹±åˆ¶æ¡¶","imp bbl"},
+                                ["impbsh"]={"è‹±åˆ¶è’²å¼è€³","imp bsh"},
+                                ["impgal"]={"è‹±åˆ¶åŠ ä»‘","imp gal"},
+                                ["impqt"]={"è‹±åˆ¶å¤¸è„±","imp qt"},
+                                ["imppt"]={"è‹±åˆ¶å“è„±","imp pt"},
+                                ["impoz"]={"è‹±åˆ¶æ¶²ä½“ç›å¸","imp fl oz"},
+                                --ç¾å›½å¸¸ç”¨æ¶²ä½“è®¡é‡
+                                ["USbbl"]={"ç¾åˆ¶æ¡¶","US bbl"},
+                                ["oilbbl"]={"æ¡¶","bbl"},
+                                ["USbeerbbl"]={"ç¾åˆ¶å•¤é…’æ¡¶","US bbl"},
+                                ["USgal"]={"ç¾åˆ¶åŠ ä»‘","US gal"},
+                                ["USqt"]={"ç¾åˆ¶å¤¸è„±","US qt"},
+                                ["USpt"]={"ç¾åˆ¶å“è„±","US pt"},
+                                ["USoz"]={"ç¾åˆ¶æ¶²ä½“ç›å¸","US fl oz"},
+                                --ç¾å›½å¸¸ç”¨å›ºä½“è®¡é‡
+                                ["USdrybbl"]={"ç¾åˆ¶å¹²æ¡¶","US dry bbl"},
+                                ["USbsh"]={"ç¾åˆ¶è’²å¼è€³","US bsh"},
+                                ["USbu"]={"ç¾åˆ¶è’²å¼è€³","US bu"},
+                                ["USdrygal"]={"ç¾åˆ¶å¹²é‡åŠ ä»‘","US dry gal"},
+                                ["USdryqt"]={"ç¾åˆ¶å¹²é‡å¤¸è„±","US dry qt"},
+                                ["USdrypt"]={"ç¾åˆ¶å¹²é‡å“è„±","US dry pt"}
                              }
 Convect.display.volume["cc"]=Convect.display.volume["cm3"]
  
@@ -468,354 +468,354 @@ Convect.display.volume["U.S.dryqt"]=Convect.display.volume["USdryqt"]
 Convect.display.volume["U.S.drypt"]=Convect.display.volume["USdrypt"]
     Convect.display.volume["U.S.drypt"][2]="U.S. dry pt"
  
---ËÙ¶È
+--é€Ÿåº¦
 Convect_Date.display.speed={
-                               --¹ú¼Êµ¥Î»ÖÆ
-                               ["m/s"]={"Ã×Ã¿Ãë","m/s"},
-                               --·Ç¹ú¼Êµ¥Î»ÖÆ
-                               ["km/h"]={"Ç§Ã×Ã¿Ğ¡Ê±","km/s"},
-                               --Ó¢ÖÆºÍÃÀ¹ú³£ÓÃ
-                               ["mph"]={"Ó¢ÀïÃ¿Ğ¡Ê±","mph"},
-                               ["ft/s"]={"Ó¢³ßÃ¿Ãë","ft/s"},
-                               --º£ÊÂµ¥Î»
-                               ["knot"]={"½Ú","kn"}
+                               --å›½é™…å•ä½åˆ¶
+                               ["m/s"]={"ç±³æ¯ç§’","m/s"},
+                               --éå›½é™…å•ä½åˆ¶
+                               ["km/h"]={"åƒç±³æ¯å°æ—¶","km/s"},
+                               --è‹±åˆ¶å’Œç¾å›½å¸¸ç”¨
+                               ["mph"]={"è‹±é‡Œæ¯å°æ—¶","mph"},
+                               ["ft/s"]={"è‹±å°ºæ¯ç§’","ft/s"},
+                               --æµ·äº‹å•ä½
+                               ["knot"]={"èŠ‚","kn"}
                             }
 Convect.display.speed["foot/s"]=Convect.display.speed["ft/s"]
 Convect.display.speed["kn"]=Convect.display.speed["knot"]
  
---Á¦
+--åŠ›
 Convect_Date.display.force={
-                                --¹ú¼Êµ¥Î»ÖÆ
-                                ["N"]={"Å£¶Ù","N"},
-                                ["GN"]={"¼ªÅ£¶Ù","GN"},
-                                ["MN"]={"Õ×Å£¶Ù","NM"},
-                                ["kN"]={"Ç§Å£¶Ù","kN"},
-                                ["mN"]={"ºÁÅ£¶Ù","mN"},
-                                ["uN"]={"Î¢Å£¶Ù","¦ÌN"},
-                                ["nN"]={"ÄÉÅ£¶Ù","nN"},
-                                --ÀåÃ×-¿Ë-Ãë
-                                ["Mdyn"]={"Õ×´ïÒò","Mdyn"},
-                                ["kdyn"]={"Ç§´ïÒò","kdyn"},
-                                ["dyn"]={"´ïÒò","dyn"},
-                                ["mdyn"]={"ºÁ´ïÒò","mdyn"},
-                                --¹«ÖÆÖØÁ¦µ¥Î»
-                                ["t-f"]={"¶ÖÁ¦","t<sub>f</sub>"},
-                                ["kg-f"]={"Ç§¿ËÁ¦","kg<sub>f</sub>"},
-                                ["g-f"]={"¿ËÁ¦","g<sub>f</sub>"},
-                                ["mg-f"]={"ºÁ¿ËÁ¦","mg<sub>f</sub>"},
-                                --³£ºâ»ù´¡µ¥Î»
-                                ["pdl"]={"°õ´ï","pdl"},
-                                ["LT-f"]={"³¤¶ÖÁ¦","LT<sub>f</sub>"},
-                                ["ST-f"]={"¶Ì¶ÖÁ¦","ST<sub>f</sub>"},
-                                ["lb-f"]={"°õÁ¦","lb<sub>f</sub>"},
-                                ["gr-f"]={"¸ñÁîÁ¦","gr<sub>f</sub>"}
+                                --å›½é™…å•ä½åˆ¶
+                                ["N"]={"ç‰›é¡¿","N"},
+                                ["GN"]={"å‰ç‰›é¡¿","GN"},
+                                ["MN"]={"å…†ç‰›é¡¿","NM"},
+                                ["kN"]={"åƒç‰›é¡¿","kN"},
+                                ["mN"]={"æ¯«ç‰›é¡¿","mN"},
+                                ["uN"]={"å¾®ç‰›é¡¿","Î¼N"},
+                                ["nN"]={"çº³ç‰›é¡¿","nN"},
+                                --å˜ç±³-å…‹-ç§’
+                                ["Mdyn"]={"å…†è¾¾å› ","Mdyn"},
+                                ["kdyn"]={"åƒè¾¾å› ","kdyn"},
+                                ["dyn"]={"è¾¾å› ","dyn"},
+                                ["mdyn"]={"æ¯«è¾¾å› ","mdyn"},
+                                --å…¬åˆ¶é‡åŠ›å•ä½
+                                ["t-f"]={"å¨åŠ›","t<sub>f</sub>"},
+                                ["kg-f"]={"åƒå…‹åŠ›","kg<sub>f</sub>"},
+                                ["g-f"]={"å…‹åŠ›","g<sub>f</sub>"},
+                                ["mg-f"]={"æ¯«å…‹åŠ›","mg<sub>f</sub>"},
+                                --å¸¸è¡¡åŸºç¡€å•ä½
+                                ["pdl"]={"ç£…è¾¾","pdl"},
+                                ["LT-f"]={"é•¿å¨åŠ›","LT<sub>f</sub>"},
+                                ["ST-f"]={"çŸ­å¨åŠ›","ST<sub>f</sub>"},
+                                ["lb-f"]={"ç£…åŠ›","lb<sub>f</sub>"},
+                                ["gr-f"]={"æ ¼ä»¤åŠ›","gr<sub>f</sub>"}
                             }
-Convect.display.force["¦ÌN"]=Convect.display.force["uN"]
+Convect.display.force["Î¼N"]=Convect.display.force["uN"]
 Convect.display.force["dyne"]=Convect.display.force["dyn"]
-Convect.display.force["tf"]={"¶ÖÁ¦","tf"}
-Convect.display.force["kgf"]={"Ç§¿ËÁ¦","kgf"}
-Convect.display.force["gf"]={"¿ËÁ¦","gf"}
-Convect.display.force["mgf"]={"ºÁ¿ËÁ¦","mgf"}
-Convect.display.force["LTf"]={"³¤¶ÖÁ¦","LTf"}
-Convect.display.force["STf"]={"¶Ì¶ÖÁ¦","STf"}
-Convect.display.force["lbf"]={"°õÁ¦","lbf"}
-Convect.display.force["grf"]={"¸ñÁîÁ¦","grf"}
+Convect.display.force["tf"]={"å¨åŠ›","tf"}
+Convect.display.force["kgf"]={"åƒå…‹åŠ›","kgf"}
+Convect.display.force["gf"]={"å…‹åŠ›","gf"}
+Convect.display.force["mgf"]={"æ¯«å…‹åŠ›","mgf"}
+Convect.display.force["LTf"]={"é•¿å¨åŠ›","LTf"}
+Convect.display.force["STf"]={"çŸ­å¨åŠ›","STf"}
+Convect.display.force["lbf"]={"ç£…åŠ›","lbf"}
+Convect.display.force["grf"]={"æ ¼ä»¤åŠ›","grf"}
  
---ÄÜÁ¿
+--èƒ½é‡
 Convect_Date.display.energy={
-                                --¹ú¼Êµ¥Î»ÖÆ
-                                ["J"]={"½¹¶ú","J"},
-                                ["GJ"]={"¼ª½¹","GJ"},
-                                ["MJ"]={"Õ×½¹","MJ"},
-                                ["kj"]={"Ç§½¹","kJ"},
-                                ["hj"]={"°Ù½¹","hJ"},
-                                ["daj"]={"Ê®½¹","daJ"},
-                                ["dj"]={"·Ö½¹¶ú","dJ"},
-                                ["mj"]={"ºÁ½¹¶ú","mJ"},
-                                ["cj"]={"Àå½¹¶ú","cJ"},
-                                ["uj"]={"Î¢½¹¶ú","¦ÌJ"},
-                                ["nj"]={"ÄÉ½¹¶ú","nJ"},
-                                --ÀåÃ×-¿Ë-Ãë
-                                ["Merg"]={"Õ×¶û¸ñ","Merg"},
-                                ["kerg"]={"Ç§¶û¸ñ","kerg"},
-                                ["erg"]={"¶û¸ñ","erg"},
-                                --ÍßÌØÊ±¸´ºÏ
-                                ["TWh"]={"Ì«ÍßÊ±","TWh"},
-                                ["GWh"]={"¼ªÍßÊ±","GWh"},
-                                ["MWh"]={"Õ×ÍßÊ±","MWh"},
-                                ["kWh"]={"Ç§ÍßÊ±","kWh"},
-                                ["Wh"]={"ÍßÊ±","Wh"},
-                                --µç×Ó·üÌØ
-                                ["GeV"]={"¼ªµç×Ó·ü","GeV"},
-                                ["MeV"]={"Õ×µç×Ó·ü","MeV"},
-                                ["keV"]={"Ç§µç×Ó·ü","keV"},
-                                ["eV"]={"µç×Ó·üÌØ","eV"},
-                                ["meV"]={"ºÁµç×Ó·üÌØ","meV"},
-                                --¿¨Â·Àï¸´ºÏ
-                                ["Cal"]={"¿¨Â·Àï","Cal"},
-                                ["Mcal"]={"Õ×¿¨","Mcal"},
-                                ["kcal"]={"Ç§¿¨","kcal"},
-                                ["cal"]={"¿¨Â·Àï","cal"},
-                                ["mcal"]={"ºÁ¿¨","mcal"},
-                                --°õ/Á¦/-Ó¢´ç/Ó¢´ç-Ê±-·Ö-Ãë
-                                ["ftpdl"]={"Ó¢³ß°õ´ï","ft¡¤pal"},
-                                ["ftlbf"]={"Ó¢³ß°õÁ¦","ft¡¤lbf"},
-                                ["inlbf"]={"Ó¢³ß°õÁ¦","in¡¤lbf"},
-                                ["inozf"]={"Ó¢´ç°õË¾Á¦","in¡¤ozf"},
-                                ["hph"]={"ÂíÁ¦Ğ¡Ê±","hp¡¤h"},
-                                --Ó¢ÈÈµ¥Î»
-                                ["Btu"]={"Ó¢ÈÈµ¥Î»","Btu"},
-                                --±¬Õ¨µ±Á¿ÏµÁĞµ¥Î»
-                                ["GtTNT"]={"¼ª¶Öµ±Á¿","GtTNT"},
-                                ["MtTNT"]={"Õ×¶ÖTNTµ±Á¿","MtTNT"},
-                                ["ktTNT"]={"Ç§¶ÖTNTµ±Á¿","ktTNT"},
-                                ["tTNT"]={"¶ÖTNTµ±Á¿","tTNT"},
-                                --ÆäËû
-                                ["Eh"]={"¹şÌØÀï","''E''h"},
-                                ["Ry"]={"ÀïÌØ²®","Ry"},
-                                ["toe"]={"¶ÖÓÍµ±Á¿","toe"},
-                                ["BOE"]={"Í°ÓÍµ±Á¿","BOE"},
-                                ["cuftnaturalgas"]={"Á¢·½Ó¢³ßÌìÈ»Æøµ±Á¿",nil},
-                                ["latm"]={"Éı-´óÆøÑ¹","l¡¤atm"},
-                                ["impgalatm"]={"¼ÓÂØ-´óÆøÑ¹","imp gal¡¤atm"},
-                                ["USgalatm"]={"ÃÀÖÆ¼ÓÂØ-´óÆøÑ¹","US gal¡¤atm"}
+                                --å›½é™…å•ä½åˆ¶
+                                ["J"]={"ç„¦è€³","J"},
+                                ["GJ"]={"å‰ç„¦","GJ"},
+                                ["MJ"]={"å…†ç„¦","MJ"},
+                                ["kj"]={"åƒç„¦","kJ"},
+                                ["hj"]={"ç™¾ç„¦","hJ"},
+                                ["daj"]={"åç„¦","daJ"},
+                                ["dj"]={"åˆ†ç„¦è€³","dJ"},
+                                ["mj"]={"æ¯«ç„¦è€³","mJ"},
+                                ["cj"]={"å˜ç„¦è€³","cJ"},
+                                ["uj"]={"å¾®ç„¦è€³","Î¼J"},
+                                ["nj"]={"çº³ç„¦è€³","nJ"},
+                                --å˜ç±³-å…‹-ç§’
+                                ["Merg"]={"å…†å°”æ ¼","Merg"},
+                                ["kerg"]={"åƒå°”æ ¼","kerg"},
+                                ["erg"]={"å°”æ ¼","erg"},
+                                --ç“¦ç‰¹æ—¶å¤åˆ
+                                ["TWh"]={"å¤ªç“¦æ—¶","TWh"},
+                                ["GWh"]={"å‰ç“¦æ—¶","GWh"},
+                                ["MWh"]={"å…†ç“¦æ—¶","MWh"},
+                                ["kWh"]={"åƒç“¦æ—¶","kWh"},
+                                ["Wh"]={"ç“¦æ—¶","Wh"},
+                                --ç”µå­ä¼ç‰¹
+                                ["GeV"]={"å‰ç”µå­ä¼","GeV"},
+                                ["MeV"]={"å…†ç”µå­ä¼","MeV"},
+                                ["keV"]={"åƒç”µå­ä¼","keV"},
+                                ["eV"]={"ç”µå­ä¼ç‰¹","eV"},
+                                ["meV"]={"æ¯«ç”µå­ä¼ç‰¹","meV"},
+                                --å¡è·¯é‡Œå¤åˆ
+                                ["Cal"]={"å¡è·¯é‡Œ","Cal"},
+                                ["Mcal"]={"å…†å¡","Mcal"},
+                                ["kcal"]={"åƒå¡","kcal"},
+                                ["cal"]={"å¡è·¯é‡Œ","cal"},
+                                ["mcal"]={"æ¯«å¡","mcal"},
+                                --ç£…/åŠ›/-è‹±å¯¸/è‹±å¯¸-æ—¶-åˆ†-ç§’
+                                ["ftpdl"]={"è‹±å°ºç£…è¾¾","ftÂ·pal"},
+                                ["ftlbf"]={"è‹±å°ºç£…åŠ›","ftÂ·lbf"},
+                                ["inlbf"]={"è‹±å°ºç£…åŠ›","inÂ·lbf"},
+                                ["inozf"]={"è‹±å¯¸ç£…å¸åŠ›","inÂ·ozf"},
+                                ["hph"]={"é©¬åŠ›å°æ—¶","hpÂ·h"},
+                                --è‹±çƒ­å•ä½
+                                ["Btu"]={"è‹±çƒ­å•ä½","Btu"},
+                                --çˆ†ç‚¸å½“é‡ç³»åˆ—å•ä½
+                                ["GtTNT"]={"å‰å¨å½“é‡","GtTNT"},
+                                ["MtTNT"]={"å…†å¨TNTå½“é‡","MtTNT"},
+                                ["ktTNT"]={"åƒå¨TNTå½“é‡","ktTNT"},
+                                ["tTNT"]={"å¨TNTå½“é‡","tTNT"},
+                                --å…¶ä»–
+                                ["Eh"]={"å“ˆç‰¹é‡Œ","''E''h"},
+                                ["Ry"]={"é‡Œç‰¹ä¼¯","Ry"},
+                                ["toe"]={"å¨æ²¹å½“é‡","toe"},
+                                ["BOE"]={"æ¡¶æ²¹å½“é‡","BOE"},
+                                ["cuftnaturalgas"]={"ç«‹æ–¹è‹±å°ºå¤©ç„¶æ°”å½“é‡",nil},
+                                ["latm"]={"å‡-å¤§æ°”å‹","lÂ·atm"},
+                                ["impgalatm"]={"åŠ ä»‘-å¤§æ°”å‹","imp galÂ·atm"},
+                                ["USgalatm"]={"ç¾åˆ¶åŠ ä»‘-å¤§æ°”å‹","US galÂ·atm"}
                              }
-Convect.display.energy["¦ÌJ"]=Convect.display.energy["uj"]
-Convect.display.energy["TW.h"]={"Ì«ÍßÊ±","TW¡¤h"}
-Convect.display.energy["GW.h"]={"¼ªÍßÊ±","TW¡¤h"}
-Convect.display.energy["MW.h"]={"Õ×ÍßÊ±","TW¡¤h"}
-Convect.display.energy["kW.h"]={"Ç§ÍßÊ±","TW¡¤h"}
-Convect.display.energy["W.h"]={"ÍßÊ±","TW¡¤h"}
-Convect.display.energy["ftlb-f"]={"Ó¢³ß°õÁ¦","ft¡¤lb<sub>f</sub>"}
-Convect.display.energy["inbl-f"]={"Ó¢³ß°õÁ¦","in¡¤lb<sub>f</sub>"}
-Convect.display.energy["inoz-f"]={"Ó¢´ç°õË¾Á¦","in¡¤oz<sub>f</sub>"}
-Convect.display.energy["BTU"]={"Ó¢ÈÈµ¥Î»","BTU"}
-Convect.display.energy["GtonTNT"]={"¼ª¶ÖTNTµ±Á¿","GtonTNT"}
-Convect.display.energy["MtonTNT"]={"Õ×¶ÖTNTµ±Á¿","MtonTNT"}
-Convect.display.energy["ktonTNT"]={"Ç§¶ÖTNTµ±Á¿","ktonTNT"}
-Convect.display.energy["tonTNT"]={"¶ÖTNTµ±Á¿","tonTNT"}
-Convect.display.energy["cufootnaturalgas"]={"Á¢·½Ó¢³ßÌìÈ»Æøµ±Á¿","cubicfoot of naturalgas"}
+Convect.display.energy["Î¼J"]=Convect.display.energy["uj"]
+Convect.display.energy["TW.h"]={"å¤ªç“¦æ—¶","TWÂ·h"}
+Convect.display.energy["GW.h"]={"å‰ç“¦æ—¶","TWÂ·h"}
+Convect.display.energy["MW.h"]={"å…†ç“¦æ—¶","TWÂ·h"}
+Convect.display.energy["kW.h"]={"åƒç“¦æ—¶","TWÂ·h"}
+Convect.display.energy["W.h"]={"ç“¦æ—¶","TWÂ·h"}
+Convect.display.energy["ftlb-f"]={"è‹±å°ºç£…åŠ›","ftÂ·lb<sub>f</sub>"}
+Convect.display.energy["inbl-f"]={"è‹±å°ºç£…åŠ›","inÂ·lb<sub>f</sub>"}
+Convect.display.energy["inoz-f"]={"è‹±å¯¸ç£…å¸åŠ›","inÂ·oz<sub>f</sub>"}
+Convect.display.energy["BTU"]={"è‹±çƒ­å•ä½","BTU"}
+Convect.display.energy["GtonTNT"]={"å‰å¨TNTå½“é‡","GtonTNT"}
+Convect.display.energy["MtonTNT"]={"å…†å¨TNTå½“é‡","MtonTNT"}
+Convect.display.energy["ktonTNT"]={"åƒå¨TNTå½“é‡","ktonTNT"}
+Convect.display.energy["tonTNT"]={"å¨TNTå½“é‡","tonTNT"}
+Convect.display.energy["cufootnaturalgas"]={"ç«‹æ–¹è‹±å°ºå¤©ç„¶æ°”å½“é‡","cubicfoot of naturalgas"}
 Convect.display.energy["Latm"]=Convect.display.energy["latm"]
 Convect.display.energy["usgalatm"]=Convect.display.energy["USgalatm"]
-Convect.display.energy["U.S.galatm"]={"ÃÀÖÆ¼ÓÂØ-´óÆøÑ¹","U.S. gal¡¤atm"}
+Convect.display.energy["U.S.galatm"]={"ç¾åˆ¶åŠ ä»‘-å¤§æ°”å‹","U.S. galÂ·atm"}
  
---ÎÂ¶È
+--æ¸©åº¦
 Convect_Date.display.temperature={
-                                    --¹ú¼Êµ¥Î»ÖÆ
-                                    ["K"]={"¿ª¶ûÎÄ","K"},
-                                    ["C"]={"ÉãÊÏ¶È","¡ãC"},
-                                    --Ó¢ÖÆºÍÃÀ¹ú³£ÓÃ
-                                    ["R"]={"À¼ÊÏ¶È","¡ãR"},
-                                    ["F"]={"»ªÊÏ¶È","¡ãF"}
+                                    --å›½é™…å•ä½åˆ¶
+                                    ["K"]={"å¼€å°”æ–‡","K"},
+                                    ["C"]={"æ‘„æ°åº¦","Â°C"},
+                                    --è‹±åˆ¶å’Œç¾å›½å¸¸ç”¨
+                                    ["R"]={"å…°æ°åº¦","Â°R"},
+                                    ["F"]={"åæ°åº¦","Â°F"}
                                   }
-Convect.display.temperature["¡ãC"]=Convect.display.temperature["C"]
-Convect.display.temperature["¡ãR"]=Convect.display.temperature["R"]
-Convect.display.temperature["¡ãF"]=Convect.display.temperature["F"]
+Convect.display.temperature["Â°C"]=Convect.display.temperature["C"]
+Convect.display.temperature["Â°R"]=Convect.display.temperature["R"]
+Convect.display.temperature["Â°F"]=Convect.display.temperature["F"]
  
---ÖÊÁ¿
+--è´¨é‡
 Convect_Date.display.mass={
-                            --¹ú¼Êµ¥Î»ÖÆ
-                            ["kg"]={"Ç§¿Ë","kg"},
-                            ["g"]={"¿Ë","g"},
-                            ["mg"]={"ºÁ¿Ë","mg"},
-                            ["ug"]={"Î¢¿Ë","¦Ìg"},
-                            --·Ç¹ú¼Êµ¥Î»ÖÆ
-                            ["t"]={"¹«¶Ö","t"},
-                            --³£ºâ
-                            ["LT"]={"³¤¶Ö",nil},
-                            ["ST"]={"¶Ì¶Ö",nil},
-                            ["st"]={"Ó¢Ê½","st"},
-                            ["lb"]={"°õ","lb"},
-                            ["oz"]={"°»Ë¾","oz"},
-                            ["drachm"]={"´òÀ¼",nil},
-                            ["gr"]={"¸ñÁî","gr"},
-                            --½ğºâ
-                            ["ozt"]={"½ğºâ°»Ë¾","ozt"},
-                            --ÆäËû
-                            ["carat"]={"¿ËÀ­",""}
+                            --å›½é™…å•ä½åˆ¶
+                            ["kg"]={"åƒå…‹","kg"},
+                            ["g"]={"å…‹","g"},
+                            ["mg"]={"æ¯«å…‹","mg"},
+                            ["ug"]={"å¾®å…‹","Î¼g"},
+                            --éå›½é™…å•ä½åˆ¶
+                            ["t"]={"å…¬å¨","t"},
+                            --å¸¸è¡¡
+                            ["LT"]={"é•¿å¨",nil},
+                            ["ST"]={"çŸ­å¨",nil},
+                            ["st"]={"è‹±å¼","st"},
+                            ["lb"]={"ç£…","lb"},
+                            ["oz"]={"ç›å¸","oz"},
+                            ["drachm"]={"æ‰“å…°",nil},
+                            ["gr"]={"æ ¼ä»¤","gr"},
+                            --é‡‘è¡¡
+                            ["ozt"]={"é‡‘è¡¡ç›å¸","ozt"},
+                            --å…¶ä»–
+                            ["carat"]={"å…‹æ‹‰",""}
                            }
-Convect.display.mass["¦Ìg"]=Convect.display.mass["ug"]
+Convect.display.mass["Î¼g"]=Convect.display.mass["ug"]
 Convect.display.mass["MT"]=Convect.display.mass["t"]
 Convect.display.mass["long ton"]=Convect.display.mass["LT"]
 Convect.display.mass["short ton"]=Convect.display.mass["ST"]
 Convect.display.mass["dram"]={"dram",nil}
  
---Á¦¾Ø
+--åŠ›çŸ©
 Convect_Date.display.torque={
-                                --¹ú¼Êµ¥Î»ÖÆ
-                                ["Nm"]={"Å£¶ÙÃ×","N¡¤m"},
-                                --·Ç¹ú¼Êµ¥Î»ÖÆ
-                                ["kgm"]={"Ç§¿ËÃ×","kg¡¤m"},
-                                --Ó¢ÖÆºÍÃÀ¹ú³£ÓÃ
-                                ["ftlb"]={"Ó¢³ß°õÁ¦","ft¡¤lb"}
+                                --å›½é™…å•ä½åˆ¶
+                                ["Nm"]={"ç‰›é¡¿ç±³","NÂ·m"},
+                                --éå›½é™…å•ä½åˆ¶
+                                ["kgm"]={"åƒå…‹ç±³","kgÂ·m"},
+                                --è‹±åˆ¶å’Œç¾å›½å¸¸ç”¨
+                                ["ftlb"]={"è‹±å°ºç£…åŠ›","ftÂ·lb"}
                              }
-Convect.display.torque["kgf.m"]={"Ç§¿ËÁ¦Ã×","kgf¡¤m"}
-Convect.display.torque["lbfft"]={"°õÁ¦Ó¢³ß","lbf¡¤ft"}
+Convect.display.torque["kgf.m"]={"åƒå…‹åŠ›ç±³","kgfÂ·m"}
+Convect.display.torque["lbfft"]={"ç£…åŠ›è‹±å°º","lbfÂ·ft"}
  
 --[[
-    Á´½ÓÖµ
-    £¨{"<Á´½ÓÖµ>={"<µ¥Î»ºÅ>",...},..."}£©
+    é“¾æ¥å€¼
+    ï¼ˆ{"<é“¾æ¥å€¼>={"<å•ä½å·>",...},..."}ï¼‰
 --]]
---³¤¶È
+--é•¿åº¦
 Convect_Date.link.length={
-                            --¹ú¼Êµ¥Î»ÖÆ
-                            ["Õ×Ã×"]={"Mm"},
-                            ["Ç§Ã×"]={"km"},
-                            ["Ã×"]={"m"},
-                            ["ÀåÃ×"]={"cm"},
-                            ["ºÁÃ×"]={"mm"},
-                            ["Î¢Ã×"]={"um","¦Ìm"},
-                            ["ÄÉÃ×"]={"nm"},
-                            --·Ç¹ú¼Êµ¥Î»ÖÆ
-                            ["°£"]={"?","angstrom"},
-                            --Ó¢ÖÆºÍÃÀ¹ú³£ÓÃ
-                            ["Ó¢Àï"]={"mi"},
-                            ["ÀË (Á¿¶Èµ¥Î»)"]={"furlong"},
-                            ["Á´ (Á¿¶Èµ¥Î»)"]={"chain"},
-                            ["°ô (Á¿¶Èµ¥Î»)"]={"rd"},
-                            ["Ó¢Ñ°"]={"fathom"},
-                            ["Âë"]={"yd"},
-                            ["Ó¢³ß"]={"ft","foot"},
-                            ["Ó¢´ç"]={"in"},
-                            --ÆäËû
-                            ["º£Àï"]={"nmi"},
-                            ["Ãë²î¾à"]={"pc"},
-                            ["¹âÄê"]={"ly"},
-                            ["ÌìÎÄµ¥Î»"]={"AU"}
+                            --å›½é™…å•ä½åˆ¶
+                            ["å…†ç±³"]={"Mm"},
+                            ["åƒç±³"]={"km"},
+                            ["ç±³"]={"m"},
+                            ["å˜ç±³"]={"cm"},
+                            ["æ¯«ç±³"]={"mm"},
+                            ["å¾®ç±³"]={"um","Î¼m"},
+                            ["çº³ç±³"]={"nm"},
+                            --éå›½é™…å•ä½åˆ¶
+                            ["åŸƒ"]={"?","angstrom"},
+                            --è‹±åˆ¶å’Œç¾å›½å¸¸ç”¨
+                            ["è‹±é‡Œ"]={"mi"},
+                            ["æµª (é‡åº¦å•ä½)"]={"furlong"},
+                            ["é“¾ (é‡åº¦å•ä½)"]={"chain"},
+                            ["æ£’ (é‡åº¦å•ä½)"]={"rd"},
+                            ["è‹±å¯»"]={"fathom"},
+                            ["ç "]={"yd"},
+                            ["è‹±å°º"]={"ft","foot"},
+                            ["è‹±å¯¸"]={"in"},
+                            --å…¶ä»–
+                            ["æµ·é‡Œ"]={"nmi"},
+                            ["ç§’å·®è·"]={"pc"},
+                            ["å…‰å¹´"]={"ly"},
+                            ["å¤©æ–‡å•ä½"]={"AU"}
                           }
  
---Ãæ»ı
+--é¢ç§¯
 Convect_Date.link.area={
-                            --¹ú¼Êµ¥Î»ÖÆ
-                            ["Æ½·½Ç§Ã×"]={"km2"},
-                            ["Æ½·½Ã×"]={"m2"},
-                            ["Æ½·½ÀåÃ×"]={"cm2"},
-                            ["Æ½·½ºÁÃ×"]={"mm2"},
-                            --·Ç¹ú¼Êµ¥Î»ÖÆ
-                            ["¹«Çê"]={"ha"},
-                            --ÖĞ¹úÊĞÖÆ
-                            ["Ä¶"]={"mu"},
-                            ["Æ½·½Ó¢Àï"]={"sqmi"},
-                            ["Ó¢Ä¶"]={"acre"},
-                            ["Æ½·½Âë"]={"sqyd"},
-                            ["Æ½·½Ó¢³ß"]={"sqft","sqfoot"},
-                            ["Æ½·½Ó¢´ç"]={"sqin"},
-                            --ÆäËû
-                            ["º£Àï"]={"sqnmi"},
-                            ["µÂÄÏ"]={"dunam"},
-                            ["Æº"]={"tsubo"}
+                            --å›½é™…å•ä½åˆ¶
+                            ["å¹³æ–¹åƒç±³"]={"km2"},
+                            ["å¹³æ–¹ç±³"]={"m2"},
+                            ["å¹³æ–¹å˜ç±³"]={"cm2"},
+                            ["å¹³æ–¹æ¯«ç±³"]={"mm2"},
+                            --éå›½é™…å•ä½åˆ¶
+                            ["å…¬é¡·"]={"ha"},
+                            --ä¸­å›½å¸‚åˆ¶
+                            ["äº©"]={"mu"},
+                            ["å¹³æ–¹è‹±é‡Œ"]={"sqmi"},
+                            ["è‹±äº©"]={"acre"},
+                            ["å¹³æ–¹ç "]={"sqyd"},
+                            ["å¹³æ–¹è‹±å°º"]={"sqft","sqfoot"},
+                            ["å¹³æ–¹è‹±å¯¸"]={"sqin"},
+                            --å…¶ä»–
+                            ["æµ·é‡Œ"]={"sqnmi"},
+                            ["å¾·å—"]={"dunam"},
+                            ["åª"]={"tsubo"}
                         }
  
---Ìå»ı
+--ä½“ç§¯
 Convect_Date.link.volume={
-                            --¹ú¼Êµ¥Î»ÖÆ
-                            ["Á¢·½Ã×"]={"m3"},
-                            ["Á¢·½ÀåÃ×"]={"cm3"},
-                            ["Á¢·½ºÁÃ×"]={"mm3"},
-                            --·Ç¹ú¼Êµ¥Î»ÖÆ
-                            ["Ç§Éı"]={"kl","kL"},
-                            ["Éı"]={"l","L"},
-                            ["ÀåÉı"]={"cl","cL"},
-                            ["ºÁÉı"]={"ml","mL"},
-                            --Ó¢ÖÆºÍÃÀ¹ú³£ÓÃ
-                            ["Á¢·½Âë"]={"cuyd"},
-                            ["Á¢·½Ó¢³ß"]={"cuft","cufoot"},
-                            ["Á¢·½Ó¢´ç"]={"cuin"},
-                            ["Í° (µ¥Î»)"]={"impbbl","USbbl","U.S.bbl","oilbbl","USbeerbbl","usbeerbbl","U.S.beerbbl","USdrybbl","U.S.drybbl"},
-                            ["ÆÑÊ½¶ú"]={"impbu","impbsh","USbsh","U.S.bsh","USbu","U.S.bu"},
-                            ["¼ÓÂØ"]={"impgal","USgal","U.S.gal","USdrygal","U.S.drygal"},
-                            ["¿äÍÑ"]={"impqt","USqt","U.S.qt","USdryqt","U.S.dryqt"},
-                            ["Æ·ÍÑ"]={"imppt","USpt","U.S.pt","USdrypt","U.S.drypt"},
-                            ["°»Ë¾"]={"impoz","impfloz","USoz","U.S.oz","USfloz","U.S.floz"}
+                            --å›½é™…å•ä½åˆ¶
+                            ["ç«‹æ–¹ç±³"]={"m3"},
+                            ["ç«‹æ–¹å˜ç±³"]={"cm3"},
+                            ["ç«‹æ–¹æ¯«ç±³"]={"mm3"},
+                            --éå›½é™…å•ä½åˆ¶
+                            ["åƒå‡"]={"kl","kL"},
+                            ["å‡"]={"l","L"},
+                            ["å˜å‡"]={"cl","cL"},
+                            ["æ¯«å‡"]={"ml","mL"},
+                            --è‹±åˆ¶å’Œç¾å›½å¸¸ç”¨
+                            ["ç«‹æ–¹ç "]={"cuyd"},
+                            ["ç«‹æ–¹è‹±å°º"]={"cuft","cufoot"},
+                            ["ç«‹æ–¹è‹±å¯¸"]={"cuin"},
+                            ["æ¡¶ (å•ä½)"]={"impbbl","USbbl","U.S.bbl","oilbbl","USbeerbbl","usbeerbbl","U.S.beerbbl","USdrybbl","U.S.drybbl"},
+                            ["è’²å¼è€³"]={"impbu","impbsh","USbsh","U.S.bsh","USbu","U.S.bu"},
+                            ["åŠ ä»‘"]={"impgal","USgal","U.S.gal","USdrygal","U.S.drygal"},
+                            ["å¤¸è„±"]={"impqt","USqt","U.S.qt","USdryqt","U.S.dryqt"},
+                            ["å“è„±"]={"imppt","USpt","U.S.pt","USdrypt","U.S.drypt"},
+                            ["ç›å¸"]={"impoz","impfloz","USoz","U.S.oz","USfloz","U.S.floz"}
                           }
  
---ËÙ¶È
+--é€Ÿåº¦
 Convect_Date.link.speed={
-                            --¹ú¼Êµ¥Î»ÖÆ
-                            ["Ã×Ã¿Ãë"]={"m/s"},
-                            --·Ç¹ú¼Êµ¥Î»ÖÆ
-                            ["Ç§Ã×Ã¿Ê±"]={"km/h"},
-                            --Ó¢ÖÆºÍÃÀ¹ú³£ÓÃ
-                            ["Ó¢ÀïÃ¿Ğ¡Ê±"]={"mph"},
-                            ["Ó¢³ßÃ¿Ãë"]={"ft/s","foot/s"},
-                            --º£ÊÂµ¥Î»
-                            ["½Ú (µ¥Î»)"]={"kn","knot"}
+                            --å›½é™…å•ä½åˆ¶
+                            ["ç±³æ¯ç§’"]={"m/s"},
+                            --éå›½é™…å•ä½åˆ¶
+                            ["åƒç±³æ¯æ—¶"]={"km/h"},
+                            --è‹±åˆ¶å’Œç¾å›½å¸¸ç”¨
+                            ["è‹±é‡Œæ¯å°æ—¶"]={"mph"},
+                            ["è‹±å°ºæ¯ç§’"]={"ft/s","foot/s"},
+                            --æµ·äº‹å•ä½
+                            ["èŠ‚ (å•ä½)"]={"kn","knot"}
                          }
  
---Á¦
+--åŠ›
 Convect_Date.link.force={
-                            --¹ú¼Êµ¥Î»ÖÆ
-                            ["Å£¶Ù (µ¥Î»)"]={"GN","MN","kN","N","mN","¦ÌN","uN","nN"},
-                            --ÀåÃ×-¿Ë-Ãë
-                            ["´ïÒò"]={"Mdyn","kdyn","dyn","dyne","mdyn"},
-                            --¹«ÖÆÖØÁ¦µ¥Î»
-                            ["¶ÖÁ¦"]={"tf","t-f"},
-                            ["Ç§¿ËÁ¦"]={"kgf","kg-f"},
-                            ["¿ËÁ¦"]={"gf","g-f"},
-                            ["ºÁ¿ËÁ¦"]={"mgf","mg-f"},
-                            --³£ºâ»ù´¡µ¥Î»
-                            ["°õ´ï"]={"pdl"},
-                            ["Ó¢‡"]={"LTf","LF-f","STf","ST-f"},
-                            ["°õÁ¦"]={"lb-f","lbf","grf","gr-f"}
+                            --å›½é™…å•ä½åˆ¶
+                            ["ç‰›é¡¿ (å•ä½)"]={"GN","MN","kN","N","mN","Î¼N","uN","nN"},
+                            --å˜ç±³-å…‹-ç§’
+                            ["è¾¾å› "]={"Mdyn","kdyn","dyn","dyne","mdyn"},
+                            --å…¬åˆ¶é‡åŠ›å•ä½
+                            ["å¨åŠ›"]={"tf","t-f"},
+                            ["åƒå…‹åŠ›"]={"kgf","kg-f"},
+                            ["å…‹åŠ›"]={"gf","g-f"},
+                            ["æ¯«å…‹åŠ›"]={"mgf","mg-f"},
+                            --å¸¸è¡¡åŸºç¡€å•ä½
+                            ["ç£…è¾¾"]={"pdl"},
+                            ["è‹±å™¸"]={"LTf","LF-f","STf","ST-f"},
+                            ["ç£…åŠ›"]={"lb-f","lbf","grf","gr-f"}
                          }
  
---ÄÜÁ¿
+--èƒ½é‡
 Convect_Date.link.energy={
-                            --¹ú¼Êµ¥Î»ÖÆ
-                            ["½¹¶ú"]={"GJ","MJ","kJ","hJ","daJ","J","dJ","cJ","mJ","uJ","¦ÌJ","nJ"},
-                            --ÀåÃ×-¿Ë-Ãë
-                            ["¶û¸ñ"]={"Merg","kerg","erg"},
-                            --ÍßÌØÊ±¸´ºÏ
-                            ["ÍßÊ±"]={"TWh","GWh","MWh","kWh","Wh","TW.h","GW.h","MW.h","kW.h","W.h"},
-                            --µç×Ó·üÌØ¸´ºÏ
-                            ["µç×Ó·üÌØ"]={"GeV","MeV","eV","meV"},
-                            --¿¨Â·Àï¸´ºÏ
-                            ["¿¨Â·Àï"]={"Cal","Mcal","kcal","cal","mcal"},
-                            --°õ/Á¦/-Ó¢´ç/Ó¢´ç-Ê±-·Ö-Ãë
-                            ["Ó¢³ß°õ´ï"]={"ftpdl"},
-                            ["Ó¢³ß°õÁ¦"]={"ftlbf","inlbf","inozf","ftlb-f","inlb-f","inoz-f"},
-                            ["ÂíÁ¦Ğ¡Ê±"]={"hph"},
-                            --Ó¢ÈÈµ¥Î»
-                            ["Ó¢ÈÈµ¥Î»"]={"Btu","BTU"},
-                            --±¬Õ¨µ±Á¿
-                            ["±¬Õ¨µ±Á¿"]={"GtTNT","MtTNT","ktTNT","tTNT","GtonTNT","MtonTNT","ktonTNT","tonTNT"},
-                            --ÆäËû
-                            ["¹şÌØÀï"]={"Eh"},
-                            ["ÀïÌØ²®"]={"Ry"},
-                            ["¶ÖÓÍµ±Á¿"]={"toe"},
-                            ["Í°ÓÍµ±Á¿"]={"BOE"},
-                            ["Á¢·½Ó¢³ßÌìÈ»Æøµ±Á¿"]={"cuftnaturalgas","cufootnaturalgas"},
-                            ["±ê×¼´óÆøÑ¹"]={"latm","Latm","impgalatm","USgalatm","usgalatm","U.S.galatm"}
+                            --å›½é™…å•ä½åˆ¶
+                            ["ç„¦è€³"]={"GJ","MJ","kJ","hJ","daJ","J","dJ","cJ","mJ","uJ","Î¼J","nJ"},
+                            --å˜ç±³-å…‹-ç§’
+                            ["å°”æ ¼"]={"Merg","kerg","erg"},
+                            --ç“¦ç‰¹æ—¶å¤åˆ
+                            ["ç“¦æ—¶"]={"TWh","GWh","MWh","kWh","Wh","TW.h","GW.h","MW.h","kW.h","W.h"},
+                            --ç”µå­ä¼ç‰¹å¤åˆ
+                            ["ç”µå­ä¼ç‰¹"]={"GeV","MeV","eV","meV"},
+                            --å¡è·¯é‡Œå¤åˆ
+                            ["å¡è·¯é‡Œ"]={"Cal","Mcal","kcal","cal","mcal"},
+                            --ç£…/åŠ›/-è‹±å¯¸/è‹±å¯¸-æ—¶-åˆ†-ç§’
+                            ["è‹±å°ºç£…è¾¾"]={"ftpdl"},
+                            ["è‹±å°ºç£…åŠ›"]={"ftlbf","inlbf","inozf","ftlb-f","inlb-f","inoz-f"},
+                            ["é©¬åŠ›å°æ—¶"]={"hph"},
+                            --è‹±çƒ­å•ä½
+                            ["è‹±çƒ­å•ä½"]={"Btu","BTU"},
+                            --çˆ†ç‚¸å½“é‡
+                            ["çˆ†ç‚¸å½“é‡"]={"GtTNT","MtTNT","ktTNT","tTNT","GtonTNT","MtonTNT","ktonTNT","tonTNT"},
+                            --å…¶ä»–
+                            ["å“ˆç‰¹é‡Œ"]={"Eh"},
+                            ["é‡Œç‰¹ä¼¯"]={"Ry"},
+                            ["å¨æ²¹å½“é‡"]={"toe"},
+                            ["æ¡¶æ²¹å½“é‡"]={"BOE"},
+                            ["ç«‹æ–¹è‹±å°ºå¤©ç„¶æ°”å½“é‡"]={"cuftnaturalgas","cufootnaturalgas"},
+                            ["æ ‡å‡†å¤§æ°”å‹"]={"latm","Latm","impgalatm","USgalatm","usgalatm","U.S.galatm"}
                           }
  
---ÎÂ¶È
+--æ¸©åº¦
 Convect_Date.link.temperature={
-                                --¹ú¼Êµ¥Î»ÖÆ
-                                ["¿ªÊÏÎÄ"]={"K"},
-                                ["ÉãÊÏÎÂ±ê"]={"C","¡ãC"},
-                                --Ó¢ÖÆºÍÃÀ¹ú³£ÓÃ
-                                ["À¼ÊÏ¶È"]={"R","¡ãR"},
-                                ["»ªÊÏ¶È"]={"F","¡ãF"}
+                                --å›½é™…å•ä½åˆ¶
+                                ["å¼€æ°æ–‡"]={"K"},
+                                ["æ‘„æ°æ¸©æ ‡"]={"C","Â°C"},
+                                --è‹±åˆ¶å’Œç¾å›½å¸¸ç”¨
+                                ["å…°æ°åº¦"]={"R","Â°R"},
+                                ["åæ°åº¦"]={"F","Â°F"}
                                }
  
---ÖÊÁ¿
+--è´¨é‡
 Convect_Date.link.mass={
-                        --¹ú¼Êµ¥Î»ÖÆ
-                        ["Ç§¿Ë"]={"kg"},
-                        ["¿Ë"]={"g"},
-                        ["ºÁ¿Ë"]={"mg"},
-                        ["Î¢¿Ë"]={"ug","¦Ìg"},
-                        --·Ç¹ú¼Êµ¥Î»ÖÆ
+                        --å›½é™…å•ä½åˆ¶
+                        ["åƒå…‹"]={"kg"},
+                        ["å…‹"]={"g"},
+                        ["æ¯«å…‹"]={"mg"},
+                        ["å¾®å…‹"]={"ug","Î¼g"},
+                        --éå›½é™…å•ä½åˆ¶
                         }
  
---Á¦¾Ø
+--åŠ›çŸ©
 Convect_Date.link.torque={
-                          --¹ú¼Êµ¥Î»ÖÆ
-                          ["Å£¶ÙÃ×"]={"Nm"},
-                          ["Ç§¿ËÃ×"]={"kgm"},
-                          ["Ç§¿ËÁ¦Ã×"]={"ftlb"},
-                          ["Ó¢³ß°õÁ¦"]={"kgf.m"},
-                          ["°õÁ¦Ó¢³ß"]={"lbfft"}
+                          --å›½é™…å•ä½åˆ¶
+                          ["ç‰›é¡¿ç±³"]={"Nm"},
+                          ["åƒå…‹ç±³"]={"kgm"},
+                          ["åƒå…‹åŠ›ç±³"]={"ftlb"},
+                          ["è‹±å°ºç£…åŠ›"]={"kgf.m"},
+                          ["ç£…åŠ›è‹±å°º"]={"lbfft"}
                           }
  
 return Convect_Date
