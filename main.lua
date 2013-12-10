@@ -8,7 +8,8 @@ local Convect["baseunit"]={"m","m2","m3","m/s","N","J","K","kg","Nm"}
 local Convect_Date=mw.loadData("模块:沙盒/cwek/Convert/data")
 
 --温度，基准为K
---从数据移入
+--[0]为目标转基准，[1]为基准转目标
+--从data.lua移入
 Convect_Date_of_temperature.value.temperature={
                                  --国际单位制
                                  ["K"]={function(input) return 1*input end,function(input) return 1*input end},
@@ -26,14 +27,14 @@ Convect["temperature_unit"]={"K","C","R","F","°C","°R","°F"}
 
 --特别内容--
 --支持2值算单值的单位（组合输入单位）
-local Convect.input_together={
+local Convect["input_together"]={
                             ["ft"]={{"ft","in"}},
                             ["st"]={{"st","lb"}},
                             ["lb"]={{"lb","oz"}}
                             }
 --支持组合输出单位的
 --{单位={允许的单位,...},...}
-local Convect.output_together={
+local Convect["output_together"]={
                             --长度
                             ["km"]={"mi"},
                             ["m"]={"ft","ftin"},
@@ -124,75 +125,155 @@ local Convect.range_embellish={
 --[[
     从方法开始
 --]]
-function Convect.unit_check__(unit)--单位检查工具
-    local flag=false
-    local group=nil
+    --[[
+        单位查找方法
+    --]]
+    --判断是否是温度单位
+    --@param unit:输入单位名
+    --@return false|true
+    function Convect.is_temperature_unit(unit)
+        for v in Convect.temperature_unit do
+            if v==unit then
+                return true
+            end
+        end
+        return false
+    end
 
-    if(tonumber(unit)~=nil)then
+    --获得温度的换算器
+    --@param unit:输入的温度单位名
+    --@return 温度单位的换算函数数组
+    function Convect.get_temperature_unit_convect(unit)
+        return Convect_Date_of_temperature.value.temperature[unit]
+    end
+
+    --单个单位检查工具
+    --@param unit:输入单位名
+    --@return <单位所属组名>,[false|true]
+    function Convect.unit_check(unit)
+        local flag=false
+        local group=nil
+
+        if(tonumber(unit)~=nil)then
+            return group,flag
+        end
+
+        for group_name in Convect.group_name do
+            for unit_name in Convect.value[group_name] do
+                if unit_name==unit then
+                    group=group_name
+                    flag=true
+
+                    return group,flag
+                end
+            end
+        end
+
         return group,flag
     end
 
-    for group_name in Convect.group_name do
-        for unit_name in Convect.value[group_name] do
-            if unit_name==unit then
-                group=group_name
-                flag=true
+    --单位转换值查找
+    --@param group:单位所属组
+    --@param unit:输入单位名
+    --@return [值（非温度的换算值）|函数数组（温度的换算函数）]
+    function Convect.unit_convect_value(group,unit)
+        if group=="temperature" and Convect.is_temperature_unit(unit) then
+            return Convect.get_temperature_unit_convect(unit)--数组
+        else
+            return Convect_Date.value[group][unit]--数
+        end
+    end
 
-                return group,flag
+    --检查输入的两个单位是否是组合输入单位
+    --@param unitA:第一个输入单位
+    --@param unitB:第二个输入单位
+    --@return false|true
+    function Convect.is_input_together(unitA,unitB)
+        for k1,v1 in pairs(Convect.input_together) do
+            if k1==unitA then
+                for k2,v2 in pairs(k1) do
+                    if k2==unitB then
+                        return true
+                    end
+                end
             end
         end
+        return false
     end
 
-    return group,flag
-end
+    --检查输入的字符串是否输出组合单位
+    --@param input:输入的字符串
+    --@return [false|true,<第一个单位>,<第二个单位>]
+    function Convect.is_out_together(input)
+        local unitA,unitB=string.find(input,"(%a+)%s(%a+)")
+        local groupA,flagA=Convect.unit_check(unitA)
+        local groupB,flagB=Convect.unit_check(unitB)
 
-function Convect.unit_convect_value(group,unit)--单位转换值查找
-    local value=Convect.value[group][unit]
-
-    return value
-end
-
-function Convert.embellish_binder__(input)--修饰词建造者
-    local k=Convert.embellish_cheaker__(input)
-    if k>0 then
-        return Convert.range_embellish_val[k]
-    else
-        return input
-    end
-end
-
-function Convert.embellish_cheaker__(input)--修饰词搜寻者，发现符合转换的修饰词，返回键值，否则返回-1
-    for k,v in pairs(Convert.range_embellish_key) do
-        if v==input then
-            return k
+        if (flagA and flagB) and groupA==groupB then
+            return true,unitA,unitB
+        else
+            return false
         end
     end
-
-    return -1
-end
-
-function Convert.link_finder__(group,unit)--单位链接值查找
-    for k,v in pairs(Convert.link[group]) do
-        local linkname=k
-        for t in v do
-            if unit==t then
-                return linkname
+    
+    --根据组查阅组的基准单位
+    --@param group:单位组名
+    --@return [<基准单位名>|""]
+    function Convert.base_unit(group)
+        for k,v in pairs(Convert.group_name) do
+            if v==group then
+                return Convert.baseunit[k]
             end
         end
-    end
-    return false
-end
 
-function Convert.link_builder__(flag,group,unit,display)--单位链接值建造
-    local code=""
-    local t=link_finder__(group,unit)
-
-    if(flag and t~=false)then
-        return code="[["..t.."|"..display.."]]"
-    else
-        return code=display
+        return ""
     end
-end
+
+
+    --[[
+        构造类方法
+    --]]
+    --修饰词确认和查找对应
+    --@param input:输入检查字符串
+    --@return [原字符串|对应的修饰词],[false|true]
+    function Convert.embellish(input)
+        for k,v in pairs(Convect.range_embellish) do
+            if k==input then
+                return Convect.range_embellish[k],true
+            end
+        end
+
+        return input,false
+    end
+    
+   
+
+    
+    
+    --单位链接值建造
+    --@param flag:
+    --@param group:
+    --@param unit:
+    --@param display:
+    --@return 
+    function Convert.link_builder(flag,group,unit,display)
+        local code=""
+        
+        for k,v in pairs(Convert.link[group]) do
+            local linkname=k
+            for t in v do
+                if unit==t then
+                    return linkname
+                end
+            end
+        end
+
+        if(flag and t~=false)then
+            return code="[["..t.."|"..display.."]]"
+        else
+            return code=display
+        end
+    end
 
 function Convert.display_builder__(group,unit,flag)--单位显示值建造（中文全称或缩名）
     local code=""
@@ -205,15 +286,7 @@ function Convert.display_builder__(group,unit,flag)--单位显示值建造（中
     end
 end
 
-function Convert.base_unit__(group)--根据组查阅组的基准单位
-    for k,v in pairs(Convert.group_name) do
-        if v==group then
-            return Convert.baseunit[k]
-        end
-    end
 
-    return false
-end
 
 function Convert.sigfig_func(input,sigfig)--取整
     local t,_=math.modf(input*math.pow(10,sigfig)+0.5)
@@ -224,7 +297,7 @@ function Convert.sigfig_func(input,sigfig)--取整
         return (t/math.pow(10,sigfig))
     end
 end
-    
+
 function Convert.sigfig5_func(input)--取5整
     local t=sigfig_func(input,0)
     local x=(math.fmod(t,10))
@@ -252,111 +325,40 @@ function Convert.convert(group,in_unit,out_unit)--转换参数构造函数
     end
 end
 
+
+
 --[[
     主方法开始
 --]]
-function Convect.init__(frame)--传入参数初始化，和部分简单参数的设定
-    local args_from_templatein=frame:getParent().args
-    local args_from_invokein=frame.args
+function Convect.init__(frame)--传入参数初始化
+    local args_from_template=frame:getParent().args
 
-    --初始化载具
-    args={}
+    local args={}--准备载具
 
-    --接受全部命名参数
-    local lk=((args_from_templatein["lk"]~=nil and args_from_templatein["lk"]) or "off")
-    local abbr=((args_from_templatein["abbr"]~=nil and args_from_templatein["abbr"]) or "off")
-    local disp=((args_from_templatein["disp"]~=nil and args_from_templatein["disp"]) or "b")
-    local sigfig=args_from_templatein["sigfig"]
-    local sortable=args_from_templatein["sortable"]
-
-    --接受执行的备选参数
-    local ismore=tonumber(args_from_invokein[1])
-    args["processCount"]=ismore
-
-    --初始化承载传入索引参数的数组
-    args["args"]={}
-    local i=1
-    while true do--接收全部索引参数，因为frame.args为不完全表，无法探知元素个数，用死循环探知接收
-        t=args[i]
-        if t~=nil then
-            args.args[i]=t
+    for k,v in pairs(args_from_template) do
+        if(tonumber(k)~=nil)then
+            args[tonumber(k)]=v
         else
-            break
+            args[k]=v
         end
     end
-
-    --处理lk
-    args["link_in"]=false
-    args["link_out"]=false
-    if lk~=nil then
-        local switch_link={}
-        switch_link["off"]=function() end
-        switch_link["in"]=function() args["link_in"]=true end
-        switch_link["out"]=function() args["link_out"]=true end
-
-        switch_link[lk]()
-    end--lk done
-
-    --处理abbr
-    args["display_shortin"]=false
-    args["display_shortout"]=false
-    args["display_valonly"]=false
-    if abbr~=nil then
-        local switch_abbr={}
-        switch_abbr["on"]=function()  args["display_shortin"]=true args["display_shortout"]=true end
-        switch_abbr["off"]=function()  end
-        switch_abbr["in"]=function() args["display_shortin"]=true end
-        switch_abbr["out"]=function() args["display_shortout"]=true end
-        switch_abbr["values"]=function() args["display_valonly"]=true end
-
-        switch_abbr[abbr]()
-    end--abbr done
-
-    --处理sigfig
-    if sigfig~=nil then
-        local t=tonumber(sigfig)
-        if t~=nil and t>0 then
-            args["sigfig"]=t
-        else
-            args["sigfig"]=3
-        end
-        args["have_sigfig"]=true
-    else
-        args["have_sigfig"]=false
-    end--sigfig 初步处理done
-
-    --处理sortable
-    if sortable~=nil then
-        args["sortable"]=true
-    end--sortable 传入done
-
-    --传入disp，disp处理复杂，由cheak__完成
-    if disp~=nil then
-        args["disp"]=disp
-        args["have_sigfig"]=true
-    else
-        args["disp"]="b"
-    end--disp 传入done
-
 
     return args
 end
 
-function Convect.cheak__(args)
-    --[[
-    进来时args至少有：
-    [args]:传入的索引参数
-    [processCount]<3,4或nil>:要处理的单元数
-    [link_in],[link_out]:控制是否生成单位链接
-    [display_shortin],[display_shortout],[display_valonly]:控制单位显示生成
-    [sigfig]:有效位数
-    [disp]:传入的disp
-    [sortable]:传入的sortable
-    [have_sigfig]=存在sigfig
-    --]]
-
+function Convect.cheak__(args)--整理参数，确定处理数
     --根据索引参数组的数字排序判断处理单元数
     local t_processCount=0
+    local t_mark=0
+    local t_unit=nil
+    local t_unit_group=nil
+
+    --if t_unit
+
+
+
+
+
     if tonumber(args.args[1])~=nil--处理1个单元
         t_processCount=1
     elseif tonumber(args.args[3])~=nil--处理2个单元
@@ -602,15 +604,15 @@ function Convert.bind_1__(args)
         out=out..table.concat(in_unit,"，")
         return out
     end
-    
+
     if(not args["out_unit_instead"])then
         for v in in_unit do--获得转换参数公式<---------<------
             table.insert(function_convert,Convert.convert(v,out_unit[1]))
         end
-        
+
         for k,v in pairs(in_value) do--转换中和sigfig的处理和args["sigfig5"]
             local t_number=function_convert[k](v)
-            
+
             t_number=Convert.sigfig_func(t_number,args["sigfig"])
             if(args["sigfig5"])then t_number=Convert.sigfig5_func(tonumber(t_number)).."" end
             table.insert(out_value,t_number,k)
@@ -624,18 +626,18 @@ function Convert.bind_1__(args)
         for v in out_unit do
             table.insert(function_convert,Convert.convert(in_unit[1],v))
         end
-        
+
         for k,v in pairs(function_convert) do
             local t_number=v(in_value[1])
-            
+
             t_number=Convert.sigfig_func(t_number,args["sigfig"])
             if(args["sigfig5"])then t_number=Convert.sigfig5_func(tonumber(t_number)).."" end
             table.insert(out_value,t_number,k)
-        end             
-    end    
+        end
+    end
 
     local in_out,out_out="",""
-    
+
     --输入显示处理，并处理连个控制参数
     if(not args["outputOnly"])then--args["outputOnly"]
         for k,v in pairs(in_value)do
@@ -647,7 +649,7 @@ function Convert.bind_1__(args)
                 )
         end
     end
-    
+
     --输出显示处理
     if not args["out_unit_instead"] then
         out_out=out_out..sum_out_value
@@ -667,7 +669,7 @@ function Convert.bind_1__(args)
                     Convert.display_builder__
                     (group_name,in_unit[k],["display_shortout"])
                 )
-    
+
     end
 
     local a,b=in_out,out_out
