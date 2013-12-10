@@ -1,15 +1,32 @@
 ﻿local Convect={}
 
 --组名
-local Convect.group_name={"length","area","volume","speed","force","energy","temperature","mass","torque"}
+local Convect["group_name"]={"length","area","volume","speed","force","energy","temperature","mass","torque"}
 --基准单位
-local Convect.baseunit={"m","m2","m3","m/s","N","J","K","kg","Nm"}
+local Convect["baseunit"]={"m","m2","m3","m/s","N","J","K","kg","Nm"}
 --基础数据
 local Convect_Date=mw.loadData("模块:沙盒/cwek/Convert/data")
 
+--温度，基准为K
+--从数据移入
+Convect_Date_of_temperature.value.temperature={
+                                 --国际单位制
+                                 ["K"]={function(input) return 1*input end,function(input) return 1*input end},
+                                 ["C"]={function(input) return (input+273.15) end ,function(input) return input-273.15 end},
+                                 --英制和美国常用
+                                 ["R"]={function(input) return (input/1.8) end,function(input) return input*1.8 end},
+                                 ["F"]={function(input) return ((input+459.67)/1.8) end,function(input) return input*1.8-459.67 end}
+                                 }
+Convect_Date_of_temperature.value.temperature["°C"]=Convect_Date_of_temperature.value.temperature["C"]
+Convect_Date_of_temperature.value.temperature["°R"]=Convect_Date_of_temperature.value.temperature["R"]
+Convect_Date_of_temperature.value.temperature["°F"]=Convect_Date_of_temperature.value.temperature["F"]
+Convect["temperature_unit"]={"K","C","R","F","°C","°R","°F"}
+----
+
+
 --特别内容--
---支持2值算单值的单位
-local Convect.input_sepceil={
+--支持2值算单值的单位（组合输入单位）
+local Convect.input_together={
                             ["ft"]={{"ft","in"}},
                             ["st"]={{"st","lb"}},
                             ["lb"]={{"lb","oz"}}

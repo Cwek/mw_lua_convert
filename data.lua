@@ -34,9 +34,9 @@ Convect_Date.value.length={
                             ["ly"]=9.4607304725808e15,
                             ["AU"]=149597870700
                             }
-Convect.value.length["μm"]=Convect.value.length["um"]
-Convect.value.length["?"]=Convect.value.length["angstrom"]
-Convect.value.length["ft"]=Convect.value.length["foot"]
+Convect_Date.value.length["μm"]=Convect_Date.value.length["um"]
+Convect_Date.value.length["Å"]=Convect_Date.value.length["angstrom"]
+Convect_Date.value.length["ft"]=Convect_Date.value.length["foot"]
  
 --面积，基准为m2
 Convect_Date.value.area={
@@ -60,7 +60,7 @@ Convect_Date.value.area={
                           ["dunam"]=1000,
                           ["tsubo"]=(400/121)
                          }
-Convect.value.area["sqft"]=Convect.value.area["sqfoot"]
+Convect_Date.value.area["sqft"]=Convect_Date.value.area["sqfoot"]
  
 --体积，基准为m3
 Convect_Date.value.volume={
@@ -100,29 +100,29 @@ Convect_Date.value.volume={
                             ["USdryqt"]=0.001101220942715,
                             ["USdrypt"]=0.0005506104713575
                             }
-Convect.value.volume["cc"]=Convect.value.volume["cm3"]
-Convect.value.volume["kL"]=Convect.value.volume["kl"]
-Convect.value.volume["L"]=Convect.value.volume["l"]
-Convect.value.volume["cL"]=Convect.value.volume["cl"]
-Convect.value.volume["mL"]=Convect.value.volume["ml"]
-Convect.value.volume["cuft"]=Convect.value.volume["cufoot"]
-Convect.value.volume["impbu"]=Convect.value.volume["impbsh"]
-Convect.value.volume["impfloz"]=Convect.value.volume["impoz"]
-Convect.value.volume["U.S.bbl"]=Convect.value.volume["USbbl"]
-Convect.value.volume["usbeerbbl"]=Convect.value.volume["USbeerbbl"]
-Convect.value.volume["U.S.beerbbl"]=Convect.value.volume["USbeerbbl"]
-Convect.value.volume["U.S.gal"]=Convect.value.volume["USgal"]
-Convect.value.volume["U.S.qt"]=Convect.value.volume["USqt"]
-Convect.value.volume["U.S.pt"]=Convect.value.volume["USpt"]
-Convect.value.volume["USfloz"]=Convect.value.volume["USoz"]
-Convect.value.volume["U.S.oz"]=Convect.value.volume["USoz"]
-Convect.value.volume["U.S.floz"]=Convect.value.volume["USoz"]
-Convect.value.volume["U.S.drybbl"]=Convect.value.volume["USdrybbl"]
-Convect.value.volume["U.S.bsh"]=Convect.value.volume["USbsh"]
-Convect.value.volume["U.S.bu"]=Convect.value.volume["USbu"]
-Convect.value.volume["U.S.drygal"]=Convect.value.volume["USdrygal"]
-Convect.value.volume["U.S.dryqt"]=Convect.value.volume["USdryqt"]
-Convect.value.volume["U.S.drypt"]=Convect.value.volume["USdrypt"]
+Convect_Date.value.volume["cc"]=Convect_Date.value.volume["cm3"]
+Convect_Date.value.volume["kL"]=Convect_Date.value.volume["kl"]
+Convect_Date.value.volume["L"]=Convect_Date.value.volume["l"]
+Convect_Date.value.volume["cL"]=Convect_Date.value.volume["cl"]
+Convect_Date.value.volume["mL"]=Convect_Date.value.volume["ml"]
+Convect_Date.value.volume["cuft"]=Convect_Date.value.volume["cufoot"]
+Convect_Date.value.volume["impbu"]=Convect_Date.value.volume["impbsh"]
+Convect_Date.value.volume["impfloz"]=Convect_Date.value.volume["impoz"]
+Convect_Date.value.volume["U.S.bbl"]=Convect_Date.value.volume["USbbl"]
+Convect_Date.value.volume["usbeerbbl"]=Convect_Date.value.volume["USbeerbbl"]
+Convect_Date.value.volume["U.S.beerbbl"]=Convect_Date.value.volume["USbeerbbl"]
+Convect_Date.value.volume["U.S.gal"]=Convect_Date.value.volume["USgal"]
+Convect_Date.value.volume["U.S.qt"]=Convect_Date.value.volume["USqt"]
+Convect_Date.value.volume["U.S.pt"]=Convect_Date.value.volume["USpt"]
+Convect_Date.value.volume["USfloz"]=Convect_Date.value.volume["USoz"]
+Convect_Date.value.volume["U.S.oz"]=Convect_Date.value.volume["USoz"]
+Convect_Date.value.volume["U.S.floz"]=Convect_Date.value.volume["USoz"]
+Convect_Date.value.volume["U.S.drybbl"]=Convect_Date.value.volume["USdrybbl"]
+Convect_Date.value.volume["U.S.bsh"]=Convect_Date.value.volume["USbsh"]
+Convect_Date.value.volume["U.S.bu"]=Convect_Date.value.volume["USbu"]
+Convect_Date.value.volume["U.S.drygal"]=Convect_Date.value.volume["USdrygal"]
+Convect_Date.value.volume["U.S.dryqt"]=Convect_Date.value.volume["USdryqt"]
+Convect_Date.value.volume["U.S.drypt"]=Convect_Date.value.volume["USdrypt"]
  
 --速度，基准为m/s
 Convect_Date.value.speed={
@@ -136,8 +136,8 @@ Convect_Date.value.speed={
                            --海事单位
                            ["knot"]=(4.63/9)
                            }
-Convect.value.speed["foot/s"]=Convect.value.speed["ft/s"]
-Convect.value.speed["kn"]=Convect.value.speed["knot"]
+Convect_Date.value.speed["foot/s"]=Convect_Date.value.speed["ft/s"]
+Convect_Date.value.speed["kn"]=Convect_Date.value.speed["knot"]
  
 --力，基准为N
 Convect_Date.value.force={
@@ -166,16 +166,16 @@ Convect_Date.value.force={
                            ["lb-f"]=4.4482216152605,
                            ["gr-f"]=0.0006354602307515
                           }
-Convect.value.force["μN"]=Convect.value.force["uN"]
-Convect.value.force["dyne"]=Convect.value.force["dyn"]
-Convect.value.force["tf"]=Convect.value.force["t-f"]
-Convect.value.force["kgf"]=Convect.value.force["kg-f"]
-Convect.value.force["gf"]=Convect.value.force["g-f"]
-Convect.value.force["mgf"]=Convect.value.force["mg-f"]
-Convect.value.force["LTf"]=Convect.value.force["LT-f"]
-Convect.value.force["STf"]=Convect.value.force["ST-f"]
-Convect.value.force["lbf"]=Convect.value.force["lb-f"]
-Convect.value.force["grf"]=Convect.value.force["gr-f"]
+Convect_Date.value.force["μN"]=Convect_Date.value.force["uN"]
+Convect_Date.value.force["dyne"]=Convect_Date.value.force["dyn"]
+Convect_Date.value.force["tf"]=Convect_Date.value.force["t-f"]
+Convect_Date.value.force["kgf"]=Convect_Date.value.force["kg-f"]
+Convect_Date.value.force["gf"]=Convect_Date.value.force["g-f"]
+Convect_Date.value.force["mgf"]=Convect_Date.value.force["mg-f"]
+Convect_Date.value.force["LTf"]=Convect_Date.value.force["LT-f"]
+Convect_Date.value.force["STf"]=Convect_Date.value.force["ST-f"]
+Convect_Date.value.force["lbf"]=Convect_Date.value.force["lb-f"]
+Convect_Date.value.force["grf"]=Convect_Date.value.force["gr-f"]
  
 --能量，基准为J
 Convect_Date.value.energy={
@@ -236,25 +236,27 @@ Convect_Date.value.energy={
                            ["impgalatm"]=460.63256925,
                            ["USgalatm"]=383.5568490138
                            }
-Convect.value.energy["μJ"]=Convect.value.energy["uj"]
-Convect.value.energy["TW.h"]=Convect.value.energy["TWh"]
-Convect.value.energy["GW.h"]=Convect.value.energy["GWh"]
-Convect.value.energy["MW.h"]=Convect.value.energy["MWh"]
-Convect.value.energy["kW.h"]=Convect.value.energy["kWh"]
-Convect.value.energy["W.h"]=Convect.value.energy["Wh"]
-Convect.value.energy["ftlb-f"]=Convect.value.energy["ftlbf"]
-Convect.value.energy["inbl-f"]=Convect.value.energy["inlbf"]
-Convect.value.energy["inoz-f"]=Convect.value.energy["inozf"]
-Convect.value.energy["BTU"]=Convect.value.energy["Btu"]
-Convect.value.energy["GtonTNT"]=Convect.value.energy["GtTNT"]
-Convect.value.energy["MtonTNT"]=Convect.value.energy["MtTNT"]
-Convect.value.energy["ktonTNT"]=Convect.value.energy["ktTNT"]
-Convect.value.energy["tonTNT"]=Convect.value.energy["tTNT"]
-Convect.value.energy["cufootnaturalgas"]=Convect.value.energy["cuftnaturalgas"]
-Convect.value.energy["Latm"]=Convect.value.energy["latm"]
-Convect.value.energy["usgalatm"]=Convect.value.energy["USgalatm"]
-Convect.value.energy["U.S.galatm"]=Convect.value.energy["USgalatm"]
- 
+Convect_Date.value.energy["μJ"]=Convect_Date.value.energy["uj"]
+Convect_Date.value.energy["TW.h"]=Convect_Date.value.energy["TWh"]
+Convect_Date.value.energy["GW.h"]=Convect_Date.value.energy["GWh"]
+Convect_Date.value.energy["MW.h"]=Convect_Date.value.energy["MWh"]
+Convect_Date.value.energy["kW.h"]=Convect_Date.value.energy["kWh"]
+Convect_Date.value.energy["W.h"]=Convect_Date.value.energy["Wh"]
+Convect_Date.value.energy["ftlb-f"]=Convect_Date.value.energy["ftlbf"]
+Convect_Date.value.energy["inbl-f"]=Convect_Date.value.energy["inlbf"]
+Convect_Date.value.energy["inoz-f"]=Convect_Date.value.energy["inozf"]
+Convect_Date.value.energy["BTU"]=Convect_Date.value.energy["Btu"]
+Convect_Date.value.energy["GtonTNT"]=Convect_Date.value.energy["GtTNT"]
+Convect_Date.value.energy["MtonTNT"]=Convect_Date.value.energy["MtTNT"]
+Convect_Date.value.energy["ktonTNT"]=Convect_Date.value.energy["ktTNT"]
+Convect_Date.value.energy["tonTNT"]=Convect_Date.value.energy["tTNT"]
+Convect_Date.value.energy["cufootnaturalgas"]=Convect_Date.value.energy["cuftnaturalgas"]
+Convect_Date.value.energy["Latm"]=Convect_Date.value.energy["latm"]
+Convect_Date.value.energy["usgalatm"]=Convect_Date.value.energy["USgalatm"]
+Convect_Date.value.energy["U.S.galatm"]=Convect_Date.value.energy["USgalatm"]
+
+
+--[[ 
 --温度，基准为K
 Convect_Date.value.temperature={
                                  --国际单位制
@@ -264,10 +266,14 @@ Convect_Date.value.temperature={
                                  ["R"]={function(input) return (input/1.8) end,function(input) return input*1.8 end},
                                  ["F"]={function(input) return ((input+459.67)/1.8) end,function(input) return input*1.8-459.67 end}
                                  }
-Convect.value.temperature["°C"]=Convect.value.temperature["C"]
-Convect.value.temperature["°R"]=Convect.value.temperature["R"]
-Convect.value.temperature["°F"]=Convect.value.temperature["F"]
- 
+Convect_Date.value.temperature["°C"]=Convect_Date.value.temperature["C"]
+Convect_Date.value.temperature["°R"]=Convect_Date.value.temperature["R"]
+Convect_Date.value.temperature["°F"]=Convect_Date.value.temperature["F"]
+
+--由于mw.loadData()不允许返回表及子表存在函数，所以移入main.lua
+--]]
+
+
 --质量，基准为kg
 Convect_Date.value.mass={
                           --国际单位制
@@ -290,11 +296,11 @@ Convect_Date.value.mass={
                           --其他
                           ["carat"]=0.0002
                          }
-Convect.value.mass["μg"]=Convect.value.mass["ug"]
-Convect.value.mass["MT"]=Convect.value.mass["t"]
-Convect.value.mass["long ton"]=Convect.value.mass["LT"]
-Convect.value.mass["short ton"]=Convect.value.mass["ST"]
-Convect.value.mass["dram"]=Convect.value.mass["drachm"]
+Convect_Date.value.mass["μg"]=Convect_Date.value.mass["ug"]
+Convect_Date.value.mass["MT"]=Convect_Date.value.mass["t"]
+Convect_Date.value.mass["long ton"]=Convect_Date.value.mass["LT"]
+Convect_Date.value.mass["short ton"]=Convect_Date.value.mass["ST"]
+Convect_Date.value.mass["dram"]=Convect_Date.value.mass["drachm"]
  
 --力矩，基准为Nm
 Convect_Date.value.torque={
@@ -305,8 +311,8 @@ Convect_Date.value.torque={
                             --英制和美国常用
                             ["ftlb"]=1.3558179483314004
                            }
-Convect.value.torque["kgf.m"]=Convect.value.torque["kgm"]
-Convect.value.torque["lbfft"]=Convect.value.torque["ftlb"]
+Convect_Date.value.torque["kgf.m"]=Convect_Date.value.torque["kgm"]
+Convect_Date.value.torque["lbfft"]=Convect_Date.value.torque["ftlb"]
  
 --[[
     显示值（中文名，缩写名or符号）
@@ -338,10 +344,10 @@ Convect_Date.display.length={
                                 ["ly"]={"光年","ly"},
                                 ["AU"]={"天文单位","AU"},
                              }
-Convect.display.length["μm"]=Convect.display.length["um"]
-Convect.display.length["?"]=Convect.display.length["angstrom"]
-Convect.display.length["foot"]=Convect.display.length["ft"]
-    Convect.display.length["foot"][2]="foot"
+Convect_Date.display.length["μm"]=Convect_Date.display.length["um"]
+Convect_Date.display.length["Å"]=Convect_Date.display.length["angstrom"]
+Convect_Date.display.length["foot"]=Convect_Date.display.length["ft"]
+    Convect_Date.display.length["foot"][2]="foot"
  
 --面积
 Convect_Date.display.area={
@@ -365,8 +371,8 @@ Convect_Date.display.area={
                               ["dunam"]={"德南",nil},
                               ["tsubo"]={"坪",nil}
                            }
-Convect.display.area["sqfoot"]=Convect.display.area["sqft"]
-    Convect.display.area["sqfoot"][2]="square foot"
+Convect_Date.display.area["sqfoot"]=Convect_Date.display.area["sqft"]
+    Convect_Date.display.area["sqfoot"][2]="square foot"
 --体积
 Convect_Date.display.volume={
                                 --国际单位制
@@ -405,68 +411,68 @@ Convect_Date.display.volume={
                                 ["USdryqt"]={"美制干量夸脱","US dry qt"},
                                 ["USdrypt"]={"美制干量品脱","US dry pt"}
                              }
-Convect.display.volume["cc"]=Convect.display.volume["cm3"]
+Convect_Date.display.volume["cc"]=Convect_Date.display.volume["cm3"]
  
-Convect.display.volume["kL"]=Convect.display.volume["kl"]
-    Convect.display.volume["kL"][2]="kL"
+Convect_Date.display.volume["kL"]=Convect_Date.display.volume["kl"]
+    Convect_Date.display.volume["kL"][2]="kL"
  
-Convect.display.volume["L"]=Convect.display.volume["l"]
-    Convect.display.volume["L"][2]="L"
+Convect_Date.display.volume["L"]=Convect_Date.display.volume["l"]
+    Convect_Date.display.volume["L"][2]="L"
  
-Convect.display.volume["cL"]=Convect.display.volume["cl"]
-    Convect.display.volume["cL"][2]="cL"
+Convect_Date.display.volume["cL"]=Convect_Date.display.volume["cl"]
+    Convect_Date.display.volume["cL"][2]="cL"
  
-Convect.display.volume["mL"]=Convect.display.volume["ml"]
-    Convect.display.volume["mL"][2]="mL"
+Convect_Date.display.volume["mL"]=Convect_Date.display.volume["ml"]
+    Convect_Date.display.volume["mL"][2]="mL"
  
-Convect.display.volume["cufoot"]=Convect.display.volume["cuft"]
-    Convect.display.volume["cufoot"][2]="cubic foot"
+Convect_Date.display.volume["cufoot"]=Convect_Date.display.volume["cuft"]
+    Convect_Date.display.volume["cufoot"][2]="cubic foot"
  
-Convect.display.volume["impbu"]=Convect.display.volume["impbsh"]
-Convect.display.volume["impfloz"]=Convect.display.volume["impoz"]
+Convect_Date.display.volume["impbu"]=Convect_Date.display.volume["impbsh"]
+Convect_Date.display.volume["impfloz"]=Convect_Date.display.volume["impoz"]
  
-Convect.display.volume["U.S.bbl"]=Convect.display.volume["USbbl"]
-    Convect.display.volume["U.S.bbl"][2]="U.S. bbl"
+Convect_Date.display.volume["U.S.bbl"]=Convect_Date.display.volume["USbbl"]
+    Convect_Date.display.volume["U.S.bbl"][2]="U.S. bbl"
  
-Convect.display.volume["usbeerbbl"]=Convect.display.volume["USbeerbbl"]
-Convect.display.volume["U.S.beerbbl"]=Convect.display.volume["USbeerbbl"]
-    Convect.display.volume["U.S.beerbbl"][2]="U.S. bbl"
+Convect_Date.display.volume["usbeerbbl"]=Convect_Date.display.volume["USbeerbbl"]
+Convect_Date.display.volume["U.S.beerbbl"]=Convect_Date.display.volume["USbeerbbl"]
+    Convect_Date.display.volume["U.S.beerbbl"][2]="U.S. bbl"
  
-Convect.display.volume["U.S.gal"]=Convect.display.volume["USgal"]
-    Convect.display.volume["U.S.gal"][2]="U.S. gal"
+Convect_Date.display.volume["U.S.gal"]=Convect_Date.display.volume["USgal"]
+    Convect_Date.display.volume["U.S.gal"][2]="U.S. gal"
  
-Convect.display.volume["U.S.qt"]=Convect.display.volume["USqt"]
-    Convect.display.volume["U.S.qt"][2]="U.S. qt"
+Convect_Date.display.volume["U.S.qt"]=Convect_Date.display.volume["USqt"]
+    Convect_Date.display.volume["U.S.qt"][2]="U.S. qt"
  
-Convect.display.volume["U.S.pt"]=Convect.display.volume["USpt"]
-    Convect.display.volume["U.S.pt"][2]="U.S. pt"
+Convect_Date.display.volume["U.S.pt"]=Convect_Date.display.volume["USpt"]
+    Convect_Date.display.volume["U.S.pt"][2]="U.S. pt"
  
-Convect.display.volume["USfloz"]=Convect.display.volume["USoz"]
-    Convect.display.volume["USfloz"][2]="US fl oz"
+Convect_Date.display.volume["USfloz"]=Convect_Date.display.volume["USoz"]
+    Convect_Date.display.volume["USfloz"][2]="US fl oz"
  
-Convect.display.volume["U.S.oz"]=Convect.display.volume["USoz"]
-    Convect.display.volume["U.S.oz"][2]="US fl oz"
+Convect_Date.display.volume["U.S.oz"]=Convect_Date.display.volume["USoz"]
+    Convect_Date.display.volume["U.S.oz"][2]="US fl oz"
  
-Convect.display.volume["U.S.floz"]=Convect.display.volume["USoz"]
-    Convect.display.volume["U.S.floz"][2]="U.S. fl oz"
+Convect_Date.display.volume["U.S.floz"]=Convect_Date.display.volume["USoz"]
+    Convect_Date.display.volume["U.S.floz"][2]="U.S. fl oz"
  
-Convect.display.volume["U.S.drybbl"]=Convect.display.volume["USdrybbl"]
-    Convect.display.volume["U.S.drybbl"][2]="U.S. dry bbl"
+Convect_Date.display.volume["U.S.drybbl"]=Convect_Date.display.volume["USdrybbl"]
+    Convect_Date.display.volume["U.S.drybbl"][2]="U.S. dry bbl"
  
-Convect.display.volume["U.S.bsh"]=Convect.display.volume["USbsh"]
-    Convect.display.volume["U.S.bsh"][2]="U.S. bsh"
+Convect_Date.display.volume["U.S.bsh"]=Convect_Date.display.volume["USbsh"]
+    Convect_Date.display.volume["U.S.bsh"][2]="U.S. bsh"
  
-Convect.display.volume["U.S.bu"]=Convect.display.volume["USbu"]
-    Convect.display.volume["U.S.bu"][2]="U.S. bu"
+Convect_Date.display.volume["U.S.bu"]=Convect_Date.display.volume["USbu"]
+    Convect_Date.display.volume["U.S.bu"][2]="U.S. bu"
  
-Convect.display.volume["U.S.drygal"]=Convect.display.volume["USdrygal"]
-    Convect.display.volume["U.S.drygal"][2]="U.S. dry gal"
+Convect_Date.display.volume["U.S.drygal"]=Convect_Date.display.volume["USdrygal"]
+    Convect_Date.display.volume["U.S.drygal"][2]="U.S. dry gal"
  
-Convect.display.volume["U.S.dryqt"]=Convect.display.volume["USdryqt"]
-    Convect.display.volume["U.S.dryqt"][2]="U.S. dry qt"
+Convect_Date.display.volume["U.S.dryqt"]=Convect_Date.display.volume["USdryqt"]
+    Convect_Date.display.volume["U.S.dryqt"][2]="U.S. dry qt"
  
-Convect.display.volume["U.S.drypt"]=Convect.display.volume["USdrypt"]
-    Convect.display.volume["U.S.drypt"][2]="U.S. dry pt"
+Convect_Date.display.volume["U.S.drypt"]=Convect_Date.display.volume["USdrypt"]
+    Convect_Date.display.volume["U.S.drypt"][2]="U.S. dry pt"
  
 --速度
 Convect_Date.display.speed={
@@ -480,8 +486,8 @@ Convect_Date.display.speed={
                                --海事单位
                                ["knot"]={"节","kn"}
                             }
-Convect.display.speed["foot/s"]=Convect.display.speed["ft/s"]
-Convect.display.speed["kn"]=Convect.display.speed["knot"]
+Convect_Date.display.speed["foot/s"]=Convect_Date.display.speed["ft/s"]
+Convect_Date.display.speed["kn"]=Convect_Date.display.speed["knot"]
  
 --力
 Convect_Date.display.force={
@@ -510,16 +516,16 @@ Convect_Date.display.force={
                                 ["lb-f"]={"磅力","lb<sub>f</sub>"},
                                 ["gr-f"]={"格令力","gr<sub>f</sub>"}
                             }
-Convect.display.force["μN"]=Convect.display.force["uN"]
-Convect.display.force["dyne"]=Convect.display.force["dyn"]
-Convect.display.force["tf"]={"吨力","tf"}
-Convect.display.force["kgf"]={"千克力","kgf"}
-Convect.display.force["gf"]={"克力","gf"}
-Convect.display.force["mgf"]={"毫克力","mgf"}
-Convect.display.force["LTf"]={"长吨力","LTf"}
-Convect.display.force["STf"]={"短吨力","STf"}
-Convect.display.force["lbf"]={"磅力","lbf"}
-Convect.display.force["grf"]={"格令力","grf"}
+Convect_Date.display.force["μN"]=Convect_Date.display.force["uN"]
+Convect_Date.display.force["dyne"]=Convect_Date.display.force["dyn"]
+Convect_Date.display.force["tf"]={"吨力","tf"}
+Convect_Date.display.force["kgf"]={"千克力","kgf"}
+Convect_Date.display.force["gf"]={"克力","gf"}
+Convect_Date.display.force["mgf"]={"毫克力","mgf"}
+Convect_Date.display.force["LTf"]={"长吨力","LTf"}
+Convect_Date.display.force["STf"]={"短吨力","STf"}
+Convect_Date.display.force["lbf"]={"磅力","lbf"}
+Convect_Date.display.force["grf"]={"格令力","grf"}
  
 --能量
 Convect_Date.display.energy={
@@ -580,24 +586,24 @@ Convect_Date.display.energy={
                                 ["impgalatm"]={"加仑-大气压","imp gal·atm"},
                                 ["USgalatm"]={"美制加仑-大气压","US gal·atm"}
                              }
-Convect.display.energy["μJ"]=Convect.display.energy["uj"]
-Convect.display.energy["TW.h"]={"太瓦时","TW·h"}
-Convect.display.energy["GW.h"]={"吉瓦时","TW·h"}
-Convect.display.energy["MW.h"]={"兆瓦时","TW·h"}
-Convect.display.energy["kW.h"]={"千瓦时","TW·h"}
-Convect.display.energy["W.h"]={"瓦时","TW·h"}
-Convect.display.energy["ftlb-f"]={"英尺磅力","ft·lb<sub>f</sub>"}
-Convect.display.energy["inbl-f"]={"英尺磅力","in·lb<sub>f</sub>"}
-Convect.display.energy["inoz-f"]={"英寸磅司力","in·oz<sub>f</sub>"}
-Convect.display.energy["BTU"]={"英热单位","BTU"}
-Convect.display.energy["GtonTNT"]={"吉吨TNT当量","GtonTNT"}
-Convect.display.energy["MtonTNT"]={"兆吨TNT当量","MtonTNT"}
-Convect.display.energy["ktonTNT"]={"千吨TNT当量","ktonTNT"}
-Convect.display.energy["tonTNT"]={"吨TNT当量","tonTNT"}
-Convect.display.energy["cufootnaturalgas"]={"立方英尺天然气当量","cubicfoot of naturalgas"}
-Convect.display.energy["Latm"]=Convect.display.energy["latm"]
-Convect.display.energy["usgalatm"]=Convect.display.energy["USgalatm"]
-Convect.display.energy["U.S.galatm"]={"美制加仑-大气压","U.S. gal·atm"}
+Convect_Date.display.energy["μJ"]=Convect_Date.display.energy["uj"]
+Convect_Date.display.energy["TW.h"]={"太瓦时","TW·h"}
+Convect_Date.display.energy["GW.h"]={"吉瓦时","TW·h"}
+Convect_Date.display.energy["MW.h"]={"兆瓦时","TW·h"}
+Convect_Date.display.energy["kW.h"]={"千瓦时","TW·h"}
+Convect_Date.display.energy["W.h"]={"瓦时","TW·h"}
+Convect_Date.display.energy["ftlb-f"]={"英尺磅力","ft·lb<sub>f</sub>"}
+Convect_Date.display.energy["inbl-f"]={"英尺磅力","in·lb<sub>f</sub>"}
+Convect_Date.display.energy["inoz-f"]={"英寸磅司力","in·oz<sub>f</sub>"}
+Convect_Date.display.energy["BTU"]={"英热单位","BTU"}
+Convect_Date.display.energy["GtonTNT"]={"吉吨TNT当量","GtonTNT"}
+Convect_Date.display.energy["MtonTNT"]={"兆吨TNT当量","MtonTNT"}
+Convect_Date.display.energy["ktonTNT"]={"千吨TNT当量","ktonTNT"}
+Convect_Date.display.energy["tonTNT"]={"吨TNT当量","tonTNT"}
+Convect_Date.display.energy["cufootnaturalgas"]={"立方英尺天然气当量","cubicfoot of naturalgas"}
+Convect_Date.display.energy["Latm"]=Convect_Date.display.energy["latm"]
+Convect_Date.display.energy["usgalatm"]=Convect_Date.display.energy["USgalatm"]
+Convect_Date.display.energy["U.S.galatm"]={"美制加仑-大气压","U.S. gal·atm"}
  
 --温度
 Convect_Date.display.temperature={
@@ -608,9 +614,9 @@ Convect_Date.display.temperature={
                                     ["R"]={"兰氏度","°R"},
                                     ["F"]={"华氏度","°F"}
                                   }
-Convect.display.temperature["°C"]=Convect.display.temperature["C"]
-Convect.display.temperature["°R"]=Convect.display.temperature["R"]
-Convect.display.temperature["°F"]=Convect.display.temperature["F"]
+Convect_Date.display.temperature["°C"]=Convect_Date.display.temperature["C"]
+Convect_Date.display.temperature["°R"]=Convect_Date.display.temperature["R"]
+Convect_Date.display.temperature["°F"]=Convect_Date.display.temperature["F"]
  
 --质量
 Convect_Date.display.mass={
@@ -634,11 +640,11 @@ Convect_Date.display.mass={
                             --其他
                             ["carat"]={"克拉",""}
                            }
-Convect.display.mass["μg"]=Convect.display.mass["ug"]
-Convect.display.mass["MT"]=Convect.display.mass["t"]
-Convect.display.mass["long ton"]=Convect.display.mass["LT"]
-Convect.display.mass["short ton"]=Convect.display.mass["ST"]
-Convect.display.mass["dram"]={"dram",nil}
+Convect_Date.display.mass["μg"]=Convect_Date.display.mass["ug"]
+Convect_Date.display.mass["MT"]=Convect_Date.display.mass["t"]
+Convect_Date.display.mass["long ton"]=Convect_Date.display.mass["LT"]
+Convect_Date.display.mass["short ton"]=Convect_Date.display.mass["ST"]
+Convect_Date.display.mass["dram"]={"dram",nil}
  
 --力矩
 Convect_Date.display.torque={
@@ -649,8 +655,8 @@ Convect_Date.display.torque={
                                 --英制和美国常用
                                 ["ftlb"]={"英尺磅力","ft·lb"}
                              }
-Convect.display.torque["kgf.m"]={"千克力米","kgf·m"}
-Convect.display.torque["lbfft"]={"磅力英尺","lbf·ft"}
+Convect_Date.display.torque["kgf.m"]={"千克力米","kgf·m"}
+Convect_Date.display.torque["lbfft"]={"磅力英尺","lbf·ft"}
  
 --[[
     链接值
@@ -667,7 +673,7 @@ Convect_Date.link.length={
                             ["微米"]={"um","μm"},
                             ["纳米"]={"nm"},
                             --非国际单位制
-                            ["埃"]={"?","angstrom"},
+                            ["埃"]={"Å","angstrom"},
                             --英制和美国常用
                             ["英里"]={"mi"},
                             ["浪 (量度单位)"]={"furlong"},
