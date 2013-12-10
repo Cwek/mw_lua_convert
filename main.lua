@@ -159,7 +159,7 @@ local Convect.range_embellish={
         end
 
         for group_name in Convect.group_name do
-            for unit_name in Convect.value[group_name] do
+            for unit_name in Convect_Date.value[group_name] do
                 if unit_name==unit then
                     group=group_name
                     flag=true
@@ -246,20 +246,12 @@ local Convect.range_embellish={
         return input,false
     end
     
-   
-
-    
-    
-    --单位链接值建造
-    --@param flag:
-    --@param group:
-    --@param unit:
-    --@param display:
-    --@return 
-    function Convert.link_builder(flag,group,unit,display)
-        local code=""
-        
-        for k,v in pairs(Convert.link[group]) do
+    --单位链接值查找
+    --@param group:单位组名
+    --@param unit:单位名
+    --@return [false|<单位的链接值>]
+    function Convert.link_finder__(group,unit)
+        for k,v in pairs(Convect_Date.link[group]) do
             local linkname=k
             for t in v do
                 if unit==t then
@@ -267,6 +259,18 @@ local Convect.range_embellish={
                 end
             end
         end
+        return false
+    end
+    
+    --单位链接值建造
+    --@param flag:显示链接标记旗
+    --@param group:单位组名
+    --@param unit:单位名
+    --@param display:显示值
+    --@return <处理好的字符串（链接模式或纯文本）>
+    function Convert.link_builder(flag,group,unit,display)
+        local code=""
+        local t=link_finder(group,unit)
 
         if(flag and t~=false)then
             return code="[["..t.."|"..display.."]]"
@@ -274,63 +278,88 @@ local Convect.range_embellish={
             return code=display
         end
     end
+    
+    --单位显示值建造（中文全称或缩名）
+    --@param group:单位组名 
+    --@param unit:单位名
+    --@param flag:显示全程或缩名标记旗
+    --@return <处理好的字符串（全名或缩名）>
+    function Convert.display_builder(group,unit,flag)
+        local code=""
+        local t_arr=Convect_Date.display[group][unit]
 
-function Convert.display_builder__(group,unit,flag)--单位显示值建造（中文全称或缩名）
-    local code=""
-    local t_arr=Convert.display[group][unit]
-
-    if((not flag) or t_arr[2]~=nil)then
-       return t_arr[1]
-    else
-       return t_arr[2]
+        if((not flag) or t_arr[2]~=nil)then
+           return t_arr[1]--缩名
+        else
+           return t_arr[2]--全名
+        end
     end
-end
+    
+    --取整
+    --@param input:输入值
+    --@param sigfig:取整数
+    --@return <处理数>
+    function Convert.sigfig_func(input,sigfig)
+        local t,_=math.modf(input*math.pow(10,sigfig)+0.5)
 
-
-
-function Convert.sigfig_func(input,sigfig)--取整
-    local t,_=math.modf(input*math.pow(10,sigfig)+0.5)
-
-    if(sigfig<0)
-        return (string.format("%."..math.abs(sigfig).."f",(t/math.pow(10,sigfig))))
-    else
-        return (t/math.pow(10,sigfig))
+        if sigfig<0 then
+            return (string.format("%."..math.abs(sigfig).."f",(t/math.pow(10,sigfig))))
+        else
+            return (t/math.pow(10,sigfig))
+        end
     end
-end
-
-function Convert.sigfig5_func(input)--取5整
-    local t=sigfig_func(input,0)
-    local x=(math.fmod(t,10))
-    if(x<2.5)then
-        return t-x
-    elseif(x>=2.5 and x<5)then
-        return t+(5-x)
-    elseif(x>=5 and x<7.5)then
-        return t-(x-5)
-    elseif(x>=7.5) then
-        return t+(10-x)
+    
+    --取5整
+    --@param input:输入值
+    --@return <处理数>
+    function Convert.sigfig5_func(input)
+        local t=Convert.sigfig_func(input,0)
+        local x=(math.fmod(t,10))
+        if(x<2.5)then
+            return t-x
+        elseif(x>=2.5 and x<5)then
+            return t+(5-x)
+        elseif(x>=5 and x<7.5)then
+            return t-(x-5)
+        elseif(x>=7.5) then
+            return t+(10-x)
+        end
     end
-end
-
-function Convert.convert(group,in_unit,out_unit)--转换参数构造函数
-    local a_t=Convect.value[group][in_unit]
-    local b_t=Convect.value[group][out_unit]
-
-    if type(a_t)=="number" and type(b_t)=="number" then--如果是普通数（非温度类）
-        local a,b=a_t,b_t
-        return function(input) return input*a/b end
-    else--温度类的处理
-        local a_K,K_b=a_t[1],a_t[2]
-        return function(input) return K_b(a_K(input)) end
+    
+    --转换参数构造函数
+    --@param group:单位组名
+    --@param in_unit:输入单位
+    --@param out_unit:输出单位
+    --@return <方法（用于转换方法）>
+    function Convert.convert_builder(group,in_unit,out_unit)
+        local a_t
+        local b_t
+        
+        if Convect.is_temperature_unit(in_unit) and Convect.is_temperature_unit(out_unit)then
+            a_t=Convect.get_temperature_unit_convect(in_unit)
+            a_t=Convect.get_temperature_unit_convect(out_unit)
+        else
+            a_t=Convect_Date.value[group][in_unit]
+            b_t=Convect_Date.value[group][out_unit]
+        end
+        
+        if type(a_t)=="number" and type(b_t)=="number" then--如果是普通数（非温度类）
+            local a,b=a_t,b_t
+            return function(input) return input*a/b end
+        else--温度类的处理
+            local a_K,K_b=a_t[1],a_t[2]
+            return function(input) return K_b(a_K(input)) end
+        end
     end
-end
-
 
 
 --[[
     主方法开始
 --]]
-function Convect.init__(frame)--传入参数初始化
+--传入参数初始化
+--@param frame:mw.frame
+--@return <数组（负载）>
+function Convect.init__(frame)
     local args_from_template=frame:getParent().args
 
     local args={}--准备载具
