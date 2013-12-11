@@ -388,9 +388,13 @@ local Convect["range_embellish"]={
         local t_mark=0
         --local t_unit=nil
         --local t_unit_group=nil
-
-        --检查是否1个处理单元
-        t_mark=2
+        local groupA,flagA
+        local groupB,flagB        
+        
+        --[[
+            检查是否1个处理单元
+        --]]
+        t_mark=2--锁定检查索引2
         t_processCount=1
         for v in Convect["temperature_range"] do--温度间转换
             if v==args[t_mark] then
@@ -398,18 +402,29 @@ local Convect["range_embellish"]={
                 args["processCount"]=t_processCount
                 args["group"]="temperature"
                 args["temperature_range"]=v
+                args["mark"]=t_mark
+                
+                if tonumber(args[t_mark+1])~=nil then--使用索引参数标记有效位，记录
+                     args["sigfig_inindex"]=tonumber(args[t_mark+1])
+                end
                 
                 return args
             end
         end
         
-        local group_name,flag=Convect.unit_check(args[t_mark]);
-        if flag==true then      --确认第一个是单位，以区分联系词（2个处理单元）
+        groupA,flagA=Convect.unit_check(args[t_mark]);
+        if flagA==true then--确认第一个是单位，以区分联系词（2个处理单元）
             --确认是不是组合输入（索引参数4是不是同组单位）
             if Convect.is_input_together(args[t_mark],args[t_mark+2])then
                 args["processCount"]=t_processCount
                 args["group"]=group_name
                 args["inputtogether"]=true
+                args["mark"]=t_mark
+                
+                if tonumber(args[t_mark+3])~=nil then--使用索引参数标记有效位，记录
+                     args["sigfig_inindex"]=tonumber(args[t_mark+3])
+                end
+                
                 return args
             end
             
@@ -419,21 +434,104 @@ local Convect["range_embellish"]={
                 args["processCount"]=t_processCount
                 args["group"]=group_name
                 args["outputtogether"]={unitA,unitB}
+                args["mark"]=t_mark
+                
+                if tonumber(args[t_mark+2])~=nil then--使用索引参数标记有效位，记录
+                     args["sigfig_inindex"]=tonumber(args[t_mark+2])
+                end
                 
                 return args
             end
             
-            --
+            --确认是不是普通的1个单元处理（索引数组3）
             local groupB,flagB=Convect.unit_check(args[t_mark+1])
             if flagB and groupB==group_name then 
                 args["processCount"]=t_processCount
                 args["group"]=group_name
+                args["mark"]=t_mark
+                
+                if tonumber(args[t_mark+2])~=nil then--使用索引参数标记有效位，记录
+                     args["sigfig_inindex"]=tonumber(args[t_mark+3])
+                end
                 
                 return args
             end
         end
         
-        --<<<<<<<<确认索引数组2是不是修饰词并获得修饰词
+        local embellish,flag_embellish
+        args["embellish"]={}
+        --[[
+            检查是否2个处理单元
+        --]]        
+        t_mark=4--锁定检查索引4
+        t_processCount=2
+        embellish,flag_embellish=Convert.embellish(args[t_mark-2])--确认索引数组2是不是修饰词并获得修饰词
+        ----if Convert.embellish(args[t_mark-2]) then
+        args["embellish"][1]=embellish
+        ----end
+        --检查索引4和索引5是否是单位，是则确认为2个处理数
+        groupA,flagA=Convect.unit_check(args[t_mark])
+        groupB,flagB=Convect.unit_check(args[t_mark+1])
+        if groupA==groupB and (flagA and flagB) then
+            args["processCount"]=t_processCount
+            args["group"]=group_name
+            args["mark"]=t_mark
+            
+            if tonumber(args[t_mark+2])~=nil then--使用索引参数标记有效位，记录
+                 args["sigfig_inindex"]=tonumber(args[t_mark+3])
+            end
+            
+            return args    
+        end
+        
+        --[[
+            检查是否3个处理单元
+        --]]
+        t_mark=6--锁定检查索引4
+        t_processCount=3
+        embellish,flag_embellish=Convert.embellish(args[t_mark-2])--确认索引数组2是不是修饰词并获得修饰词
+        ----if Convert.embellish(args[t_mark-2]) then
+        args["embellish"][2]=embellish
+        ----end
+        --检查索引6和索引7是否是单位，是则确认为2个处理数
+        groupA,flagA=Convect.unit_check(args[t_mark])
+        groupB,flagB=Convect.unit_check(args[t_mark+1])
+        if groupA==groupB and (flagA and flagB) then
+            args["processCount"]=t_processCount
+            args["group"]=group_name
+            args["mark"]=t_mark
+            
+            if tonumber(args[t_mark+2])~=nil then--使用索引参数标记有效位，记录
+                 args["sigfig_inindex"]=tonumber(args[t_mark+3])
+            end
+            
+            return args    
+        end
+        
+        --[[
+            检查是否4个处理单元
+        --]]
+        t_mark=8--锁定检查索引6
+        t_processCount=4
+        embellish,flag_embellish=Convert.embellish(args[t_mark-2])--确认索引数组2是不是修饰词并获得修饰词
+        ----if Convert.embellish(args[t_mark-2]) then
+        args["embellish"][3]=embellish
+        ----end
+        --检查索引6和索引7是否是单位，是则确认为2个处理数
+        groupA,flagA=Convect.unit_check(args[t_mark])
+        groupB,flagB=Convect.unit_check(args[t_mark+1])
+        if groupA==groupB and (flagA and flagB) then
+            args["processCount"]=t_processCount
+            args["group"]=group_name
+            args["mark"]=t_mark
+            
+            if tonumber(args[t_mark+2])~=nil then--使用索引参数标记有效位，记录              
+                args["sigfig_inindex"]=tonumber(args[t_mark+3])
+            end
+            
+            return args    
+        end
+        
         
 
 
@@ -647,7 +745,23 @@ args可能传入数据：
         [sigfig5]:整5取整标记-bool,nil
         [out_unit_instead]:组合输出单位，只限处理1个单元时-table
 --]]
-function Convert.bind_1__(args)
+
+
+
+function Conert.select(args)
+    local switch={}
+    switch[1]=Convert.bind_1
+    switch[2]=Convert.bind_2
+    switch[3]=Convert.bind_3
+    switch[4]=Convert.bind_4
+    switch["temperature_range"]=Convert.bind_1_tempRange
+    switch["inputtogether"]=Convert.bind_1_intogether
+    switch["outputtogether"]=Convert.bind_1_outtogether
+    return switch[args["processCount"]](args)    
+end
+
+
+function Convert.bind_1(args)
     local out=""
 
     local in_value={}
@@ -761,7 +875,19 @@ function Convert.bind_1__(args)
     return out
 end
 
-function Convert.bind_2__(args)
+function Convert.bind_1_tempRange(args)
+
+end
+
+function Convert.bind_1_intogether(args)
+
+end
+
+function Convert.bind_1_outtogether(args)
+
+end
+
+function Convert.bind_2(args)
 end
 
 function Convert.bind_3__(args)
@@ -776,10 +902,10 @@ function Convert.main(frame)
     args=Convert.cheak__(args)
 
     local switch={}
-    switch[1]=Convert.bind_1__
-    switch[2]=Convert.bind_2__
-    switch[3]=Convert.bind_3__
-    switch[4]=Convert.bind_4__
+    switch[1]=Convert.bind_1
+    switch[2]=Convert.bind_2
+    switch[3]=Convert.bind_3
+    switch[4]=Convert.bind_4
 
     return switch[args["processCount"]](args)
 end
