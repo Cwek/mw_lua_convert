@@ -1,16 +1,16 @@
-﻿local Convect={}
+﻿local Convert={}
 
 --组名
-local Convect["group_name"]={"length","area","volume","speed","force","energy","temperature","mass","torque"}
+local Convert["group_name"]={"length","area","volume","speed","force","energy","temperature","mass","torque"}
 --基准单位
-local Convect["baseunit"]={"m","m2","m3","m/s","N","J","K","kg","Nm"}
+local Convert["baseunit"]={"m","m2","m3","m/s","N","J","K","kg","Nm"}
 --基础数据
-local Convect_Date=mw.loadData("模块:沙盒/cwek/Convert/data")
+local Convert_Date=mw.loadData("模块:沙盒/cwek/Convert/data")
 
 --温度，基准为K
 --[0]为目标转基准，[1]为基准转目标
 --从data.lua移入
-Convect_Date_of_temperature.value.temperature={
+Convert_Date_of_temperature.value.temperature={
                                  --国际单位制
                                  ["K"]={function(input) return 1*input end,function(input) return 1*input end},
                                  ["C"]={function(input) return (input+273.15) end ,function(input) return input-273.15 end},
@@ -18,23 +18,23 @@ Convect_Date_of_temperature.value.temperature={
                                  ["R"]={function(input) return (input/1.8) end,function(input) return input*1.8 end},
                                  ["F"]={function(input) return ((input+459.67)/1.8) end,function(input) return input*1.8-459.67 end}
                                  }
-Convect_Date_of_temperature.value.temperature["°C"]=Convect_Date_of_temperature.value.temperature["C"]
-Convect_Date_of_temperature.value.temperature["°R"]=Convect_Date_of_temperature.value.temperature["R"]
-Convect_Date_of_temperature.value.temperature["°F"]=Convect_Date_of_temperature.value.temperature["F"]
-Convect["temperature_unit"]={"K","C","R","F","°C","°R","°F"}
+Convert_Date_of_temperature.value.temperature["°C"]=Convert_Date_of_temperature.value.temperature["C"]
+Convert_Date_of_temperature.value.temperature["°R"]=Convert_Date_of_temperature.value.temperature["R"]
+Convert_Date_of_temperature.value.temperature["°F"]=Convert_Date_of_temperature.value.temperature["F"]
+Convert["temperature_unit"]={"K","C","R","F","°C","°R","°F"}
 ----
 
 
 --特别内容--
 --支持2值算单值的单位（组合输入单位）
-local Convect["input_together"]={
+local Convert["input_together"]={
                             ["ft"]={{"ft","in"}},
                             ["st"]={{"st","lb"}},
                             ["lb"]={{"lb","oz"}}
                             }
 --支持组合输出单位的
 --{单位={允许的单位,...},...}
-local Convect["output_together"]={
+local Convert["output_together"]={
                             --长度
                             ["km"]={"mi"},
                             ["m"]={"ft","ftin"},
@@ -109,10 +109,10 @@ local Convect["output_together"]={
                             ["Nm"]={"lbft","lbfft"}
 }
 --温度差处理
-local Convect["temperature_range"]={"C-change","F-change"}
+local Convert["temperature_range"]={"C-change","F-change"}
 
 --2+单元修饰词
-local Convect["range_embellish"]={
+local Convert["range_embellish"]={
                                 ["to"]="到",
                                 ["and"]="和",
                                 ["or"]="或",
@@ -131,8 +131,8 @@ local Convect["range_embellish"]={
     --判断是否是温度单位
     --@param unit:输入单位名
     --@return false|true
-    function Convect.is_temperature_unit(unit)
-        for v in Convect.temperature_unit do
+    function Convert.is_temperature_unit(unit)
+        for v in Convert.temperature_unit do
             if v==unit then
                 return true
             end
@@ -143,14 +143,14 @@ local Convect["range_embellish"]={
     --获得温度的换算器
     --@param unit:输入的温度单位名
     --@return 温度单位的换算函数数组
-    function Convect.get_temperature_unit_convect(unit)
-        return Convect_Date_of_temperature.value.temperature[unit]
+    function Convert.get_temperature_unit_Convert(unit)
+        return Convert_Date_of_temperature.value.temperature[unit]
     end
 
     --单个单位检查工具
     --@param unit:输入单位名
     --@return <单位所属组名>,[false|true]
-    function Convect.unit_check(unit)
+    function Convert.unit_check(unit)
         local flag=false
         local group=nil
 
@@ -158,13 +158,13 @@ local Convect["range_embellish"]={
             return group,flag
         end
         
-        for group_name in Convect.group_name do
+        for group_name in Convert.group_name do
             if group_name=="temperature" then--针对温度
-                if Convect.is_temperature_unit() then
+                if Convert.is_temperature_unit() then
                     return "temperature",true
                 end
             else            
-                for unit_name in Convect_Date.value[group_name] do--通常，其他
+                for unit_name in Convert_Date.value[group_name] do--通常，其他
                     if unit_name==unit then
                         group=group_name
                         flag=true
@@ -182,11 +182,11 @@ local Convect["range_embellish"]={
     --@param group:单位所属组
     --@param unit:输入单位名
     --@return [值（非温度的换算值）|函数数组（温度的换算函数）]
-    function Convect.unit_convect_value(group,unit)
-        if group=="temperature" and Convect.is_temperature_unit(unit) then
-            return Convect.get_temperature_unit_convect(unit)--数组
+    function Convert.unit_Convert_value(group,unit)
+        if group=="temperature" and Convert.is_temperature_unit(unit) then
+            return Convert.get_temperature_unit_Convert(unit)--数组
         else
-            return Convect_Date.value[group][unit]--数
+            return Convert_Date.value[group][unit]--数
         end
     end
 
@@ -194,8 +194,8 @@ local Convect["range_embellish"]={
     --@param unitA:第一个输入单位
     --@param unitB:第二个输入单位
     --@return false|true
-    function Convect.is_input_together(unitA,unitB)
-        for k1,v1 in pairs(Convect.input_together) do
+    function Convert.is_input_together(unitA,unitB)
+        for k1,v1 in pairs(Convert.input_together) do
             if k1==unitA then
                 for k2,v2 in pairs(k1) do
                     if k2==unitB then
@@ -210,10 +210,10 @@ local Convect["range_embellish"]={
     --检查输入的字符串是否输出组合单位
     --@param input:输入的字符串
     --@return [false,nil,nil|true,<第一个单位>,<第二个单位>]
-    function Convect.is_out_together(input)
+    function Convert.is_out_together(input)
         local _,_,unitA,unitB=string.find(input,"(%a+)%s(%a+)")
-        local groupA,flagA=Convect.unit_check(unitA)
-        local groupB,flagB=Convect.unit_check(unitB)
+        local groupA,flagA=Convert.unit_check(unitA)
+        local groupB,flagB=Convert.unit_check(unitB)
 
         if (flagA and flagB) and groupA==groupB then
             return true,unitA,unitB
@@ -243,9 +243,9 @@ local Convect["range_embellish"]={
     --@param input:输入检查字符串
     --@return [原字符串|对应的修饰词],[false|true]
     function Convert.embellish(input)
-        for k,v in pairs(Convect.range_embellish) do
+        for k,v in pairs(Convert.range_embellish) do
             if k==input then
-                return Convect.range_embellish[k],true
+                return Convert.range_embellish[k],true
             end
         end
 
@@ -257,7 +257,7 @@ local Convect["range_embellish"]={
     --@param unit:单位名
     --@return [false|<单位的链接值>]
     function Convert.link_finder__(group,unit)
-        for k,v in pairs(Convect_Date.link[group]) do
+        for k,v in pairs(Convert_Date.link[group]) do
             local linkname=k
             for t in v do
                 if unit==t then
@@ -292,7 +292,7 @@ local Convect["range_embellish"]={
     --@return <处理好的字符串（全名或缩名）>
     function Convert.display_builder(group,unit,flag)
         local code=""
-        local t_arr=Convect_Date.display[group][unit]
+        local t_arr=Convert_Date.display[group][unit]
 
         if((not flag) or t_arr[2]~=nil)then
            return t_arr[1]--缩名
@@ -341,12 +341,12 @@ local Convect["range_embellish"]={
         local a_t
         local b_t
         
-        if Convect.is_temperature_unit(in_unit) and Convect.is_temperature_unit(out_unit)then
-            a_t=Convect.get_temperature_unit_convect(in_unit)
-            a_t=Convect.get_temperature_unit_convect(out_unit)
+        if Convert.is_temperature_unit(in_unit) and Convert.is_temperature_unit(out_unit)then
+            a_t=Convert.get_temperature_unit_Convert(in_unit)
+            a_t=Convert.get_temperature_unit_Convert(out_unit)
         else
-            a_t=Convect_Date.value[group][in_unit]
-            b_t=Convect_Date.value[group][out_unit]
+            a_t=Convert_Date.value[group][in_unit]
+            b_t=Convert_Date.value[group][out_unit]
         end
         
         if type(a_t)=="number" and type(b_t)=="number" then--如果是普通数（非温度类）
@@ -365,7 +365,7 @@ local Convect["range_embellish"]={
     --传入参数初始化
     --@param frame:mw.frame
     --@return <数组（负载）>
-    function Convect.init__(frame)
+    function Convert.init(frame)
         local args_from_template=frame:getParent().args
 
         local args={}--准备载具
@@ -382,7 +382,7 @@ local Convect["range_embellish"]={
     end
     
     --整理参数，确定处理数
-    function Convect.cheak(args)
+    function Convert.cheak(args)
         --根据索引参数组的数字排序判断处理单元数
         local t_processCount=0
         local t_mark=0
@@ -396,7 +396,7 @@ local Convect["range_embellish"]={
         --]]
         t_mark=2--锁定检查索引2
         t_processCount=1
-        for v in Convect["temperature_range"] do--温度间转换
+        for v in Convert["temperature_range"] do--温度间转换
             if v==args[t_mark] then
                 --t_processCount=1
                 args["processCount"]=t_processCount
@@ -412,10 +412,10 @@ local Convect["range_embellish"]={
             end
         end
         
-        groupA,flagA=Convect.unit_check(args[t_mark]);
+        groupA,flagA=Convert.unit_check(args[t_mark]);
         if flagA==true then--确认第一个是单位，以区分联系词（2个处理单元）
             --确认是不是组合输入（索引参数4是不是同组单位）
-            if Convect.is_input_together(args[t_mark],args[t_mark+2])then
+            if Convert.is_input_together(args[t_mark],args[t_mark+2])then
                 args["processCount"]=t_processCount
                 args["group"]=group_name
                 args["inputtogether"]=true
@@ -429,7 +429,7 @@ local Convect["range_embellish"]={
             end
             
             --确认是不是组合输出（索引数组3是不是同组单位）
-            local out_together_flag,unitA,unitB=Convect.is_out_together(args[t_mark+1])
+            local out_together_flag,unitA,unitB=Convert.is_out_together(args[t_mark+1])
             if out_together_flag then
                 args["processCount"]=t_processCount
                 args["group"]=group_name
@@ -444,7 +444,7 @@ local Convect["range_embellish"]={
             end
             
             --确认是不是普通的1个单元处理（索引数组3）
-            local groupB,flagB=Convect.unit_check(args[t_mark+1])
+            local groupB,flagB=Convert.unit_check(args[t_mark+1])
             if flagB and groupB==group_name then 
                 args["processCount"]=t_processCount
                 args["group"]=group_name
@@ -470,8 +470,8 @@ local Convect["range_embellish"]={
         args["embellish"][1]=embellish
         ----end
         --检查索引4和索引5是否是单位，是则确认为2个处理数
-        groupA,flagA=Convect.unit_check(args[t_mark])
-        groupB,flagB=Convect.unit_check(args[t_mark+1])
+        groupA,flagA=Convert.unit_check(args[t_mark])
+        groupB,flagB=Convert.unit_check(args[t_mark+1])
         if groupA==groupB and (flagA and flagB) then
             args["processCount"]=t_processCount
             args["group"]=group_name
@@ -494,8 +494,8 @@ local Convect["range_embellish"]={
         args["embellish"][2]=embellish
         ----end
         --检查索引6和索引7是否是单位，是则确认为2个处理数
-        groupA,flagA=Convect.unit_check(args[t_mark])
-        groupB,flagB=Convect.unit_check(args[t_mark+1])
+        groupA,flagA=Convert.unit_check(args[t_mark])
+        groupB,flagB=Convert.unit_check(args[t_mark+1])
         if groupA==groupB and (flagA and flagB) then
             args["processCount"]=t_processCount
             args["group"]=group_name
@@ -518,8 +518,8 @@ local Convect["range_embellish"]={
         args["embellish"][3]=embellish
         ----end
         --检查索引6和索引7是否是单位，是则确认为2个处理数
-        groupA,flagA=Convect.unit_check(args[t_mark])
-        groupB,flagB=Convect.unit_check(args[t_mark+1])
+        groupA,flagA=Convert.unit_check(args[t_mark])
+        groupB,flagB=Convert.unit_check(args[t_mark+1])
         if groupA==groupB and (flagA and flagB) then
             args["processCount"]=t_processCount
             args["group"]=group_name
@@ -530,182 +530,9 @@ local Convect["range_embellish"]={
             end
             
             return args    
-        end
+        end   
         
-        
-
-
-
-        if tonumber(args.args[1])~=nil--处理1个单元
-            t_processCount=1
-        elseif tonumber(args.args[3])~=nil--处理2个单元
-            t_processCount=2
-
-            --从特殊2转1输入中找出匹配项
-            local find_in_inputSepceil=function(input1,input2)
-                for k,v in pairs(input_sepceil) do
-                    if k==input1 then
-                        for t in v do
-                            if v==input2 then
-                                return true
-                            end
-                        end
-                    end
-                end
-                return false
-            end
-            if find_in_inputSepceil(args.args[2],args.args[4]) then--如果索引2和索引4在2转1输入中，改回处理1个单元
-                args["2in1"]=true
-                t_processCount=1
-            else
-                args["2in1"]=false
-            end
-
-            --温度转换检测
-            local find_temperatureChange=function(input1)
-                for v in Convect.temperature_range do
-                    if input1==v then
-                        return true
-                    end
-                end
-                return false
-            end
-            if find_temperatureChange(args.args[2]) then--如果索引2有特定的温度转换参数，改回处理1个单元
-                t_processCount=1
-                args["t_c"]=true
-            else
-                args["t_c"]=false
-            end
-        elseif tonumber(args.args[5])~=nil and args["processCount"]==3 then--处理3个单元
-            t_processCount=3
-        elseif tonumber(args.args[7])~=nil and args["processCount"]==4 then--处理4个单元
-            t_processCount=4
-        end
-        args["processCount"]=t_processCount
-        --处理单元判断done
-
-        --处理sigfig，disp相关的基数
-        local base=0--对应输出单位位置的基值
-        if args["processCount"]==1 then
-            base=3
-        elseif args["processCount"]==2 then
-            base=5
-        elseif args["processCount"]==3 then
-            base=7
-        elseif args["processCount"]==4 then
-            base=9
-        end
-            if(args["processCount"]==1 and string.find(args.args[base]," "))then--检查是否含有复合输出，以判断是否带有空格
-                --将可能是组合单位输出的相应参数进行分离
-                local t_out={}
-                local i=0
-                while true do--
-                    x,y=string.find(args.args[base]," ",i)
-                    if(x==nil or y==nil)then
-                        table.insert(t_out,string.sub(args.args[base],i,#args.args[base]))
-                        break
-                    else
-                        table.insert(t_out,string.sub(args.args[base],i,x-1))
-                        i=y+1
-                    end
-                end
-
-                local a,b=t_out[1],t_out[2]--读取两个分离单位
-                local flag=false
-
-                for k,v in pairs(Convect.output_together) do--进行对比确认
-                    if(k==a)then
-                        for t in v do
-                            if(b==t)then
-                                --args["output_together"]=true
-                                args["out_unit_instead"]=t_out
-                                flag=true
-                                break
-                            end
-                        end
-                        break
-                    end
-                end
-                if(not flag)then--如果不是组合单位
-                    args.args[base]=a--直接修改参数，改为前一个单位
-                end
-
-            end
-            --args.args
-
-            --判断有没省略输出单位
-            local _,unit_flag=Convect.unit_check__(args.args[base])
-            if out_unit_flag then
-                args["out_unit_miss"]=false
-                base=base+1
-            else
-                args["out_unit_miss"]=false
-                if(args["t_c"])then
-                    args["out_unit_miss"]=true
-                end
-            end
-            --处理sigfig
-            local t_sigfig=args["sigfig"]
-            if tonumber(args.args[base])~=nil and (not args["have_sigfig"])then
-                t_sigfig=tonumber(args.args[base])
-                base=base+1
-            elseif args["have_sigfig"] then
-                t_sigfig=args["sigfig"]
-            end
-            args["sigfig"]=t_sigfig
-            --disp=x的处理
-            if args["disp"]=="x" then
-                args["modelX_a"]=(args.args[base]~=nil and args.args[base])or ""
-                args["modelX_b"]=(args.args[base+1]~=nil and args.args[base+1])or ""
-            end
-        --处理完毕
-
-        --处理disp参数
-        local disp_b_model="%s[%s]"
-        args["model"]=disp_b_model
-
-
-        local switch_disp={}
-        switch_disp["b"]=       function()
-                                    --args["model"]=disp_b_model
-                                end
-        switch_disp["comma"]=   function()
-                                    args["model"]="%s，%s"
-                                end
-        switch_disp["output only"]=function()
-                                    --args["model"]=disp_b_model
-                                    args["outputOnly"]=true
-                                end
-        switch_disp["output number only"]=function()
-                                    --args["model"]=disp_b_model
-                                    args["outputOnly"]=true
-                                    args["out_only_val"]=true
-                                end
-        switch_disp["flip"]=    function()
-                                    --args["model"]=disp_b_model
-                                    args["filp"]=true
-                                end
-        switch_disp["unit"]=    function()
-                                    args["unitonly"]=true
-                                end
-        switch_disp["5"]=       function()
-                                    args["sigfig5"]=true
-                                end
-        switch_disp["x"]=       function()
-                                    args["model"]="%s"..args["modelX_a"].."%s"..args["modelX_b"]
-                                end
-        swtich_disp["table"]=   function()
-                                    args["table"]=true
-                                    local center="align=\"center\" "
-                                    local issort=""
-
-                                    if args["sortable"] then
-                                        issort="data-sort-value=\"%s\" "
-                                    end
-                                    args["model"]=center..issort.."|%s".."|"..center.."|%s"
-                                end
-        swtich_disp[args["disp"]]()
-
+        --结束
         return args
     end
 --[[
@@ -748,7 +575,7 @@ args可能传入数据：
 
 
 
-function Conert.select(args)
+function Convert.select(args)
     local switch={}
     switch[1]=Convert.bind_1
     switch[2]=Convert.bind_2
@@ -757,10 +584,91 @@ function Conert.select(args)
     switch["temperature_range"]=Convert.bind_1_tempRange
     switch["inputtogether"]=Convert.bind_1_intogether
     switch["outputtogether"]=Convert.bind_1_outtogether
-    return switch[args["processCount"]](args)    
+    local flag=args["processCount"]
+    if args["temperature_range"]~=nil then
+        flag="temperature_range"
+    elseif args["inputtogether"]~=nil then
+        flag="inputtogether"
+    elseif args["outputtogether"]~=nil then
+        flag="outputtogether"
+    end    
+    return switch[flag](args)    
 end
 
+--处理sigfig（暂时存放）
+function Convert.sigfig(args)
+    --处理sigfig
+    local t_sigfig=args["sigfig"]
+    if tonumber(args.args[base])~=nil and (not args["have_sigfig"])then
+        t_sigfig=tonumber(args.args[base])
+        base=base+1
+    elseif args["have_sigfig"] then
+        t_sigfig=args["sigfig"]
+    end
+    args["sigfig"]=t_sigfig
+end 
 
+--处理disp（包括sortable）（暂时保存）
+function Covecrt.disp(args)    
+    --处理disp参数
+    local disp_b_model="%s[%s]"
+    args["model"]=disp_b_model
+
+
+    local switch_disp={}
+    switch_disp["b"]=       function()
+                                --args["model"]=disp_b_model
+                            end
+    switch_disp["comma"]=   function()
+                                args["model"]="%s，%s"
+                            end
+    switch_disp["output only"]=function()
+                                --args["model"]=disp_b_model
+                                args["outputOnly"]=true
+                            end
+    switch_disp["output number only"]=function()
+                                --args["model"]=disp_b_model
+                                args["outputOnly"]=true
+                                args["out_only_val"]=true
+                            end
+    switch_disp["flip"]=    function()
+                                --args["model"]=disp_b_model
+                                args["filp"]=true
+                            end
+    switch_disp["unit"]=    function()
+                                args["unitonly"]=true
+                            end
+    switch_disp["5"]=       function()
+                                args["sigfig5"]=true
+                            end
+    switch_disp["x"]=       function()
+                                args["model"]="%s"..args["modelX_a"].."%s"..args["modelX_b"]
+                            end
+    swtich_disp["table"]=   function()
+                                args["table"]=true
+                                local center="align=\"center\" "
+                                local issort=""
+
+                                if args["sortable"] then
+                                    issort="data-sort-value=\"%s\" "
+                                end
+                                args["model"]=center..issort.."|%s".."|"..center.."|%s"
+                            end
+    swtich_disp[args["disp"]]()
+    
+    --disp=x的处理
+    if args["disp"]=="x" then
+        args["modelX_a"]=(args.args[base]~=nil and args.args[base])or ""
+        args["modelX_b"]=(args.args[base+1]~=nil and args.args[base+1])or ""
+    end
+    --处理完毕
+        
+    return 
+end
+
+--[[
+    处理普通1个处理单元
+--]]
 function Convert.bind_1(args)
     local out=""
 
@@ -875,39 +783,51 @@ function Convert.bind_1(args)
     return out
 end
 
+--[[
+    处理温度间转换1个处理单元
+--]]
 function Convert.bind_1_tempRange(args)
 
 end
 
+--[[
+    处理组合输入1个处理单元
+--]]
 function Convert.bind_1_intogether(args)
 
 end
 
+--[[
+    处理组合1个处理单元
+--]]
 function Convert.bind_1_outtogether(args)
 
 end
 
+--[[
+    处理普通2个处理单元
+--]]
 function Convert.bind_2(args)
 end
 
-function Convert.bind_3__(args)
+--[[
+    处理普通3个处理单元
+--]]
+function Convert.bind_3(args)
 end
 
-function Convert.bind_4__(args)
+--[[
+    处理普通3个处理单元
+--]]
+function Convert.bind_4(args)
 end
 
 function Convert.main(frame)
-    local args=Convert.init__(frame)
+    local args=Convert.init(frame)
 
-    args=Convert.cheak__(args)
+    args=Convert.cheak(args)
 
-    local switch={}
-    switch[1]=Convert.bind_1
-    switch[2]=Convert.bind_2
-    switch[3]=Convert.bind_3
-    switch[4]=Convert.bind_4
-
-    return switch[args["processCount"]](args)
+    return Convert.select(args)
 end
 
 return Convert
