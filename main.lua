@@ -157,13 +157,13 @@ local Convert["range_embellish"]={
         if(tonumber(unit)~=nil)then
             return group,flag
         end
-        
+
         for group_name in Convert.group_name do
             if group_name=="temperature" then--针对温度
                 if Convert.is_temperature_unit() then
                     return "temperature",true
                 end
-            else            
+            else
                 for unit_name in Convert_Date.value[group_name] do--通常，其他
                     if unit_name==unit then
                         group=group_name
@@ -221,7 +221,7 @@ local Convert["range_embellish"]={
             return false,nil,nil
         end
     end
-    
+
     --根据组查阅组的基准单位
     --@param group:单位组名
     --@return [<基准单位名>|""]
@@ -251,7 +251,7 @@ local Convert["range_embellish"]={
 
         return input,false
     end
-    
+
     --单位链接值查找
     --@param group:单位组名
     --@param unit:单位名
@@ -267,7 +267,7 @@ local Convert["range_embellish"]={
         end
         return false
     end
-    
+
     --单位链接值建造
     --@param flag:显示链接标记旗
     --@param group:单位组名
@@ -284,9 +284,9 @@ local Convert["range_embellish"]={
             return code=display
         end
     end
-    
+
     --单位显示值建造（中文全称或缩名）
-    --@param group:单位组名 
+    --@param group:单位组名
     --@param unit:单位名
     --@param flag:显示全程或缩名标记旗
     --@return <处理好的字符串（全名或缩名）>
@@ -300,7 +300,7 @@ local Convert["range_embellish"]={
            return t_arr[2]--全名
         end
     end
-    
+
     --取整
     --@param input:输入值
     --@param sigfig:取整数
@@ -314,7 +314,7 @@ local Convert["range_embellish"]={
             return (t/math.pow(10,sigfig))
         end
     end
-    
+
     --取5整
     --@param input:输入值
     --@return <处理数>
@@ -331,7 +331,7 @@ local Convert["range_embellish"]={
             return t+(10-x)
         end
     end
-    
+
     --转换参数构造函数
     --@param group:单位组名
     --@param in_unit:输入单位
@@ -340,7 +340,7 @@ local Convert["range_embellish"]={
     function Convert.convert_builder(group,in_unit,out_unit)
         local a_t
         local b_t
-        
+
         if Convert.is_temperature_unit(in_unit) and Convert.is_temperature_unit(out_unit)then
             a_t=Convert.get_temperature_unit_Convert(in_unit)
             a_t=Convert.get_temperature_unit_Convert(out_unit)
@@ -348,7 +348,7 @@ local Convert["range_embellish"]={
             a_t=Convert_Date.value[group][in_unit]
             b_t=Convert_Date.value[group][out_unit]
         end
-        
+
         if type(a_t)=="number" and type(b_t)=="number" then--如果是普通数（非温度类）
             local a,b=a_t,b_t
             return function(input) return input*a/b end
@@ -378,9 +378,25 @@ local Convert["range_embellish"]={
             end
         end
 
+        if not args["lk"] then--设定lk默认值
+            args["lk"]="off"
+        end
+
+        if not args["abbr"] then--设定abbr默认值
+            args["abbr"]="off"
+        end
+
+        if not args["disp"] then--设定disp默认值
+            args["disp"]="b"
+        end
+
+        if not args["sigfig"] then--设定sigfig默认值
+            args["sigfig"]=3
+        end
+
         return args
     end
-    
+
     --整理参数，确定处理数
     function Convert.cheak(args)
         --根据索引参数组的数字排序判断处理单元数
@@ -389,8 +405,8 @@ local Convert["range_embellish"]={
         --local t_unit=nil
         --local t_unit_group=nil
         local groupA,flagA
-        local groupB,flagB        
-        
+        local groupB,flagB
+
         --[[
             检查是否1个处理单元
         --]]
@@ -403,15 +419,15 @@ local Convert["range_embellish"]={
                 args["group"]="temperature"
                 args["temperature_range"]=v
                 args["mark"]=t_mark
-                
+
                 if tonumber(args[t_mark+1])~=nil then--使用索引参数标记有效位，记录
                      args["sigfig_inindex"]=tonumber(args[t_mark+1])
                 end
-                
+
                 return args
             end
         end
-        
+
         groupA,flagA=Convert.unit_check(args[t_mark]);
         if flagA==true then--确认第一个是单位，以区分联系词（2个处理单元）
             --确认是不是组合输入（索引参数4是不是同组单位）
@@ -420,14 +436,14 @@ local Convert["range_embellish"]={
                 args["group"]=group_name
                 args["inputtogether"]=true
                 args["mark"]=t_mark
-                
+
                 if tonumber(args[t_mark+3])~=nil then--使用索引参数标记有效位，记录
                      args["sigfig_inindex"]=tonumber(args[t_mark+3])
                 end
-                
+
                 return args
             end
-            
+
             --确认是不是组合输出（索引数组3是不是同组单位）
             local out_together_flag,unitA,unitB=Convert.is_out_together(args[t_mark+1])
             if out_together_flag then
@@ -435,34 +451,34 @@ local Convert["range_embellish"]={
                 args["group"]=group_name
                 args["outputtogether"]={unitA,unitB}
                 args["mark"]=t_mark
-                
+
                 if tonumber(args[t_mark+2])~=nil then--使用索引参数标记有效位，记录
                      args["sigfig_inindex"]=tonumber(args[t_mark+2])
                 end
-                
+
                 return args
             end
-            
+
             --确认是不是普通的1个单元处理（索引数组3）
             local groupB,flagB=Convert.unit_check(args[t_mark+1])
-            if flagB and groupB==group_name then 
+            if flagB and groupB==group_name then
                 args["processCount"]=t_processCount
                 args["group"]=group_name
                 args["mark"]=t_mark
-                
+
                 if tonumber(args[t_mark+2])~=nil then--使用索引参数标记有效位，记录
                      args["sigfig_inindex"]=tonumber(args[t_mark+3])
                 end
-                
+
                 return args
             end
         end
-        
+
         local embellish,flag_embellish
         args["embellish"]={}
         --[[
             检查是否2个处理单元
-        --]]        
+        --]]
         t_mark=4--锁定检查索引4
         t_processCount=2
         embellish,flag_embellish=Convert.embellish(args[t_mark-2])--确认索引数组2是不是修饰词并获得修饰词
@@ -476,14 +492,14 @@ local Convert["range_embellish"]={
             args["processCount"]=t_processCount
             args["group"]=group_name
             args["mark"]=t_mark
-            
+
             if tonumber(args[t_mark+2])~=nil then--使用索引参数标记有效位，记录
                  args["sigfig_inindex"]=tonumber(args[t_mark+3])
             end
-            
-            return args    
+
+            return args
         end
-        
+
         --[[
             检查是否3个处理单元
         --]]
@@ -500,14 +516,14 @@ local Convert["range_embellish"]={
             args["processCount"]=t_processCount
             args["group"]=group_name
             args["mark"]=t_mark
-            
+
             if tonumber(args[t_mark+2])~=nil then--使用索引参数标记有效位，记录
                  args["sigfig_inindex"]=tonumber(args[t_mark+3])
             end
-            
-            return args    
+
+            return args
         end
-        
+
         --[[
             检查是否4个处理单元
         --]]
@@ -524,14 +540,14 @@ local Convert["range_embellish"]={
             args["processCount"]=t_processCount
             args["group"]=group_name
             args["mark"]=t_mark
-            
-            if tonumber(args[t_mark+2])~=nil then--使用索引参数标记有效位，记录              
+
+            if tonumber(args[t_mark+2])~=nil then--使用索引参数标记有效位，记录
                 args["sigfig_inindex"]=tonumber(args[t_mark+3])
             end
-            
-            return args    
-        end   
-        
+
+            return args
+        end
+
         --结束
         return args
     end
@@ -591,8 +607,8 @@ function Convert.select(args)
         flag="inputtogether"
     elseif args["outputtogether"]~=nil then
         flag="outputtogether"
-    end    
-    return switch[flag](args)    
+    end
+    return switch[flag](args)
 end
 
 --处理sigfig（暂时存放）
@@ -606,10 +622,10 @@ function Convert.sigfig(args)
         t_sigfig=args["sigfig"]
     end
     args["sigfig"]=t_sigfig
-end 
+end
 
 --处理disp（包括sortable）（暂时保存）
-function Covecrt.disp(args)    
+function Covecrt.disp(args)
     --处理disp参数
     local disp_b_model="%s[%s]"
     args["model"]=disp_b_model
@@ -655,133 +671,95 @@ function Covecrt.disp(args)
                                 args["model"]=center..issort.."|%s".."|"..center.."|%s"
                             end
     swtich_disp[args["disp"]]()
-    
+
     --disp=x的处理
     if args["disp"]=="x" then
         args["modelX_a"]=(args.args[base]~=nil and args.args[base])or ""
         args["modelX_b"]=(args.args[base+1]~=nil and args.args[base+1])or ""
     end
     --处理完毕
-        
-    return 
+
+    return
 end
 
---[[
-    处理普通1个处理单元
---]]
-function Convert.bind_1(args)
-    local out=""
+    --[[
+        args可能有：
+        原生数据,
+        必然存在:
+            ["processCount"]=<处理单元数>
+            ["group"]=<单元组名>
+            ["mark"]=第一个单位的起始位标
+        可能存在:
+            ["sigfig_inindex"]=通过索引参数传入的有效位数
+            (1)["temperature_range"]=温度间转换标记(表明那种转换)
+            (1)["inputtogether"]=组合输入标记(true)
+            (1)["outputtogether"]=组合输出标记(输出单位数组)
+            (2,3,4)["embellish"]=联系词数组
+    --]]
+    --[[
+        处理普通1个处理单元
+    --]]
+    function Convert.bind_1(args)
+        --锁定锚点
+        local mark=args["mark"]
 
-    local in_value={}
-    local out_value={}
+        --初始化数值，单位，转换方法
+        local in_num,out_num=tonumber(args[mark-1]),0
+        local in_unit,out_unit,group_name=args[mark],args[mark+1],args["group"]
+        local function_convert=Convert.convert_builder(group_name,in_unit,out_unit)
 
-    local in_unit={}
-    local out_unit={}
-    local group_name=""
-    local function_convert={}
-
-    --转换参数输入整理
-    table.insert(in_value,args.args[1])
-    table.insert(in_unit,args.args[2])
-    group_name,_=Convert.unit_Convert_value(in_unit[1])
-    local baseunit=Convert.base_unit__(group_name)
-    table.insert(out_unit,(args.args[3] and args.args[3] )or baseunit)
-    if(args["2in1"])then--2转1的输入
-        table.insert(in_value,args.args[1])
-        table.insert(in_unit,args.args[2])
-        --table.insert(out_unit,(args.args[3] and args.args[3] )or baseunit)
-    end
-    if(args["t_c"])then--温度范围转换
-        if in_unit[1]=="C-change" then
-            in_unit[1]="C"
-            out_unit[1]="F"
-        elseif in_unit[1]=="F-change" then
-            in_unit[1]="F"
-            out_unit[1]="C"
+        --换算中
+        out_num=function_convert(in_num)
+        
+        --有效位数计算
+        local sigfig=0        
+        if args["sigfig_inindex"]~=nil then
+            sigfig=tonumber(args["sigfig_inindex"])
+        elseif args["sigfig"] then
+            sigfig=tonumber(args["sigfig"])
         end
-        group_name="temperature"
-    end
-    if(args["unitonly"])then--只输入单位显示输出,处理args["unitonly"]
-        out=out..table.concat(in_unit,"，")
+        local function_sigfig=Convert.sigfig_func
+        if args["disp"]=="5" then
+            function_sigfig=Convert.sigfig5_func
+        end
+        out_num=function_sigfig(out_num,sigfig)
+        
+        --输出
+        --输出准备
+        local out=""
+
+        local lk,abbr,disp=args["lk"],args["abbr"],args["disp"]
+        local lk_in_flag,lk_out_flag,abbr_in_flag,abbr_out_flag
+        local number_only_flag,out_number_only_flag,out_unit_only_flag=false,false,false
+        
+        if lk=="off" then
+            lk_in_flag,lk_out_flag=false,false
+        elseif lk=="in" then
+            lk_in_flag,lk_out_flag=true,false
+        elseif lk=="out" then
+            lk_in_flag,lk_out_flag=false,true
+        elseif lk="on" then
+            lk_in_flag,lk_out_flag=true,true
+        end
+        
+        if abbr=="off" then
+            abbr_in_flag,abbr_out_flag=false,false
+        if abbr=="in" then
+            abbr_in_flag,abbr_out_flag=true,false
+        if abbr=="out" then
+            abbr_in_flag,abbr_out_flag=false,true
+        if abbr=="off" then
+            abbr_in_flag,abbr_out_flag=true,true
+        if abbr=="off" then
+            abbr_in_flag,abbr_out_flag=false,false
+            number_only_flag=true
+        end    
+        
+        
+        
+        
         return out
     end
-
-    if(not args["out_unit_instead"])then
-        for v in in_unit do--获得转换参数公式<---------<------
-            table.insert(function_convert,Convert.convert(v,out_unit[1]))
-        end
-
-        for k,v in pairs(in_value) do--转换中和sigfig的处理和args["sigfig5"]
-            local t_number=function_convert[k](v)
-
-            t_number=Convert.sigfig_func(t_number,args["sigfig"])
-            if(args["sigfig5"])then t_number=Convert.sigfig5_func(tonumber(t_number)).."" end
-            table.insert(out_value,t_number,k)
-        end
-        local sum_out_value=0
-        for v in out_value do--汇总
-            sum_out_value=sum_out_value+v
-        end
-    else
-        out_unit=args["out_unit_instead"]--args["out_unit_instead"]的转换生成
-        for v in out_unit do
-            table.insert(function_convert,Convert.convert(in_unit[1],v))
-        end
-
-        for k,v in pairs(function_convert) do
-            local t_number=v(in_value[1])
-
-            t_number=Convert.sigfig_func(t_number,args["sigfig"])
-            if(args["sigfig5"])then t_number=Convert.sigfig5_func(tonumber(t_number)).."" end
-            table.insert(out_value,t_number,k)
-        end
-    end
-
-    local in_out,out_out="",""
-
-    --输入显示处理，并处理连个控制参数
-    if(not args["outputOnly"])then--args["outputOnly"]
-        for k,v in pairs(in_value)do
-            in_out=in_out..v..Convert.link_builder__
-                (args["link_in"],group_name,in_unit[k],
-                    (args["display_valonly"] and "") or --args[display_valonly]
-                    Convert.display_builder__
-                    (group_name,in_unit[k],["display_shortin"])
-                )
-        end
-    end
-
-    --输出显示处理
-    if not args["out_unit_instead"] then
-        out_out=out_out..sum_out_value
-
-        if args["out_only_val"] then--args["out_only_val"]
-        out_out=out_out..Convert.link_builder__
-                (args["link_out"],group_name,in_unit[k],
-                    (args["display_valonly"] and "") or --args[display_valonly]
-                    Convert.display_builder__
-                    (group_name,in_unit[k],["display_shortout"])
-                )
-    else--<<<<<<<<<<
-        if args["out_only_val"] then--args["out_only_val"]
-        out_out=out_out..Convert.link_builder__
-                (args["link_out"],group_name,in_unit[k],
-                    (args["display_valonly"] and "") or --args[display_valonly]
-                    Convert.display_builder__
-                    (group_name,in_unit[k],["display_shortout"])
-                )
-
-    end
-
-    local a,b=in_out,out_out
-    if args["filp"] then b,a=in_out,out_out--[filp]
-
-    if(args["sortable"])
-        out=out..string.format(args["model"],a,a,b)
-    else
-        out=out..string.format(args["model"],a,b)
-    return out
-end
 
 --[[
     处理温度间转换1个处理单元
