@@ -288,16 +288,16 @@ local Convert["range_embellish"]={
     --单位显示值建造（中文全称或缩名）
     --@param group:单位组名
     --@param unit:单位名
-    --@param flag:显示全程或缩名标记旗
+    --@param flag:显示全程或缩名标记旗<true为缩名，false为全名>
     --@return <处理好的字符串（全名或缩名）>
     function Convert.display_builder(group,unit,flag)
         local code=""
         local t_arr=Convert_Date.display[group][unit]
 
         if((not flag) or t_arr[2]~=nil)then
-           return t_arr[1]--缩名
+           return t_arr[1]--全名
         else
-           return t_arr[2]--全名
+           return t_arr[2]--缩名
         end
     end
 
@@ -419,6 +419,7 @@ local Convert["range_embellish"]={
                 args["group"]="temperature"
                 args["temperature_range"]=v
                 args["mark"]=t_mark
+                args["last_mark"]=t_mark--离索引参数有效位最后前一位
 
                 if tonumber(args[t_mark+1])~=nil then--使用索引参数标记有效位，记录
                      args["sigfig_inindex"]=tonumber(args[t_mark+1])
@@ -436,9 +437,10 @@ local Convert["range_embellish"]={
                 args["group"]=group_name
                 args["inputtogether"]=true
                 args["mark"]=t_mark
+                args["last_mark"]=t_mark+3--离索引参数有效位最后前一位
 
-                if tonumber(args[t_mark+3])~=nil then--使用索引参数标记有效位，记录
-                     args["sigfig_inindex"]=tonumber(args[t_mark+3])
+                if tonumber(args[t_mark+4])~=nil then--使用索引参数标记有效位，记录
+                     args["sigfig_inindex"]=tonumber(args[t_mark+4])
                 end
 
                 return args
@@ -451,6 +453,7 @@ local Convert["range_embellish"]={
                 args["group"]=group_name
                 args["outputtogether"]={unitA,unitB}
                 args["mark"]=t_mark
+                args["last_mark"]=t_mark+1--离索引参数有效位最后前一位
 
                 if tonumber(args[t_mark+2])~=nil then--使用索引参数标记有效位，记录
                      args["sigfig_inindex"]=tonumber(args[t_mark+2])
@@ -465,6 +468,7 @@ local Convert["range_embellish"]={
                 args["processCount"]=t_processCount
                 args["group"]=group_name
                 args["mark"]=t_mark
+                args["last_mark"]=t_mark+1--离索引参数有效位最后前一位
 
                 if tonumber(args[t_mark+2])~=nil then--使用索引参数标记有效位，记录
                      args["sigfig_inindex"]=tonumber(args[t_mark+3])
@@ -492,6 +496,7 @@ local Convert["range_embellish"]={
             args["processCount"]=t_processCount
             args["group"]=group_name
             args["mark"]=t_mark
+            args["last_mark"]=t_mark+1--离索引参数有效位最后前一位
 
             if tonumber(args[t_mark+2])~=nil then--使用索引参数标记有效位，记录
                  args["sigfig_inindex"]=tonumber(args[t_mark+3])
@@ -516,6 +521,7 @@ local Convert["range_embellish"]={
             args["processCount"]=t_processCount
             args["group"]=group_name
             args["mark"]=t_mark
+            args["last_mark"]=t_mark+1--离索引参数有效位最后前一位
 
             if tonumber(args[t_mark+2])~=nil then--使用索引参数标记有效位，记录
                  args["sigfig_inindex"]=tonumber(args[t_mark+3])
@@ -540,6 +546,7 @@ local Convert["range_embellish"]={
             args["processCount"]=t_processCount
             args["group"]=group_name
             args["mark"]=t_mark
+            args["last_mark"]=t_mark+1--离索引参数有效位最后前一位
 
             if tonumber(args[t_mark+2])~=nil then--使用索引参数标记有效位，记录
                 args["sigfig_inindex"]=tonumber(args[t_mark+3])
@@ -551,78 +558,32 @@ local Convert["range_embellish"]={
         --结束
         return args
     end
---[[
-转换处理流程概况
-in_value[x](in_unit[x])：获得输入值，输入单位并计算输出单位（获得或根据单位所属组获得基准单位）
-         |             ：计算转换公式
-        \|/
-function_convert[x]    ：计算值
-         |
-        \|/
-out_value[x](out_unit[1])：计算出输出值
-         |
-        \|/
-out_value_sum：合并部分输出值
---]]
---[[
-args可能传入数据：
-    init生成的：
-        [args]:传入的索引参数-table
-        [processCount]<3,4或nil>:要处理的单元数-number
-        [link_in],[link_out]:控制是否生成单位链接-bool
-        [display_shortin],[display_shortout],[display_valonly]:控制单位显示生成-bool
-        [sigfig]:有效位数-number
-        [disp]:传入的disp-string
-        [sortable]:传入的sortable-bool
-        [have_sigfig]：存在sigfig-bool
-    check生成的：
-        [2in1]:2转1标记-bool
-        [t_c]:温度范围转换标记-bool
-        [out_unit_miss]:缺少输出单位标记-bool
-        [modelX_a],[modelX_b]:disp=x的标记模型-string
-        [model]:输出的模型-string
-        [outputOnly]:控制只包含输出标记-bool,nil
-        [out_only_val]:控制只包含输出值标记-bool,nil
-        [filp]:翻转输入输出位置标记-bool.nil
-        [unitonly]:只包含单位输出标记-bool,nil
-        [sigfig5]:整5取整标记-bool,nil
-        [out_unit_instead]:组合输出单位，只限处理1个单元时-table
---]]
 
 
-
-function Convert.select(args)
-    local switch={}
-    switch[1]=Convert.bind_1
-    switch[2]=Convert.bind_2
-    switch[3]=Convert.bind_3
-    switch[4]=Convert.bind_4
-    switch["temperature_range"]=Convert.bind_1_tempRange
-    switch["inputtogether"]=Convert.bind_1_intogether
-    switch["outputtogether"]=Convert.bind_1_outtogether
-    local flag=args["processCount"]
-    if args["temperature_range"]~=nil then
-        flag="temperature_range"
-    elseif args["inputtogether"]~=nil then
-        flag="inputtogether"
-    elseif args["outputtogether"]~=nil then
-        flag="outputtogether"
+    --[[
+        选择并执行对应的转换模式方法
+        @param 负载数组
+        @return 显示代码
+    --]]
+    function Convert.select(args)
+        local switch={}
+        switch[1]=Convert.bind_1
+        switch[2]=Convert.bind_2
+        switch[3]=Convert.bind_3
+        switch[4]=Convert.bind_4
+        switch["temperature_range"]=Convert.bind_1_tempRange
+        switch["inputtogether"]=Convert.bind_1_intogether
+        switch["outputtogether"]=Convert.bind_1_outtogether
+        local flag=args["processCount"]
+        if args["temperature_range"]~=nil then
+            flag="temperature_range"
+        elseif args["inputtogether"]~=nil then
+            flag="inputtogether"
+        elseif args["outputtogether"]~=nil then
+            flag="outputtogether"
+        end
+        return switch[flag](args)
     end
-    return switch[flag](args)
-end
-
---处理sigfig（暂时存放）
-function Convert.sigfig(args)
-    --处理sigfig
-    local t_sigfig=args["sigfig"]
-    if tonumber(args.args[base])~=nil and (not args["have_sigfig"])then
-        t_sigfig=tonumber(args.args[base])
-        base=base+1
-    elseif args["have_sigfig"] then
-        t_sigfig=args["sigfig"]
-    end
-    args["sigfig"]=t_sigfig
-end
 
 --处理disp（包括sortable）（暂时保存）
 function Covecrt.disp(args)
@@ -689,6 +650,7 @@ end
             ["processCount"]=<处理单元数>
             ["group"]=<单元组名>
             ["mark"]=第一个单位的起始位标
+            ["last_mark"]=离（假设的）索引参数有效位最后前一位
         可能存在:
             ["sigfig_inindex"]=通过索引参数传入的有效位数
             (1)["temperature_range"]=温度间转换标记(表明那种转换)
@@ -710,9 +672,9 @@ end
 
         --换算中
         out_num=function_convert(in_num)
-        
+
         --有效位数计算
-        local sigfig=0        
+        local sigfig=0
         if args["sigfig_inindex"]~=nil then
             sigfig=tonumber(args["sigfig_inindex"])
         elseif args["sigfig"] then
@@ -723,15 +685,19 @@ end
             function_sigfig=Convert.sigfig5_func
         end
         out_num=function_sigfig(out_num,sigfig)
-        
+
         --输出
         --输出准备
-        local out=""
+        local out
 
+        --读取lk，abbr，disp
         local lk,abbr,disp=args["lk"],args["abbr"],args["disp"]
         local lk_in_flag,lk_out_flag,abbr_in_flag,abbr_out_flag
         local number_only_flag,out_number_only_flag,out_unit_only_flag=false,false,false
-        
+
+        --[[
+            lk判断
+        --]]
         if lk=="off" then
             lk_in_flag,lk_out_flag=false,false
         elseif lk=="in" then
@@ -741,31 +707,107 @@ end
         elseif lk="on" then
             lk_in_flag,lk_out_flag=true,true
         end
-        
+
+        --[[
+            abbr判断
+        --]]
         if abbr=="off" then
             abbr_in_flag,abbr_out_flag=false,false
-        if abbr=="in" then
+        elseif abbr=="in" then
             abbr_in_flag,abbr_out_flag=true,false
-        if abbr=="out" then
+        elseif abbr=="out" then
             abbr_in_flag,abbr_out_flag=false,true
-        if abbr=="off" then
+        elseif abbr=="off" then
             abbr_in_flag,abbr_out_flag=true,true
-        if abbr=="off" then
+        elseif abbr=="value" then
             abbr_in_flag,abbr_out_flag=false,false
             number_only_flag=true
-        end    
+        end
         
+        --[[
+            生成单位的输出代码
+        --]]
+        local inunit_code=Convert.link_builder(lk_in_flag,group_name,in_unit,Convert.display_builder(group_name,in_unit,abbr_in_flag))
+        local outunit_code=Convert.link_builder(lk_out_flag,group_name,out_unit,Convert.display_builder(group_name,out_unit,abbr_out_flag))
         
-        
-        
-        return out
+        --[[
+            disp判断输出
+        --]]
+        local divisionA,divisionB="（","）"
+        if disp=="output only" then
+            if number_only_flag then
+                inunit_code=""
+            end
+            in_num=""
+            out={in_num,inunit_code,divisionA,out_num,outunit_code,divisionB}
+
+            return table.concat(out)
+        elseif disp=="output number only" then
+            inunit_code=""
+            in_num=""
+            outunit_code=""
+            out={in_num,inunit_code,divisionA,out_num,outunit_code,divisionB}
+
+            return table.concat(out)
+        elseif disp=="b" then--disp=b，默认
+            divisionA,divisionB="[","]"
+            out={in_num,inunit_code,divisionA,out_num,outunit_code,divisionB}
+
+            return table.concat(out)
+        elseif disp=="comma" then--disp=comma
+            divisionA,divisionB="，",""
+            out={in_num,inunit_code,divisionA,out_num,outunit_code,divisionB}
+
+            return table.concat(out)
+        elseif disp=="x" then --disp=x
+            local t_mark=0--存在索引参数有效位数的偏移标记
+            if args["sigfig_inindex"]~=nil then--存在则为1
+                t_mark=1
+            end
+            local last_mark=args["last_mark"]
+            local t_divisionA,t_divisionB=args[last_mark+t_mark+1],args[last_mark+t_mark+2]--读取倒数最后一到两位（对应disp=x时后两位的位置）
+            if t_divsionB==nil then
+                t_divsionB=""
+            end
+            divisionA,divisionB=t_divisionA,t_divisionB
+
+            out={in_num,inunit_code,divisionA,out_num,outunit_code,divisionB}
+
+            return table.concat(out)
+        elseif disp=="filp" then
+            out={out_num,outunit_code,divisionA,in_num,inunit_code,divisionB}
+            
+            return table.concat(out)
+        elseif disp=="unit" then
+            if in_num==1 then 
+                outunit_code=Convert.link_builder(lk_out_flag,group_name,out_unit,Convert.display_builder(group_name,out_unit,false))
+            else
+                outunit_code=Convert.link_builder(lk_out_flag,group_name,out_unit,Convert.display_builder(group_name,out_unit,true))    
+            end
+            out={in_num,inunit_code,divisionA,out_num,outunit_code,divisionB}
+            
+            return table.concat(out)
+        elseif disp=="table" then
+            local temp=""
+            if args["sortable"]~=nil then
+                --代替调用{{ntsh}}，效果等价
+                temp=string.format([[<span style="display:none">%016.6f</span>]],in_num)
+            end
+            out={"|",temp,in_num,"||",out_num}
+            
+            return table.concat(out)
+        else
+            out={in_num,inunit_code,divisionA,out_num,outunit_code,divisionB}
+            
+            return table.concat(out)
+        end        
     end
 
 --[[
     处理温度间转换1个处理单元
 --]]
 function Convert.bind_1_tempRange(args)
-
+    
 end
 
 --[[
