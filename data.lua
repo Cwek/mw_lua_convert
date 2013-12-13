@@ -328,7 +328,7 @@ Convect_Date.display.length={
                                 ["um"]={"微米","μm"},
                                 ["nm"]={"纳米","nm"},
                                 --非国际单位制
-                                ["angstrom"]={"埃","?"},
+                                ["angstrom"]={"埃","Å"},
                                 --英制和美国常用
                                 ["mi"]={"英里","英里"},
                                 ["furlong"]={"浪",nil},
@@ -344,10 +344,9 @@ Convect_Date.display.length={
                                 ["ly"]={"光年","ly"},
                                 ["AU"]={"天文单位","AU"},
                              }
-Convect_Date.display.length["μm"]=Convect_Date.display.length["um"]
-Convect_Date.display.length["Å"]=Convect_Date.display.length["angstrom"]
-Convect_Date.display.length["foot"]=Convect_Date.display.length["ft"]
-    Convect_Date.display.length["foot"][2]="foot"
+Convect_Date.display.length["μm"]={"微米","μm"}
+Convect_Date.display.length["Å"]={"埃","Å"}
+Convect_Date.display.length["foot"]={"英尺","foot"}
  
 --面积
 Convect_Date.display.area={
@@ -371,8 +370,8 @@ Convect_Date.display.area={
                               ["dunam"]={"德南",nil},
                               ["tsubo"]={"坪",nil}
                            }
-Convect_Date.display.area["sqfoot"]=Convect_Date.display.area["sqft"]
-    Convect_Date.display.area["sqfoot"][2]="square foot"
+Convect_Date.display.area["sqfoot"]={"平方英尺","square foot"}
+
 --体积
 Convect_Date.display.volume={
                                 --国际单位制
@@ -411,68 +410,29 @@ Convect_Date.display.volume={
                                 ["USdryqt"]={"美制干量夸脱","US dry qt"},
                                 ["USdrypt"]={"美制干量品脱","US dry pt"}
                              }
-Convect_Date.display.volume["cc"]=Convect_Date.display.volume["cm3"]
- 
-Convect_Date.display.volume["kL"]=Convect_Date.display.volume["kl"]
-    Convect_Date.display.volume["kL"][2]="kL"
- 
-Convect_Date.display.volume["L"]=Convect_Date.display.volume["l"]
-    Convect_Date.display.volume["L"][2]="L"
- 
-Convect_Date.display.volume["cL"]=Convect_Date.display.volume["cl"]
-    Convect_Date.display.volume["cL"][2]="cL"
- 
-Convect_Date.display.volume["mL"]=Convect_Date.display.volume["ml"]
-    Convect_Date.display.volume["mL"][2]="mL"
- 
-Convect_Date.display.volume["cufoot"]=Convect_Date.display.volume["cuft"]
-    Convect_Date.display.volume["cufoot"][2]="cubic foot"
- 
-Convect_Date.display.volume["impbu"]=Convect_Date.display.volume["impbsh"]
-Convect_Date.display.volume["impfloz"]=Convect_Date.display.volume["impoz"]
- 
-Convect_Date.display.volume["U.S.bbl"]=Convect_Date.display.volume["USbbl"]
-    Convect_Date.display.volume["U.S.bbl"][2]="U.S. bbl"
- 
-Convect_Date.display.volume["usbeerbbl"]=Convect_Date.display.volume["USbeerbbl"]
-Convect_Date.display.volume["U.S.beerbbl"]=Convect_Date.display.volume["USbeerbbl"]
-    Convect_Date.display.volume["U.S.beerbbl"][2]="U.S. bbl"
- 
-Convect_Date.display.volume["U.S.gal"]=Convect_Date.display.volume["USgal"]
-    Convect_Date.display.volume["U.S.gal"][2]="U.S. gal"
- 
-Convect_Date.display.volume["U.S.qt"]=Convect_Date.display.volume["USqt"]
-    Convect_Date.display.volume["U.S.qt"][2]="U.S. qt"
- 
-Convect_Date.display.volume["U.S.pt"]=Convect_Date.display.volume["USpt"]
-    Convect_Date.display.volume["U.S.pt"][2]="U.S. pt"
- 
-Convect_Date.display.volume["USfloz"]=Convect_Date.display.volume["USoz"]
-    Convect_Date.display.volume["USfloz"][2]="US fl oz"
- 
-Convect_Date.display.volume["U.S.oz"]=Convect_Date.display.volume["USoz"]
-    Convect_Date.display.volume["U.S.oz"][2]="US fl oz"
- 
-Convect_Date.display.volume["U.S.floz"]=Convect_Date.display.volume["USoz"]
-    Convect_Date.display.volume["U.S.floz"][2]="U.S. fl oz"
- 
-Convect_Date.display.volume["U.S.drybbl"]=Convect_Date.display.volume["USdrybbl"]
-    Convect_Date.display.volume["U.S.drybbl"][2]="U.S. dry bbl"
- 
-Convect_Date.display.volume["U.S.bsh"]=Convect_Date.display.volume["USbsh"]
-    Convect_Date.display.volume["U.S.bsh"][2]="U.S. bsh"
- 
-Convect_Date.display.volume["U.S.bu"]=Convect_Date.display.volume["USbu"]
-    Convect_Date.display.volume["U.S.bu"][2]="U.S. bu"
- 
-Convect_Date.display.volume["U.S.drygal"]=Convect_Date.display.volume["USdrygal"]
-    Convect_Date.display.volume["U.S.drygal"][2]="U.S. dry gal"
- 
-Convect_Date.display.volume["U.S.dryqt"]=Convect_Date.display.volume["USdryqt"]
-    Convect_Date.display.volume["U.S.dryqt"][2]="U.S. dry qt"
- 
-Convect_Date.display.volume["U.S.drypt"]=Convect_Date.display.volume["USdrypt"]
-    Convect_Date.display.volume["U.S.drypt"][2]="U.S. dry pt"
+Convect_Date.display.volume["cc"]={"立方厘米","cm<sup>3</sup>"} 
+Convect_Date.display.volume["kL"]={"千升","kL"} 
+Convect_Date.display.volume["L"]={"升","L"} 
+Convect_Date.display.volume["cL"]={"厘升","cL"} 
+Convect_Date.display.volume["mL"]={"毫升","mL"} 
+Convect_Date.display.volume["cufoot"]={"立方英尺","cubic foot"}
+Convect_Date.display.volume["impbu"]={"英制蒲式耳","imp bsh"}
+Convect_Date.display.volume["impfloz"]={"英制液体盎司","imp fl oz"} 
+Convect_Date.display.volume["U.S.bbl"]={"美制桶","U.S. bbl"} 
+Convect_Date.display.volume["usbeerbbl"]={"美制啤酒桶","US bbl"},
+Convect_Date.display.volume["U.S.beerbbl"]={"美制啤酒桶","U.S. bbl"} 
+Convect_Date.display.volume["U.S.gal"]={"美制加仑","U.S. gal"} 
+Convect_Date.display.volume["U.S.qt"]={"美制夸脱","U.S. qt"} 
+Convect_Date.display.volume["U.S.pt"]={"美制品脱","U.S. pt"} 
+Convect_Date.display.volume["USfloz"]={"美制液体盎司","US fl oz"}
+Convect_Date.display.volume["U.S.oz"]={"美制液体盎司","US fl oz"} 
+Convect_Date.display.volume["U.S.floz"]={"美制液体盎司","U.S. fl oz"} 
+Convect_Date.display.volume["U.S.drybbl"]={"美制干桶","U.S. dry bbl"} 
+Convect_Date.display.volume["U.S.bsh"]={"美制蒲式耳","U.S. bsh"} 
+Convect_Date.display.volume["U.S.bu"]={"美制蒲式耳","U.S. bu"}
+Convect_Date.display.volume["U.S.drygal"]="美制干量加仑","U.S. dry gal"} 
+Convect_Date.display.volume["U.S.dryqt"]={"美制干量夸脱","U.S. dry qt"} 
+Convect_Date.display.volume["U.S.drypt"]={"美制干量品脱","U.S. dry pt"}
  
 --速度
 Convect_Date.display.speed={
