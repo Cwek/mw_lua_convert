@@ -353,7 +353,7 @@ local Convert["range_embellish"]={
             local a,b=a_t,b_t
             return function(input) return input*a/b end
         else--温度类的处理
-            local a_K,K_b=a_t[1],a_t[2]
+            local a_K,K_b=a_t[1],b_t[2]
             return function(input) return K_b(a_K(input)) end
         end
     end
