@@ -311,7 +311,7 @@ local Convert["range_embellish"]={
         if sigfig<0 then
             return (string.format("%."..math.abs(sigfig).."f",(t/math.pow(10,sigfig))))
         else
-            return (t/math.pow(10,sigfig))
+            return tostring(t/math.pow(10,sigfig))
         end
     end
 
