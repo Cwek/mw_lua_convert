@@ -990,15 +990,15 @@ local Convert["range_embellish"]={
         local divisionA,divisionB="（","）"
         if disp=="output only" then
             if number_only_flag then
-                inunit_code=""
+                inunit_code={"",""}
             end
-            in_num=""
+            in_num={"",""}
             out={in_num[1],inunit_code[1],in_num[2],inunit_code[2],divisionA,out_num,outunit_code,divisionB}
 
             return table.concat(out)
         elseif disp=="output number only" then
-            inunit_code=""
-            in_num=""
+            inunit_code={"",""}
+            in_num={"",""}
             outunit_code=""
             out={in_num[1],inunit_code[1],in_num[2],inunit_code[2],divisionA,out_num,outunit_code,divisionB}
 
@@ -1073,10 +1073,9 @@ local Convert["range_embellish"]={
         end      
 
         --换算中
-        for k,v in pairs(out_unit) do
-            out_num[k]=function_convert(in_num)
-        end
-        
+        for k,v in pairs(function_convert) do
+            out_num[k]=v(in_num)
+        end        
 
         --有效位数计算
         local sigfig=0
@@ -1147,9 +1146,8 @@ local Convert["range_embellish"]={
                                     abbr_out_flag
                                 )
                             )
-        end
+        end        
         
-        --------<<<<<<<<<<<<<<
         --[[
             disp判断输出
         --]]
@@ -1165,7 +1163,7 @@ local Convert["range_embellish"]={
         elseif disp=="output number only" then
             inunit_code=""
             in_num=""
-            outunit_code=""
+            outunit_code={"",""}
             out={in_num,inunit_code,divisionA,out_num[1],outunit_code[1],"，",out_num[2],outunit_code[2],divisionB}
 
             return table.concat(out)
