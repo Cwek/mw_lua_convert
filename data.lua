@@ -1,4 +1,4 @@
-﻿local Convect_Date={
+local Convect_Date={
 	["value"]={["length"]={},["area"]={},["volume"]={},["speed"]={},["force"]={},["energy"]={},["temperature"]={},["mass"]={},["torque"]={}},
 	["display"]={["length"]={},["area"]={},["volume"]={},["speed"]={},["force"]={},["energy"]={},["temperature"]={},["mass"]={},["torque"]={}},
 	["link"]={["length"]={},["area"]={},["volume"]={},["speed"]={},["force"]={},["energy"]={},["temperature"]={},["mass"]={},["torque"]={}}
@@ -419,7 +419,7 @@ Convect_Date.display.volume["cufoot"]={"立方英尺","cubic foot"}
 Convect_Date.display.volume["impbu"]={"英制蒲式耳","imp bsh"}
 Convect_Date.display.volume["impfloz"]={"英制液体盎司","imp fl oz"} 
 Convect_Date.display.volume["U.S.bbl"]={"美制桶","U.S. bbl"} 
-Convect_Date.display.volume["usbeerbbl"]={"美制啤酒桶","US bbl"},
+Convect_Date.display.volume["usbeerbbl"]={"美制啤酒桶","US bbl"}
 Convect_Date.display.volume["U.S.beerbbl"]={"美制啤酒桶","U.S. bbl"} 
 Convect_Date.display.volume["U.S.gal"]={"美制加仑","U.S. gal"} 
 Convect_Date.display.volume["U.S.qt"]={"美制夸脱","U.S. qt"} 

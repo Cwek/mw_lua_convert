@@ -1,4 +1,4 @@
-﻿local Convert={}
+local Convert={}
 
 --组名
 Convert["group_name"]={"length","area","volume","speed","force","energy","temperature","mass","torque"}
