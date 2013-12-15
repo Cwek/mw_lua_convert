@@ -1,9 +1,9 @@
 ﻿local Convert={}
 
 --组名
-local Convert["group_name"]={"length","area","volume","speed","force","energy","temperature","mass","torque"}
+Convert["group_name"]={"length","area","volume","speed","force","energy","temperature","mass","torque"}
 --基准单位
-local Convert["baseunit"]={"m","m2","m3","m/s","N","J","K","kg","Nm"}
+Convert["baseunit"]={"m","m2","m3","m/s","N","J","K","kg","Nm"}
 --基础数据
 local Convert_Date=mw.loadData("模块:沙盒/cwek/Convert/data")
 
@@ -27,14 +27,14 @@ Convert["temperature_unit"]={"K","C","R","F","°C","°R","°F"}
 
 --特别内容--
 --支持2值算单值的单位（组合输入单位）
-local Convert["input_together"]={
+Convert["input_together"]={
                             ["ft"]={{"ft","in"}},
                             ["st"]={{"st","lb"}},
                             ["lb"]={{"lb","oz"}}
                             }
 --支持组合输出单位的
 --{单位={允许的单位,...},...}
-local Convert["output_together"]={
+Convert["output_together"]={
                             --长度
                             ["km"]={"mi"},
                             ["m"]={"ft","ftin"},
@@ -109,10 +109,10 @@ local Convert["output_together"]={
                             ["Nm"]={"lbft","lbfft"}
 }
 --温度差处理
-local Convert["temperature_range"]={"C-change","F-change"}
+Convert["temperature_range"]={"C-change","F-change"}
 
 --2+单元修饰词
-local Convert["range_embellish"]={
+Convert["range_embellish"]={
                                 ["to"]="到",
                                 ["and"]="和",
                                 ["or"]="或",
