@@ -1540,14 +1540,14 @@ local Convert["range_embellish"]={
         处理普通3个处理单元
     --]]
     function Convert.bind_3(args)
-        
+        return Convert.bind_2(args)
     end
 
     --[[
         处理普通4个处理单元
     --]]
     function Convert.bind_4(args)
-        
+        return Convert.bind_2(args)
     end
 
 function Convert.main(frame)
