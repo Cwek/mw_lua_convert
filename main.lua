@@ -591,7 +591,7 @@ local Convert["range_embellish"]={
         必然存在:
             ["processCount"]=<处理单元数>
             ["group"]=<单元组名>
-            ["mark"]=第一个单位的起始位标
+            ["mark"]=第一个单位的起始位标fo
             ["last_mark"]=离（假设的）索引参数有效位最后前一位
         可能存在:
             ["sigfig_inindex"]=通过索引参数传入的有效位数
@@ -914,7 +914,7 @@ local Convert["range_embellish"]={
         for k,v in pairs(in_num) do
             out_sum=out_sum+function_convert[k](in_num[k])
         end
-        
+
         --有效位数计算
         local sigfig=0
         if args["sigfig_inindex"]~=nil then
@@ -981,7 +981,7 @@ local Convert["range_embellish"]={
                         abbr_in_flag
                     )
                 )
-        end            
+        end
         local outunit_code=Convert.link_builder(lk_out_flag,group_name,out_unit,Convert.display_builder(group_name,out_unit,abbr_out_flag))
 
         --[[
@@ -1069,13 +1069,13 @@ local Convert["range_embellish"]={
         local in_unit,out_unit,group_name=args[mark],args["outputtogether"],args["group"]
         local function_convert={}
         for k,v in pairs(out_unit) do
-            function_convert[k]=Convert.convert_builder(group_name,in_unit,v)        
-        end      
+            function_convert[k]=Convert.convert_builder(group_name,in_unit,v)
+        end
 
         --换算中
         for k,v in pairs(function_convert) do
             out_num[k]=v(in_num)
-        end        
+        end
 
         --有效位数计算
         local sigfig=0
@@ -1146,8 +1146,8 @@ local Convert["range_embellish"]={
                                     abbr_out_flag
                                 )
                             )
-        end        
-        
+        end
+
         --[[
             disp判断输出
         --]]
@@ -1209,7 +1209,7 @@ local Convert["range_embellish"]={
                                             false
                                         )
                                     )
-                end                          
+                end
             else
                 for k,v in pairs(out_unit) do
                     outunit_code[k]=Convert.link_builder(
@@ -1243,23 +1243,312 @@ local Convert["range_embellish"]={
         end
     end
 
---[[
-    处理普通2个处理单元
---]]
-function Convert.bind_2(args)
-end
+    --[[
+        处理普通2个处理单元
+    --]]
+    function Convert.bind_2(args)
+        --锁定锚点
+        local mark=args["mark"]
 
---[[
-    处理普通3个处理单元
---]]
-function Convert.bind_3(args)
-end
+        --初始化数值，单位，转换方法
+        local in_num,out_num={},{}
+        local embellish=args["embellish"]
+        local in_unit,out_unit,group_name=args[mark],args[mark+1],args["group"]
+        local function_convert=Convert.convert_builder(group_name,in_unit,out_unit)
 
---[[
-    处理普通4个处理单元
---]]
-function Convert.bind_4(args)
-end
+        --数据初始化
+        for i=1,i<mark,2 do
+            local key=#in_num+1
+            in_num[key],out_num[key]=args[i],0
+        end
+
+        --换算中
+        for k,v in pairs(in_num) do
+            out_num[k]=function_convert(v)
+
+        end
+
+        --有效位数计算
+        local sigfig=0
+        if args["sigfig_inindex"]~=nil then
+            sigfig=tonumber(args["sigfig_inindex"])
+        elseif args["sigfig"] then
+            sigfig=tonumber(args["sigfig"])
+        end
+        local function_sigfig=Convert.sigfig_func
+        if args["disp"]=="5" then
+            function_sigfig=Convert.sigfig5_func
+        end
+        for k,v in pairs(out_num) do
+            out_num[k]=function_sigfig(v,sigfig)
+        end
+
+        --输出
+        --输出准备
+        local out={}
+
+        --读取lk，abbr，disp
+        local lk,abbr,disp=args["lk"],args["abbr"],args["disp"]
+        local lk_in_flag,lk_out_flag,abbr_in_flag,abbr_out_flag
+        local number_only_flag,out_number_only_flag,out_unit_only_flag=false,false,false
+
+        --[[
+            lk判断
+        --]]
+        if lk=="off" then
+            lk_in_flag,lk_out_flag=false,false
+        elseif lk=="in" then
+            lk_in_flag,lk_out_flag=true,false
+        elseif lk=="out" then
+            lk_in_flag,lk_out_flag=false,true
+        elseif lk="on" then
+            lk_in_flag,lk_out_flag=true,true
+        end
+
+        --[[
+            abbr判断
+        --]]
+        if abbr=="off" then
+            abbr_in_flag,abbr_out_flag=false,false
+        elseif abbr=="in" then
+            abbr_in_flag,abbr_out_flag=true,false
+        elseif abbr=="out" then
+            abbr_in_flag,abbr_out_flag=false,true
+        elseif abbr=="off" then
+            abbr_in_flag,abbr_out_flag=true,true
+        elseif abbr=="value" then
+            abbr_in_flag,abbr_out_flag=false,false
+            number_only_flag=true
+        end
+
+        --[[
+            生成单位的输出代码
+        --]]
+        local inunit_code=Convert.link_builder(lk_in_flag,group_name,in_unit,Convert.display_builder(group_name,in_unit,abbr_in_flag))
+        local outunit_code=Convert.link_builder(lk_out_flag,group_name,out_unit,Convert.display_builder(group_name,out_unit,abbr_out_flag))
+
+        --[[
+            disp判断输出
+        --]]
+        local divisionA,divisionB="（","）"
+        if disp=="output only" then
+            if number_only_flag then
+                inunit_code=""
+            end
+            in_num={}
+            for k,v in pairs(in_num) do
+                table.insert(out,v)
+                if k<#embellish then
+                    table.insert(out,embellish[k])
+                end
+            end
+            table.insert(out,inunit_code)
+            table.insert(out,divisionA)
+            for k,v in pairs(out_num) do
+                table.insert(out,v)
+                if k<#embellish then
+                    table.insert(out,embellish[k])
+                end
+            end
+            table.insert(outunit_code)
+            table.insert(out,divisionB)
+
+            return table.concat(out)
+        elseif disp=="output number only" then
+            inunit_code=""
+            in_num={}
+            outunit_code=""
+            for k,v in pairs(in_num) do
+                table.insert(out,v)
+                if k<#embellish then
+                    table.insert(out,embellish[k])
+                end
+            end
+            table.insert(out,inunit_code)
+            table.insert(out,divisionA)
+            for k,v in pairs(out_num) do
+                table.insert(out,v)
+                if k<#embellish then
+                    table.insert(out,embellish[k])
+                end
+            end
+            table.insert(outunit_code)
+            table.insert(out,divisionB)
+
+            return table.concat(out)
+        elseif disp=="b" then--disp=b，默认
+            divisionA,divisionB="[","]"
+            for k,v in pairs(in_num) do
+                table.insert(out,v)
+                if k<#embellish then
+                    table.insert(out,embellish[k])
+                end
+            end
+            table.insert(out,inunit_code)
+            table.insert(out,divisionA)
+            for k,v in pairs(out_num) do
+                table.insert(out,v)
+                if k<#embellish then
+                    table.insert(out,embellish[k])
+                end
+            end
+            table.insert(outunit_code)
+            table.insert(out,divisionB)
+
+            return table.concat(out)
+        elseif disp=="comma" then--disp=comma
+            divisionA,divisionB="，",""
+            for k,v in pairs(in_num) do
+                table.insert(out,v)
+                if k<#embellish then
+                    table.insert(out,embellish[k])
+                end
+            end
+            table.insert(out,inunit_code)
+            table.insert(out,divisionA)
+            for k,v in pairs(out_num) do
+                table.insert(out,v)
+                if k<#embellish then
+                    table.insert(out,embellish[k])
+                end
+            end
+            table.insert(outunit_code)
+            table.insert(out,divisionB)
+
+            return table.concat(out)
+        elseif disp=="x" then --disp=x
+            local t_mark=0--存在索引参数有效位数的偏移标记
+            if args["sigfig_inindex"]~=nil then--存在则为1
+                t_mark=1
+            end
+            local last_mark=args["last_mark"]
+            local t_divisionA,t_divisionB=args[last_mark+t_mark+1],args[last_mark+t_mark+2]--读取倒数最后一到两位（对应disp=x时后两位的位置）
+            if t_divsionB==nil then
+                t_divsionB=""
+            end
+            divisionA,divisionB=t_divisionA,t_divisionB
+
+            for k,v in pairs(in_num) do
+                table.insert(out,v)
+                if k<#embellish then
+                    table.insert(out,embellish[k])
+                end
+            end
+            table.insert(out,inunit_code)
+            table.insert(out,divisionA)
+            for k,v in pairs(out_num) do
+                table.insert(out,v)
+                if k<#embellish then
+                    table.insert(out,embellish[k])
+                end
+            end
+            table.insert(outunit_code)
+            table.insert(out,divisionB)
+
+            return table.concat(out)
+        elseif disp=="filp" then--disp=filp
+            for k,v in pairs(out_num) do
+                table.insert(out,v)
+                if k<#embellish then
+                    table.insert(out,embellish[k])
+                end
+            end
+            table.insert(out,inunit_code)
+            table.insert(out,divisionA)
+            for k,v in pairs(in_num) do
+                table.insert(out,v)
+                if k<#embellish then
+                    table.insert(out,embellish[k])
+                end
+            end
+            table.insert(outunit_code)
+            table.insert(out,divisionB)
+
+            return table.concat(out)
+        elseif disp=="unit" then--disp=unit
+            if in_num==1 then
+                outunit_code=Convert.link_builder(lk_out_flag,group_name,out_unit,Convert.display_builder(group_name,out_unit,false))
+            else
+                outunit_code=Convert.link_builder(lk_out_flag,group_name,out_unit,Convert.display_builder(group_name,out_unit,true))
+            end
+            
+            for k,v in pairs(in_num) do
+                table.insert(out,v)
+                if k<#embellish then
+                    table.insert(out,embellish[k])
+                end
+            end
+            table.insert(out,inunit_code)
+            table.insert(out,divisionA)
+            for k,v in pairs(out_num) do
+                table.insert(out,v)
+                if k<#embellish then
+                    table.insert(out,embellish[k])
+                end
+            end
+            table.insert(outunit_code)
+            table.insert(out,divisionB)
+
+            return table.concat(out)
+        elseif disp=="table" then--disp=table
+            local temp=""
+            if args["sortable"]~=nil then
+                --代替调用{{ntsh}}，效果等价
+                temp=string.format([[<span style="display:none">%016.6f</span>]],in_num[1])
+            end
+            
+            table.insert(out,"|")
+            table.insert(out,temp)
+            for k,v in pairs(in_num) do
+                table.insert(out,v)
+                if k<#embellish then
+                    table.insert(out,embellish[k])
+                end
+            end
+            table.insert(out,"||")
+            for k,v in pairs(out_num) do
+                table.insert(out,v)
+                if k<#embellish then
+                    table.insert(out,embellish[k])
+                end
+            end            
+
+            return table.concat(out)
+        else
+            for k,v in pairs(in_num) do
+                table.insert(out,v)
+                if k<#embellish then
+                    table.insert(out,embellish[k])
+                end
+            end
+            table.insert(out,inunit_code)
+            table.insert(out,divisionA)
+            for k,v in pairs(out_num) do
+                table.insert(out,v)
+                if k<#embellish then
+                    table.insert(out,embellish[k])
+                end
+            end
+            table.insert(outunit_code)
+            table.insert(out,divisionB)
+
+            return table.concat(out)
+        end
+    end
+
+    --[[
+        处理普通3个处理单元
+    --]]
+    function Convert.bind_3(args)
+        
+    end
+
+    --[[
+        处理普通4个处理单元
+    --]]
+    function Convert.bind_4(args)
+        
+    end
 
 function Convert.main(frame)
     local args=Convert.init(frame)
