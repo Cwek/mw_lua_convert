@@ -1,15 +1,17 @@
-local Convert={}
+﻿local Convert={}
 
 --组名
-Convert["group_name"]={"length","area","volume","speed","force","energy","temperature","mass","torque"}
+local Convert["group_name"]={"length","area","volume","speed","force","energy","temperature","mass","torque"}
 --基准单位
-Convert["baseunit"]={"m","m2","m3","m/s","N","J","K","kg","Nm"}
+local Convert["baseunit"]={"m","m2","m3","m/s","N","J","K","kg","Nm"}
 --基础数据
+-- local Convert_Date=dofile("D:\\documents\\Github\\mw_lua_convert\\data.lua")
 local Convert_Date=mw.loadData("模块:沙盒/cwek/Convert/data")
 
 --温度，基准为K
 --[0]为目标转基准，[1]为基准转目标
 --从data.lua移入
+local Convert_Date_of_temperature={["value"]={["temperature"]={}}}
 Convert_Date_of_temperature.value.temperature={
                                  --国际单位制
                                  ["K"]={function(input) return 1*input end,function(input) return 1*input end},
@@ -118,7 +120,7 @@ Convert["range_embellish"]={
                                 ["or"]="或",
                                 ["to(-)"]="到",
                                 ["+/-"]="±",
-                                ["x"]="到"
+                                ["x"]="到",
                                 ["-"]="-"
                                 }
 
@@ -256,7 +258,7 @@ Convert["range_embellish"]={
     --@param group:单位组名
     --@param unit:单位名
     --@return [false|<单位的链接值>]
-    function Convert.link_finder__(group,unit)
+    function Convert.link_finder(group,unit)
         for k,v in pairs(Convert_Date.link[group]) do
             local linkname=k
             for t in v do
@@ -276,13 +278,14 @@ Convert["range_embellish"]={
     --@return <处理好的字符串（链接模式或纯文本）>
     function Convert.link_builder(flag,group,unit,display)
         local code=""
-        local t=link_finder(group,unit)
+        local t=Convert.link_finder(group,unit)
 
         if(flag and t~=false)then
-            return code="[["..t.."|"..display.."]]"
+            code="[["..t.."|"..display.."]]"
         else
-            return code=display
+            code=display
         end
+        return code
     end
 
     --单位显示值建造（中文全称或缩名）
@@ -357,7 +360,7 @@ Convert["range_embellish"]={
             return function(input) return K_b(a_K(input)) end
         end
     end
-
+    
 
 --[[
     主方法开始
@@ -365,6 +368,8 @@ Convert["range_embellish"]={
     --传入参数初始化
     --@param frame:mw.frame
     --@return <数组（负载）>
+    -- function Convert.init(args)
+        -- local args_from_template=args
     function Convert.init(frame)
         local args_from_template=frame:getParent().args
 
@@ -584,7 +589,110 @@ Convert["range_embellish"]={
         end
         return switch[flag](args)
     end
+    
+    --整合重复输出部分，完成处理处理    
+    function Convert.output(args)
+        --读出初始化值
+        local in_num=(type(args["in_num"])=="table" and args["in_num"]) or {args["in_num"]}
+        local out_num=(type(args["out_num"])=="table" and args["out_num"]) or {args["out_num"]}
+        local in_unit=(type(args["in_unit"])=="table" and args["in_unit"]) or {args["in_unit"]}
+        local out_unit=(type(args["out_unit"])=="table" and args["out_unit"])or {args["out_unit"]}
+        local group_name=args["group"]
+        local embellish=args["embellish"] or {}
+        
+        --输出准备
+        local out={}        
+        
+        --读取lk，abbr，disp
+        local lk,abbr,disp=args["lk"],args["abbr"],args["disp"]
+        local lk_in_flag,lk_out_flag,abbr_in_flag,abbr_out_flag
+        local number_only_flag,out_number_only_flag,out_unit_only_flag=false,false,false
 
+        --[[
+            lk判断
+        --]]
+        if lk=="off" then
+            lk_in_flag,lk_out_flag=false,false
+        elseif lk=="in" then
+            lk_in_flag,lk_out_flag=true,false
+        elseif lk=="out" then
+            lk_in_flag,lk_out_flag=false,true
+        elseif lk="on" then
+            lk_in_flag,lk_out_flag=true,true
+        end
+
+        --[[
+            abbr判断
+        --]]
+        if abbr=="off" then
+            abbr_in_flag,abbr_out_flag=false,false
+        elseif abbr=="in" then
+            abbr_in_flag,abbr_out_flag=true,false
+        elseif abbr=="out" then
+            abbr_in_flag,abbr_out_flag=false,true
+        elseif abbr=="off" then
+            abbr_in_flag,abbr_out_flag=true,true
+        elseif abbr=="value" then
+            abbr_in_flag,abbr_out_flag=false,false
+            number_only_flag=true
+        end
+        
+        --[[
+            生成单位的输出代码
+        --]]
+        local inunit_code={}
+        for k,v in pairs(in_unit) do
+            inunit_code[k]=
+                        Convert.link_builder(
+                            lk_in_flag,
+                            group_name,
+                            v,
+                            Convert.display_builder(
+                                group_name,
+                                v,
+                                abbr_in_flag
+                            )
+                        )
+        end
+        local outunit_code={}
+        for k,v in pairs(out_unit) do
+            outunit_out[k]=
+                        Convert.link_builder(
+                            lk_out_flag,
+                            group_name,
+                            v,
+                            Convert.display_builder(
+                                group_name,
+                                v,
+                                abbr_out_flag
+                            )
+                        )
+        end
+        
+        --[[
+            disp判断输出
+        --]]
+        local divisionA,divisionB="（","）"
+        --disp的switch模拟
+        switch_disp={}
+        switch_disp["switch_disp"]=function ()
+            if number_only_flag then
+                inunit_code={}
+            end
+            in_num={}
+            for k,v in pairs(in_num) do
+                table.insert(out,v)
+                table.insert(out,inunit_code[k])
+                if k<#embellish then
+                    table.insert(out,embellish[k])
+                end
+            end
+        end
+        
+    
+        return table.concat(out)
+    end
+    
     --[[
         args可能有：
         原生数据,
@@ -669,8 +777,26 @@ Convert["range_embellish"]={
         --[[
             生成单位的输出代码
         --]]
-        local inunit_code=Convert.link_builder(lk_in_flag,group_name,in_unit,Convert.display_builder(group_name,in_unit,abbr_in_flag))
-        local outunit_code=Convert.link_builder(lk_out_flag,group_name,out_unit,Convert.display_builder(group_name,out_unit,abbr_out_flag))
+        local inunit_code=Convert.link_builder(
+                            lk_in_flag,
+                            group_name,
+                            in_unit,
+                            Convert.display_builder(
+                                group_name,
+                                in_unit,
+                                abbr_in_flag
+                            )
+                        )
+        local outunit_code=Convert.link_builder(
+                            lk_out_flag,
+                            group_name,
+                            out_unit,
+                            Convert.display_builder(
+                                group_name,
+                                out_unit,
+                                abbr_out_flag
+                            )
+                        )
 
         --[[
             disp判断输出
