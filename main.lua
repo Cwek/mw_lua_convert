@@ -6,6 +6,7 @@ local Convert["group_name"]={"length","area","volume","speed","force","energy","
 local Convert["baseunit"]={"m","m2","m3","m/s","N","J","K","kg","Nm"}
 --基础数据
 -- local Convert_Date=dofile("D:\\documents\\Github\\mw_lua_convert\\data.lua")
+-- local Convert_Date=dofile("D:\\GitHub\\mw_lua_convert\\data.lua")
 local Convert_Date=mw.loadData("模块:沙盒/cwek/Convert/data")
 
 --温度，基准为K
@@ -675,7 +676,7 @@ Convert["range_embellish"]={
         local divisionA,divisionB="（","）"
         --disp的switch模拟
         switch_disp={}
-        switch_disp["switch_disp"]=function ()
+        switch_disp["output only"]=function ()
             if number_only_flag then
                 inunit_code={}
             end
@@ -687,6 +688,9 @@ Convert["range_embellish"]={
                     table.insert(out,embellish[k])
                 end
             end
+        end
+        switch_disp["output only"]=function ()
+        
         end
         
     
@@ -754,7 +758,7 @@ Convert["range_embellish"]={
             lk_in_flag,lk_out_flag=true,false
         elseif lk=="out" then
             lk_in_flag,lk_out_flag=false,true
-        elseif lk="on" then
+        elseif lk=="on" then
             lk_in_flag,lk_out_flag=true,true
         end
 
