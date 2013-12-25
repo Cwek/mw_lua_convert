@@ -430,17 +430,19 @@ Convert["range_embellish"]={
                 if tonumber(args[t_mark+1])~=nil then--使用索引参数标记有效位，记录
                      args["sigfig_inindex"]=tonumber(args[t_mark+1])
                 end
-
+                
+                print("TR ok")
                 return args
             end
         end
+        print("TR miss")
 
         groupA,flagA=Convert.unit_check(args[t_mark]);
         if flagA==true then--确认第一个是单位，以区分联系词（2个处理单元）
             --确认是不是组合输入（索引参数4是不是同组单位）
             if Convert.is_input_together(args[t_mark],args[t_mark+2])then
                 args["processCount"]=t_processCount
-                args["group"]=group_name
+                args["group"]=groupA
                 args["inputtogether"]=true
                 args["mark"]=t_mark
                 args["last_mark"]=t_mark+3--离索引参数有效位最后前一位
@@ -448,15 +450,17 @@ Convert["range_embellish"]={
                 if tonumber(args[t_mark+4])~=nil then--使用索引参数标记有效位，记录
                      args["sigfig_inindex"]=tonumber(args[t_mark+4])
                 end
-
+                
+                print("IT ok")
                 return args
             end
+            print("IT miss")
 
             --确认是不是组合输出（索引数组3是不是同组单位）
             local out_together_flag,unitA,unitB=Convert.is_out_together(args[t_mark+1])
             if out_together_flag then
                 args["processCount"]=t_processCount
-                args["group"]=group_name
+                args["group"]=groupA
                 args["outputtogether"]={unitA,unitB}
                 args["mark"]=t_mark
                 args["last_mark"]=t_mark+1--离索引参数有效位最后前一位
@@ -464,25 +468,29 @@ Convert["range_embellish"]={
                 if tonumber(args[t_mark+2])~=nil then--使用索引参数标记有效位，记录
                      args["sigfig_inindex"]=tonumber(args[t_mark+2])
                 end
-
+                
+                print("OT ok")
                 return args
             end
+            print("OT miss")
 
             --确认是不是普通的1个单元处理（索引数组3）
-            local groupB,flagB=Convert.unit_check(args[t_mark+1])
-            if flagB and groupB==group_name then
+            groupB,flagB=Convert.unit_check(args[t_mark+1])
+            if flagB and groupB==groupA then
                 args["processCount"]=t_processCount
-                args["group"]=group_name
+                args["group"]=groupA
                 args["mark"]=t_mark
                 args["last_mark"]=t_mark+1--离索引参数有效位最后前一位
 
                 if tonumber(args[t_mark+2])~=nil then--使用索引参数标记有效位，记录
                      args["sigfig_inindex"]=tonumber(args[t_mark+3])
                 end
-
+                
+                print("P1 ok")
                 return args
             end
         end
+        print("P1 miss")
 
         local embellish,flag_embellish
         args["embellish"]={}
@@ -500,7 +508,7 @@ Convert["range_embellish"]={
         groupB,flagB=Convert.unit_check(args[t_mark+1])
         if groupA==groupB and (flagA and flagB) then
             args["processCount"]=t_processCount
-            args["group"]=group_name
+            args["group"]=groupA
             args["mark"]=t_mark
             args["last_mark"]=t_mark+1--离索引参数有效位最后前一位
 
@@ -508,9 +516,11 @@ Convert["range_embellish"]={
                  args["sigfig_inindex"]=tonumber(args[t_mark+3])
             end
 
+            print("P2 ok")
             return args
         end
-
+        print("P2 miss")
+        
         --[[
             检查是否3个处理单元
         --]]
@@ -525,7 +535,7 @@ Convert["range_embellish"]={
         groupB,flagB=Convert.unit_check(args[t_mark+1])
         if groupA==groupB and (flagA and flagB) then
             args["processCount"]=t_processCount
-            args["group"]=group_name
+            args["group"]=groupA
             args["mark"]=t_mark
             args["last_mark"]=t_mark+1--离索引参数有效位最后前一位
 
@@ -533,8 +543,10 @@ Convert["range_embellish"]={
                  args["sigfig_inindex"]=tonumber(args[t_mark+3])
             end
 
+            print("P3 ok")
             return args
         end
+        print("P3 miss")
 
         --[[
             检查是否4个处理单元
@@ -550,7 +562,7 @@ Convert["range_embellish"]={
         groupB,flagB=Convert.unit_check(args[t_mark+1])
         if groupA==groupB and (flagA and flagB) then
             args["processCount"]=t_processCount
-            args["group"]=group_name
+            args["group"]=groupA
             args["mark"]=t_mark
             args["last_mark"]=t_mark+1--离索引参数有效位最后前一位
 
@@ -558,8 +570,10 @@ Convert["range_embellish"]={
                 args["sigfig_inindex"]=tonumber(args[t_mark+3])
             end
 
+            print("P4 ok")
             return args
         end
+        print("ALL miss")
 
         --结束
         return args
