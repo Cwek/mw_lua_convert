@@ -361,7 +361,7 @@ Convert["range_embellish"]={
             return function(input) return K_b(a_K(input)) end
         end
     end
-    
+
 
 --[[
     主方法开始
@@ -430,7 +430,7 @@ Convert["range_embellish"]={
                 if tonumber(args[t_mark+1])~=nil then--使用索引参数标记有效位，记录
                      args["sigfig_inindex"]=tonumber(args[t_mark+1])
                 end
-                
+
                 print("TR ok")
                 return args
             end
@@ -441,36 +441,47 @@ Convert["range_embellish"]={
         if flagA==true then--确认第一个是单位，以区分联系词（2个处理单元）
             --确认是不是组合输入（索引参数4是不是同组单位）
             if Convert.is_input_together(args[t_mark],args[t_mark+2])then
-                args["processCount"]=t_processCount
-                args["group"]=groupA
-                args["inputtogether"]=true
-                args["mark"]=t_mark
-                args["last_mark"]=t_mark+3--离索引参数有效位最后前一位
+                groupB,flagB=Convert.unit_check(args[t_mark+3])
+                if groupB==groupA and flagB then
+                    args["processCount"]=t_processCount
+                    args["group"]=groupA
+                    args["inputtogether"]=true
+                    args["mark"]=t_mark
+                    args["last_mark"]=t_mark+3--离索引参数有效位最后前一位
 
-                if tonumber(args[t_mark+4])~=nil then--使用索引参数标记有效位，记录
-                     args["sigfig_inindex"]=tonumber(args[t_mark+4])
+                    if tonumber(args[t_mark+4])~=nil then--使用索引参数标记有效位，记录
+                         args["sigfig_inindex"]=tonumber(args[t_mark+4])
+                    end
+
+                    print("IT ok")
+                    return args
+                else
+
                 end
-                
-                print("IT ok")
-                return args
             end
             print("IT miss")
 
             --确认是不是组合输出（索引数组3是不是同组单位）
             local out_together_flag,unitA,unitB=Convert.is_out_together(args[t_mark+1])
             if out_together_flag then
-                args["processCount"]=t_processCount
-                args["group"]=groupA
-                args["outputtogether"]={unitA,unitB}
-                args["mark"]=t_mark
-                args["last_mark"]=t_mark+1--离索引参数有效位最后前一位
+                local groupBA,flagBA=Convert.unit_check(unitA)
+                local groupBB,flagBB=Convert.unit_check(unitB)
+                if (groupBA==groupA and groupBB==groupA) and (flagBA and flagBB) then
+                    args["processCount"]=t_processCount
+                    args["group"]=groupA
+                    args["outputtogether"]={unitA,unitB}
+                    args["mark"]=t_mark
+                    args["last_mark"]=t_mark+1--离索引参数有效位最后前一位
 
-                if tonumber(args[t_mark+2])~=nil then--使用索引参数标记有效位，记录
-                     args["sigfig_inindex"]=tonumber(args[t_mark+2])
+                    if tonumber(args[t_mark+2])~=nil then--使用索引参数标记有效位，记录
+                         args["sigfig_inindex"]=tonumber(args[t_mark+2])
+                    end
+
+                    print("OT ok")
+                    return args
+                else
+
                 end
-                
-                print("OT ok")
-                return args
             end
             print("OT miss")
 
@@ -485,9 +496,11 @@ Convert["range_embellish"]={
                 if tonumber(args[t_mark+2])~=nil then--使用索引参数标记有效位，记录
                      args["sigfig_inindex"]=tonumber(args[t_mark+3])
                 end
-                
+
                 print("P1 ok")
                 return args
+            else
+
             end
         end
         print("P1 miss")
@@ -518,9 +531,11 @@ Convert["range_embellish"]={
 
             print("P2 ok")
             return args
+        else
+
         end
         print("P2 miss")
-        
+
         --[[
             检查是否3个处理单元
         --]]
@@ -545,6 +560,8 @@ Convert["range_embellish"]={
 
             print("P3 ok")
             return args
+        else
+
         end
         print("P3 miss")
 
@@ -572,6 +589,8 @@ Convert["range_embellish"]={
 
             print("P4 ok")
             return args
+        else
+
         end
         print("ALL miss")
 
@@ -604,8 +623,8 @@ Convert["range_embellish"]={
         end
         return switch[flag](args)
     end
-    
-    --整合重复输出部分，完成处理处理    
+
+    --整合重复输出部分，完成处理处理
     function Convert.output(args)
         --读出初始化值
         local in_num=(type(args["in_num"])=="table" and args["in_num"]) or {args["in_num"]}
@@ -614,10 +633,10 @@ Convert["range_embellish"]={
         local out_unit=(type(args["out_unit"])=="table" and args["out_unit"])or {args["out_unit"]}
         local group_name=args["group"]
         local embellish=args["embellish"] or {}
-        
+
         --输出准备
-        local out={}        
-        
+        local out={}
+
         --读取lk，abbr，disp
         local lk,abbr,disp=args["lk"],args["abbr"],args["disp"]
         local lk_in_flag,lk_out_flag,abbr_in_flag,abbr_out_flag
@@ -651,7 +670,7 @@ Convert["range_embellish"]={
             abbr_in_flag,abbr_out_flag=false,false
             number_only_flag=true
         end
-        
+
         --[[
             生成单位的输出代码
         --]]
@@ -683,7 +702,7 @@ Convert["range_embellish"]={
                             )
                         )
         end
-        
+
         --[[
             disp判断输出
         --]]
@@ -704,13 +723,13 @@ Convert["range_embellish"]={
             end
         end
         switch_disp["output only"]=function ()
-        
+
         end
-        
-    
+
+
         return table.concat(out)
     end
-    
+
     --[[
         args可能有：
         原生数据,
@@ -1615,7 +1634,7 @@ Convert["range_embellish"]={
             else
                 outunit_code=Convert.link_builder(lk_out_flag,group_name,out_unit,Convert.display_builder(group_name,out_unit,true))
             end
-            
+
             for k,v in pairs(in_num) do
                 table.insert(out,v)
                 if k<#embellish then
@@ -1640,7 +1659,7 @@ Convert["range_embellish"]={
                 --代替调用{{ntsh}}，效果等价
                 temp=string.format([[<span style="display:none">%016.6f</span>]],in_num[1])
             end
-            
+
             table.insert(out,"|")
             table.insert(out,temp)
             for k,v in pairs(in_num) do
@@ -1655,7 +1674,7 @@ Convert["range_embellish"]={
                 if k<#embellish then
                     table.insert(out,embellish[k])
                 end
-            end            
+            end
 
             return table.concat(out)
         else
