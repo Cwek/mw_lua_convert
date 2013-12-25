@@ -30,6 +30,7 @@ Convert["temperature_unit"]={"K","C","R","F","°C","°R","°F"}
 
 --特别内容--
 --支持2值算单值的单位（组合输入单位）
+--{第一个单位={{第一个单位,第二个单位},...},...}
 Convert["input_together"]={
                             ["ft"]={{"ft","in"}},
                             ["st"]={{"st","lb"}},
@@ -135,8 +136,8 @@ Convert["range_embellish"]={
     --@param unit:输入单位名
     --@return false|true
     function Convert.is_temperature_unit(unit)
-        for v in Convert.temperature_unit do
-            if v==unit then
+        for k,v in pairs(Convert_Date_of_temperature.value.temperature) do
+            if k==unit then
                 return true
             end
         end
@@ -161,13 +162,13 @@ Convert["range_embellish"]={
             return group,flag
         end
 
-        for group_name in Convert.group_name do
+        for k,group_name in pairs(Convert.group_name) do
             if group_name=="temperature" then--针对温度
-                if Convert.is_temperature_unit() then
+                if Convert.is_temperature_unit(unit) then
                     return "temperature",true
                 end
             else
-                for unit_name in Convert_Date.value[group_name] do--通常，其他
+                for unit_name,v in pairs(Convert_Date.value[group_name]) do--通常，其他
                     if unit_name==unit then
                         group=group_name
                         flag=true
@@ -200,8 +201,8 @@ Convert["range_embellish"]={
     function Convert.is_input_together(unitA,unitB)
         for k1,v1 in pairs(Convert.input_together) do
             if k1==unitA then
-                for k2,v2 in pairs(k1) do
-                    if k2==unitB then
+                for k2,v2 in pairs(v1) do
+                    if (v2[1]==unitA and v2[2]==unitB) then
                         return true
                     end
                 end
@@ -227,7 +228,7 @@ Convert["range_embellish"]={
 
     --根据组查阅组的基准单位
     --@param group:单位组名
-    --@return [<基准单位名>|""]
+    --@return [<基准单位名>|nil]
     function Convert.base_unit(group)
         for k,v in pairs(Convert.group_name) do
             if v==group then
@@ -235,7 +236,7 @@ Convert["range_embellish"]={
             end
         end
 
-        return ""
+        return nil
     end
 
 
@@ -262,7 +263,7 @@ Convert["range_embellish"]={
     function Convert.link_finder(group,unit)
         for k,v in pairs(Convert_Date.link[group]) do
             local linkname=k
-            for t in v do
+            for k,t in pairs(v) do
                 if unit==t then
                     return linkname
                 end
@@ -278,7 +279,7 @@ Convert["range_embellish"]={
     --@param display:显示值
     --@return <处理好的字符串（链接模式或纯文本）>
     function Convert.link_builder(flag,group,unit,display)
-        local code=""
+        local code
         local t=Convert.link_finder(group,unit)
 
         if(flag and t~=false)then
@@ -295,10 +296,9 @@ Convert["range_embellish"]={
     --@param flag:显示全程或缩名标记旗<true为缩名，false为全名>
     --@return <处理好的字符串（全名或缩名）>
     function Convert.display_builder(group,unit,flag)
-        local code=""
         local t_arr=Convert_Date.display[group][unit]
 
-        if((not flag) or t_arr[2]~=nil)then
+        if(not flag) or (flag and t_arr[2]==nil)then
            return t_arr[1]--全名
         else
            return t_arr[2]--缩名
@@ -347,7 +347,7 @@ Convert["range_embellish"]={
 
         if Convert.is_temperature_unit(in_unit) and Convert.is_temperature_unit(out_unit)then
             a_t=Convert.get_temperature_unit_Convert(in_unit)
-            a_t=Convert.get_temperature_unit_Convert(out_unit)
+            b_t=Convert.get_temperature_unit_Convert(out_unit)
         else
             a_t=Convert_Date.value[group][in_unit]
             b_t=Convert_Date.value[group][out_unit]
@@ -418,7 +418,7 @@ Convert["range_embellish"]={
         --]]
         t_mark=2--锁定检查索引2
         t_processCount=1
-        for v in Convert["temperature_range"] do--温度间转换
+        for k,v in pairs(Convert["temperature_range"]) do--温度间转换
             if v==args[t_mark] then
                 --t_processCount=1
                 args["processCount"]=t_processCount
