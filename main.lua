@@ -1,9 +1,9 @@
 ﻿local Convert={}
 
 --组名
-local Convert["group_name"]={"length","area","volume","speed","force","energy","temperature","mass","torque"}
+Convert["group_name"]={"length","area","volume","speed","force","energy","temperature","mass","torque"}
 --基准单位
-local Convert["baseunit"]={"m","m2","m3","m/s","N","J","K","kg","Nm"}
+Convert["baseunit"]={"m","m2","m3","m/s","N","J","K","kg","Nm"}
 --基础数据
 -- local Convert_Date=dofile("D:\\documents\\Github\\mw_lua_convert\\data.lua")
 -- local Convert_Date=dofile("D:\\GitHub\\mw_lua_convert\\data.lua")
