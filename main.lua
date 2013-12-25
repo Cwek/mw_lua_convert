@@ -667,7 +667,7 @@ Convert["range_embellish"]={
             -- abbr_in_flag,abbr_out_flag=true,false
         -- elseif abbr=="out" then
             -- abbr_in_flag,abbr_out_flag=false,true
-        -- elseif abbr=="off" then
+        -- elseif abbr=="on" then
             -- abbr_in_flag,abbr_out_flag=true,true
         -- elseif abbr=="value" then
             -- abbr_in_flag,abbr_out_flag=false,false
@@ -807,7 +807,7 @@ Convert["range_embellish"]={
             abbr_in_flag,abbr_out_flag=true,false
         elseif abbr=="out" then
             abbr_in_flag,abbr_out_flag=false,true
-        elseif abbr=="off" then
+        elseif abbr=="on" then
             abbr_in_flag,abbr_out_flag=true,true
         elseif abbr=="value" then
             abbr_in_flag,abbr_out_flag=false,false
@@ -975,7 +975,7 @@ Convert["range_embellish"]={
             abbr_in_flag,abbr_out_flag=true,false
         elseif abbr=="out" then
             abbr_in_flag,abbr_out_flag=false,true
-        elseif abbr=="off" then
+        elseif abbr=="on" then
             abbr_in_flag,abbr_out_flag=true,true
         elseif abbr=="value" then
             abbr_in_flag,abbr_out_flag=false,false
@@ -1069,7 +1069,7 @@ Convert["range_embellish"]={
         local mark=args["mark"]
 
         --初始化数值，单位，转换方法
-        local in_num,out_num={tonumber(args[mark-1]),tonumber(args[mark+1]])},0
+        local in_num,out_num={tonumber(args[mark-1]),tonumber(args[mark+1])},0
         local in_unit,out_unit,group_name={args[mark],args[mark+2]},args[mark+3],args["group"]
         local function_convert={}
         for k,v in pairs(in_unit) do
@@ -1125,7 +1125,7 @@ Convert["range_embellish"]={
             abbr_in_flag,abbr_out_flag=true,false
         elseif abbr=="out" then
             abbr_in_flag,abbr_out_flag=false,true
-        elseif abbr=="off" then
+        elseif abbr=="on" then
             abbr_in_flag,abbr_out_flag=true,true
         elseif abbr=="value" then
             abbr_in_flag,abbr_out_flag=false,false
@@ -1289,7 +1289,7 @@ Convert["range_embellish"]={
             abbr_in_flag,abbr_out_flag=true,false
         elseif abbr=="out" then
             abbr_in_flag,abbr_out_flag=false,true
-        elseif abbr=="off" then
+        elseif abbr=="on" then
             abbr_in_flag,abbr_out_flag=true,true
         elseif abbr=="value" then
             abbr_in_flag,abbr_out_flag=false,false
@@ -1480,7 +1480,7 @@ Convert["range_embellish"]={
             abbr_in_flag,abbr_out_flag=true,false
         elseif abbr=="out" then
             abbr_in_flag,abbr_out_flag=false,true
-        elseif abbr=="off" then
+        elseif abbr=="on" then
             abbr_in_flag,abbr_out_flag=true,true
         elseif abbr=="value" then
             abbr_in_flag,abbr_out_flag=false,false
