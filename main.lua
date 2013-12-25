@@ -613,6 +613,7 @@ Convert["range_embellish"]={
         switch["temperature_range"]=Convert.bind_1_tempRange
         switch["inputtogether"]=Convert.bind_1_intogether
         switch["outputtogether"]=Convert.bind_1_outtogether
+        switch["error"]=Convert.bind_error
         local flag=args["processCount"]
         if args["temperature_range"]~=nil then
             flag="temperature_range"
@@ -620,115 +621,117 @@ Convert["range_embellish"]={
             flag="inputtogether"
         elseif args["outputtogether"]~=nil then
             flag="outputtogether"
+        elseif args["error"]~=nil then
+            flag="error"
         end
         return switch[flag](args)
     end
 
     --整合重复输出部分，完成处理处理
-    function Convert.output(args)
-        --读出初始化值
-        local in_num=(type(args["in_num"])=="table" and args["in_num"]) or {args["in_num"]}
-        local out_num=(type(args["out_num"])=="table" and args["out_num"]) or {args["out_num"]}
-        local in_unit=(type(args["in_unit"])=="table" and args["in_unit"]) or {args["in_unit"]}
-        local out_unit=(type(args["out_unit"])=="table" and args["out_unit"])or {args["out_unit"]}
-        local group_name=args["group"]
-        local embellish=args["embellish"] or {}
+    -- function Convert.output(args)
+        -- --读出初始化值
+        -- local in_num=(type(args["in_num"])=="table" and args["in_num"]) or {args["in_num"]}
+        -- local out_num=(type(args["out_num"])=="table" and args["out_num"]) or {args["out_num"]}
+        -- local in_unit=(type(args["in_unit"])=="table" and args["in_unit"]) or {args["in_unit"]}
+        -- local out_unit=(type(args["out_unit"])=="table" and args["out_unit"])or {args["out_unit"]}
+        -- local group_name=args["group"]
+        -- local embellish=args["embellish"] or {}
 
-        --输出准备
-        local out={}
+        -- --输出准备
+        -- local out={}
 
-        --读取lk，abbr，disp
-        local lk,abbr,disp=args["lk"],args["abbr"],args["disp"]
-        local lk_in_flag,lk_out_flag,abbr_in_flag,abbr_out_flag
-        local number_only_flag,out_number_only_flag,out_unit_only_flag=false,false,false
+        -- --读取lk，abbr，disp
+        -- local lk,abbr,disp=args["lk"],args["abbr"],args["disp"]
+        -- local lk_in_flag,lk_out_flag,abbr_in_flag,abbr_out_flag
+        -- local number_only_flag,out_number_only_flag,out_unit_only_flag=false,false,false
 
-        --[[
-            lk判断
-        --]]
-        if lk=="off" then
-            lk_in_flag,lk_out_flag=false,false
-        elseif lk=="in" then
-            lk_in_flag,lk_out_flag=true,false
-        elseif lk=="out" then
-            lk_in_flag,lk_out_flag=false,true
-        elseif lk="on" then
-            lk_in_flag,lk_out_flag=true,true
-        end
+        -- --[[
+            -- lk判断
+        -- --]]
+        -- if lk=="off" then
+            -- lk_in_flag,lk_out_flag=false,false
+        -- elseif lk=="in" then
+            -- lk_in_flag,lk_out_flag=true,false
+        -- elseif lk=="out" then
+            -- lk_in_flag,lk_out_flag=false,true
+        -- elseif lk=="on" then
+            -- lk_in_flag,lk_out_flag=true,true
+        -- end
 
-        --[[
-            abbr判断
-        --]]
-        if abbr=="off" then
-            abbr_in_flag,abbr_out_flag=false,false
-        elseif abbr=="in" then
-            abbr_in_flag,abbr_out_flag=true,false
-        elseif abbr=="out" then
-            abbr_in_flag,abbr_out_flag=false,true
-        elseif abbr=="off" then
-            abbr_in_flag,abbr_out_flag=true,true
-        elseif abbr=="value" then
-            abbr_in_flag,abbr_out_flag=false,false
-            number_only_flag=true
-        end
+        -- --[[
+            -- abbr判断
+        -- --]]
+        -- if abbr=="off" then
+            -- abbr_in_flag,abbr_out_flag=false,false
+        -- elseif abbr=="in" then
+            -- abbr_in_flag,abbr_out_flag=true,false
+        -- elseif abbr=="out" then
+            -- abbr_in_flag,abbr_out_flag=false,true
+        -- elseif abbr=="off" then
+            -- abbr_in_flag,abbr_out_flag=true,true
+        -- elseif abbr=="value" then
+            -- abbr_in_flag,abbr_out_flag=false,false
+            -- number_only_flag=true
+        -- end
 
-        --[[
-            生成单位的输出代码
-        --]]
-        local inunit_code={}
-        for k,v in pairs(in_unit) do
-            inunit_code[k]=
-                        Convert.link_builder(
-                            lk_in_flag,
-                            group_name,
-                            v,
-                            Convert.display_builder(
-                                group_name,
-                                v,
-                                abbr_in_flag
-                            )
-                        )
-        end
-        local outunit_code={}
-        for k,v in pairs(out_unit) do
-            outunit_out[k]=
-                        Convert.link_builder(
-                            lk_out_flag,
-                            group_name,
-                            v,
-                            Convert.display_builder(
-                                group_name,
-                                v,
-                                abbr_out_flag
-                            )
-                        )
-        end
+        -- --[[
+            -- 生成单位的输出代码
+        -- --]]
+        -- local inunit_code={}
+        -- for k,v in pairs(in_unit) do
+            -- inunit_code[k]=
+                        -- Convert.link_builder(
+                            -- lk_in_flag,
+                            -- group_name,
+                            -- v,
+                            -- Convert.display_builder(
+                                -- group_name,
+                                -- v,
+                                -- abbr_in_flag
+                            -- )
+                        -- )
+        -- end
+        -- local outunit_code={}
+        -- for k,v in pairs(out_unit) do
+            -- outunit_out[k]=
+                        -- Convert.link_builder(
+                            -- lk_out_flag,
+                            -- group_name,
+                            -- v,
+                            -- Convert.display_builder(
+                                -- group_name,
+                                -- v,
+                                -- abbr_out_flag
+                            -- )
+                        -- )
+        -- end
 
-        --[[
-            disp判断输出
-        --]]
-        local divisionA,divisionB="（","）"
-        --disp的switch模拟
-        switch_disp={}
-        switch_disp["output only"]=function ()
-            if number_only_flag then
-                inunit_code={}
-            end
-            in_num={}
-            for k,v in pairs(in_num) do
-                table.insert(out,v)
-                table.insert(out,inunit_code[k])
-                if k<#embellish then
-                    table.insert(out,embellish[k])
-                end
-            end
-        end
-        switch_disp["output only"]=function ()
+        -- --[[
+            -- disp判断输出
+        -- --]]
+        -- local divisionA,divisionB="（","）"
+        -- --disp的switch模拟
+        -- switch_disp={}
+        -- switch_disp["output only"]=function ()
+            -- if number_only_flag then
+                -- inunit_code={}
+            -- end
+            -- in_num={}
+            -- for k,v in pairs(in_num) do
+                -- table.insert(out,v)
+                -- table.insert(out,inunit_code[k])
+                -- if k<#embellish then
+                    -- table.insert(out,embellish[k])
+                -- end
+            -- end
+        -- end
+        -- switch_disp["output only"]=function ()
 
-        end
+        -- end
 
 
-        return table.concat(out)
-    end
+        -- return table.concat(out)
+    -- end
 
     --[[
         args可能有：
@@ -959,7 +962,7 @@ Convert["range_embellish"]={
             lk_in_flag,lk_out_flag=true,false
         elseif lk=="out" then
             lk_in_flag,lk_out_flag=false,true
-        elseif lk="on" then
+        elseif lk=="on" then
             lk_in_flag,lk_out_flag=true,true
         end
 
@@ -1109,7 +1112,7 @@ Convert["range_embellish"]={
             lk_in_flag,lk_out_flag=true,false
         elseif lk=="out" then
             lk_in_flag,lk_out_flag=false,true
-        elseif lk="on" then
+        elseif lk=="on" then
             lk_in_flag,lk_out_flag=true,true
         end
 
@@ -1273,7 +1276,7 @@ Convert["range_embellish"]={
             lk_in_flag,lk_out_flag=true,false
         elseif lk=="out" then
             lk_in_flag,lk_out_flag=false,true
-        elseif lk="on" then
+        elseif lk=="on" then
             lk_in_flag,lk_out_flag=true,true
         end
 
@@ -1464,7 +1467,7 @@ Convert["range_embellish"]={
             lk_in_flag,lk_out_flag=true,false
         elseif lk=="out" then
             lk_in_flag,lk_out_flag=false,true
-        elseif lk="on" then
+        elseif lk=="on" then
             lk_in_flag,lk_out_flag=true,true
         end
 
