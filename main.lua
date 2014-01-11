@@ -703,7 +703,7 @@ Convert["range_embellish"]={
             abbr_in_flag,abbr_out_flag=false,true
         elseif abbr=="on" then
             abbr_in_flag,abbr_out_flag=true,true
-        elseif abbr=="value" then
+        elseif abbr=="values" then
             abbr_in_flag,abbr_out_flag=false,false
             number_only_flag=true
         end
@@ -871,7 +871,7 @@ Convert["range_embellish"]={
             abbr_in_flag,abbr_out_flag=false,true
         elseif abbr=="on" then
             abbr_in_flag,abbr_out_flag=true,true
-        elseif abbr=="value" then
+        elseif abbr=="values" then
             abbr_in_flag,abbr_out_flag=false,false
             number_only_flag=true
         end
@@ -1021,7 +1021,7 @@ Convert["range_embellish"]={
             abbr_in_flag,abbr_out_flag=false,true
         elseif abbr=="on" then
             abbr_in_flag,abbr_out_flag=true,true
-        elseif abbr=="value" then
+        elseif abbr=="values" then
             abbr_in_flag,abbr_out_flag=false,false
             number_only_flag=true
         end
@@ -1185,7 +1185,7 @@ Convert["range_embellish"]={
             abbr_in_flag,abbr_out_flag=false,true
         elseif abbr=="on" then
             abbr_in_flag,abbr_out_flag=true,true
-        elseif abbr=="value" then
+        elseif abbr=="values" then
             abbr_in_flag,abbr_out_flag=false,false
             number_only_flag=true
         end
@@ -1317,7 +1317,7 @@ Convert["range_embellish"]={
         local function_convert=Convert.convert_builder(group_name,in_unit,out_unit)
 
         --数据初始化
-        for i=1,i<mark,2 do
+        for i=1,mark,2 do
             local key=#in_num+1
             in_num[key],out_num[key]=args[i],0
         end
@@ -1376,7 +1376,7 @@ Convert["range_embellish"]={
             abbr_in_flag,abbr_out_flag=false,true
         elseif abbr=="on" then
             abbr_in_flag,abbr_out_flag=true,true
-        elseif abbr=="value" then
+        elseif abbr=="values" then
             abbr_in_flag,abbr_out_flag=false,false
             number_only_flag=true
         end
@@ -1404,13 +1404,14 @@ Convert["range_embellish"]={
             end
             table.insert(out,inunit_code)
             table.insert(out,divisionA)
+
             for k,v in pairs(out_num) do
                 table.insert(out,v)
                 if k<#embellish then
                     table.insert(out,embellish[k])
                 end
             end
-            table.insert(outunit_code)
+            table.insert(out,outunit_code)
             table.insert(out,divisionB)
 
             return table.concat(out)
@@ -1426,13 +1427,14 @@ Convert["range_embellish"]={
             end
             table.insert(out,inunit_code)
             table.insert(out,divisionA)
+
             for k,v in pairs(out_num) do
                 table.insert(out,v)
                 if k<#embellish then
                     table.insert(out,embellish[k])
                 end
             end
-            table.insert(outunit_code)
+            table.insert(out,outunit_code)
             table.insert(out,divisionB)
 
             return table.concat(out)
@@ -1440,19 +1442,20 @@ Convert["range_embellish"]={
             divisionA,divisionB="[","]"
             for k,v in pairs(in_num) do
                 table.insert(out,v)
-                if k<#embellish then
+                if k<=#embellish then
                     table.insert(out,embellish[k])
                 end
             end
             table.insert(out,inunit_code)
             table.insert(out,divisionA)
+
             for k,v in pairs(out_num) do
                 table.insert(out,v)
-                if k<#embellish then
+                if k<=#embellish then
                     table.insert(out,embellish[k])
                 end
             end
-            table.insert(outunit_code)
+            table.insert(out,outunit_code)
             table.insert(out,divisionB)
 
             return table.concat(out)
@@ -1466,13 +1469,14 @@ Convert["range_embellish"]={
             end
             table.insert(out,inunit_code)
             table.insert(out,divisionA)
+
             for k,v in pairs(out_num) do
                 table.insert(out,v)
                 if k<#embellish then
                     table.insert(out,embellish[k])
                 end
             end
-            table.insert(outunit_code)
+            table.insert(out,outunit_code)
             table.insert(out,divisionB)
 
             return table.concat(out)
@@ -1496,13 +1500,14 @@ Convert["range_embellish"]={
             end
             table.insert(out,inunit_code)
             table.insert(out,divisionA)
+
             for k,v in pairs(out_num) do
                 table.insert(out,v)
                 if k<#embellish then
                     table.insert(out,embellish[k])
                 end
             end
-            table.insert(outunit_code)
+            table.insert(out,outunit_code)
             table.insert(out,divisionB)
 
             return table.concat(out)
@@ -1515,13 +1520,14 @@ Convert["range_embellish"]={
             end
             table.insert(out,inunit_code)
             table.insert(out,divisionA)
+
             for k,v in pairs(in_num) do
                 table.insert(out,v)
                 if k<#embellish then
                     table.insert(out,embellish[k])
                 end
             end
-            table.insert(outunit_code)
+            table.insert(out,outunit_code)
             table.insert(out,divisionB)
 
             return table.concat(out)
@@ -1540,13 +1546,14 @@ Convert["range_embellish"]={
             end
             table.insert(out,inunit_code)
             table.insert(out,divisionA)
+
             for k,v in pairs(out_num) do
                 table.insert(out,v)
                 if k<#embellish then
                     table.insert(out,embellish[k])
                 end
             end
-            table.insert(outunit_code)
+            table.insert(out,outunit_code)
             table.insert(out,divisionB)
 
             return table.concat(out)
@@ -1565,6 +1572,7 @@ Convert["range_embellish"]={
                     table.insert(out,embellish[k])
                 end
             end
+
             table.insert(out,"||")
             for k,v in pairs(out_num) do
                 table.insert(out,v)
@@ -1583,13 +1591,14 @@ Convert["range_embellish"]={
             end
             table.insert(out,inunit_code)
             table.insert(out,divisionA)
+
             for k,v in pairs(out_num) do
                 table.insert(out,v)
                 if k<#embellish then
                     table.insert(out,embellish[k])
                 end
             end
-            table.insert(outunit_code)
+            table.insert(out,outunit_code)
             table.insert(out,divisionB)
 
             return table.concat(out)
