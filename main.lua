@@ -427,8 +427,8 @@ Convert["range_embellish"]={
                 args["mark"]=t_mark
                 args["last_mark"]=t_mark--离索引参数有效位最后前一位
 
-                if tonumber(args[t_mark+1])~=nil then--使用索引参数标记有效位，记录
-                     args["sigfig_inindex"]=tonumber(args[t_mark+1])
+                if tonumber(args[args["last_mark"]+1])~=nil then--使用索引参数标记有效位，记录
+                     args["sigfig_inindex"]=tonumber(args[args["last_mark"]+1])
                 end
 
                 print("TR ok")
@@ -449,14 +449,12 @@ Convert["range_embellish"]={
                     args["mark"]=t_mark
                     args["last_mark"]=t_mark+3--离索引参数有效位最后前一位
 
-                    if tonumber(args[t_mark+4])~=nil then--使用索引参数标记有效位，记录
-                         args["sigfig_inindex"]=tonumber(args[t_mark+4])
+                    if tonumber(args[args["last_mark"]+1])~=nil then--使用索引参数标记有效位，记录
+                         args["sigfig_inindex"]=tonumber(args[args["last_mark"]+1])
                     end
 
                     print("IT ok")
                     return args
-                else
-
                 end
             end
             print("IT miss")
@@ -473,14 +471,12 @@ Convert["range_embellish"]={
                     args["mark"]=t_mark
                     args["last_mark"]=t_mark+1--离索引参数有效位最后前一位
 
-                    if tonumber(args[t_mark+2])~=nil then--使用索引参数标记有效位，记录
-                         args["sigfig_inindex"]=tonumber(args[t_mark+2])
+                    if tonumber(args[args["last_mark"]+1])~=nil then--使用索引参数标记有效位，记录
+                         args["sigfig_inindex"]=tonumber(args[args["last_mark"]+1])
                     end
 
                     print("OT ok")
                     return args
-                else
-
                 end
             end
             print("OT miss")
@@ -493,14 +489,12 @@ Convert["range_embellish"]={
                 args["mark"]=t_mark
                 args["last_mark"]=t_mark+1--离索引参数有效位最后前一位
 
-                if tonumber(args[t_mark+2])~=nil then--使用索引参数标记有效位，记录
-                     args["sigfig_inindex"]=tonumber(args[t_mark+3])
+                if tonumber(args[args["last_mark"]+1])~=nil then--使用索引参数标记有效位，记录
+                     args["sigfig_inindex"]=tonumber(args[args["last_mark"]+1])
                 end
 
                 print("P1 ok")
                 return args
-            else
-
             end
         end
         print("P1 miss")
@@ -525,14 +519,12 @@ Convert["range_embellish"]={
             args["mark"]=t_mark
             args["last_mark"]=t_mark+1--离索引参数有效位最后前一位
 
-            if tonumber(args[t_mark+2])~=nil then--使用索引参数标记有效位，记录
-                 args["sigfig_inindex"]=tonumber(args[t_mark+3])
+            if tonumber(args[args["last_mark"]+1])~=nil then--使用索引参数标记有效位，记录
+                 args["sigfig_inindex"]=tonumber(args[args["last_mark"]+1])
             end
 
             print("P2 ok")
             return args
-        else
-
         end
         print("P2 miss")
 
@@ -554,14 +546,12 @@ Convert["range_embellish"]={
             args["mark"]=t_mark
             args["last_mark"]=t_mark+1--离索引参数有效位最后前一位
 
-            if tonumber(args[t_mark+2])~=nil then--使用索引参数标记有效位，记录
-                 args["sigfig_inindex"]=tonumber(args[t_mark+3])
+            if tonumber(args[args["last_mark"]+1])~=nil then--使用索引参数标记有效位，记录
+                 args["sigfig_inindex"]=tonumber(args[args["last_mark"]+1])
             end
 
             print("P3 ok")
             return args
-        else
-
         end
         print("P3 miss")
 
@@ -583,14 +573,12 @@ Convert["range_embellish"]={
             args["mark"]=t_mark
             args["last_mark"]=t_mark+1--离索引参数有效位最后前一位
 
-            if tonumber(args[t_mark+2])~=nil then--使用索引参数标记有效位，记录
-                args["sigfig_inindex"]=tonumber(args[t_mark+3])
+            if tonumber(args[args["last_mark"]+1])~=nil then--使用索引参数标记有效位，记录
+                args["sigfig_inindex"]=tonumber(args[args["last_mark"]+1])
             end
 
             print("P4 ok")
             return args
-        else
-
         end
         print("ALL miss")
 
