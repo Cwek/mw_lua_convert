@@ -721,7 +721,7 @@ Convert["range_embellish"]={
                                 abbr_out_flag
                             )
                         )
-        if((not disp=="output only") and number_only_flag) then
+        if(not(disp=="output only") and number_only_flag) then
 			outunit_code=""
 		end
                         
@@ -896,7 +896,7 @@ Convert["range_embellish"]={
                                 abbr_out_flag
                             )
                         )
-        if((not disp=="output only") and number_only_flag) then
+        if(not(disp=="output only") and number_only_flag) then
 			outunit_code=""
 		end
 
@@ -1065,7 +1065,7 @@ Convert["range_embellish"]={
         inunit_code=(number_only_flag and {}) or inunit_code
         
         local outunit_code=Convert.link_builder(lk_out_flag,group_name,out_unit,Convert.display_builder(group_name,out_unit,abbr_out_flag))
-        if((not disp=="output only") and number_only_flag) then
+        if(not(disp=="output only") and number_only_flag) then
 			outunit_code=""
 		end
 
@@ -1235,7 +1235,7 @@ Convert["range_embellish"]={
                                 )
                             )
         end
-        if((not disp=="output only") and number_only_flag) then
+        if(not(disp=="output only") and number_only_flag) then
 			outunit_code={}
 		end
 
@@ -1421,7 +1421,7 @@ Convert["range_embellish"]={
         inunit_code=(number_only_flag and "") or inunit_code
         
         local outunit_code=Convert.link_builder(lk_out_flag,group_name,out_unit,Convert.display_builder(group_name,out_unit,abbr_out_flag))
-        if((not disp=="output only") and number_only_flag) then
+        if(not(disp=="output only") and number_only_flag) then
 			outunit_code=""
 		end
         
