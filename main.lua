@@ -972,7 +972,7 @@ Convert["range_embellish"]={
 
         --换算中
         for k,v in pairs(in_num) do
-            out_sum=out_sum+function_convert[k](in_num[k])
+            out_num=out_num+function_convert[k](in_num[k])
         end
 
         --有效位数计算
@@ -1149,7 +1149,7 @@ Convert["range_embellish"]={
             function_sigfig=Convert.sigfig5_func
         end
         for k,v in pairs(out_unit) do
-            out_num[k]=function_sigfig(out_num,sigfig)
+            out_num[k]=function_sigfig(out_num[k],sigfig)
         end
 
         --输出
@@ -1249,7 +1249,7 @@ Convert["range_embellish"]={
             end
             divisionA,divisionB=t_divisionA,t_divisionB
 
-            out=out={in_num,inunit_code,divisionA,out_num[1],outunit_code[1],"，",out_num[2],outunit_code[2],divisionB}
+            out={in_num,inunit_code,divisionA,out_num[1],outunit_code[1],"，",out_num[2],outunit_code[2],divisionB}
 
             return table.concat(out)
         elseif disp=="filp" then--disp=filp
