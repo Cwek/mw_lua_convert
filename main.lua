@@ -311,11 +311,11 @@ Convert["range_embellish"]={
     --@return <处理数>
     function Convert.sigfig_func(input,sigfig)
         local t,_=math.modf(input*math.pow(10,sigfig)+0.5)
-
+		local s=t/math.pow(10,sigfig)
         if sigfig<0 then
-            return (string.format("%."..math.abs(sigfig).."f",(t/math.pow(10,sigfig))))
+            return string.format("%."..math.abs(sigfig).."d",s)
         else
-            return tostring(t/math.pow(10,sigfig))
+            return string.format("%."..sigfig.."f",s)
         end
     end
 
@@ -323,7 +323,7 @@ Convert["range_embellish"]={
     --@param input:输入值
     --@return <处理数>
     function Convert.sigfig5_func(input)
-        local t=Convert.sigfig_func(input,0)
+        local t=tonumber(Convert.sigfig_func(input,0))
         local x=(math.fmod(t,10))
         if(x<2.5)then
             return t-x
