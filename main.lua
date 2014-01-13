@@ -710,7 +710,7 @@ Convert["range_embellish"]={
                             )
                         )
         inunit_code=(number_only_flag and "") or inunit_code
-                        
+
         local outunit_code=Convert.link_builder(
                             lk_out_flag,
                             group_name,
@@ -724,7 +724,7 @@ Convert["range_embellish"]={
         if(not(disp=="output only") and number_only_flag) then
 			outunit_code=""
 		end
-                        
+
         --[[
             disp判断输出
         --]]
@@ -736,7 +736,7 @@ Convert["range_embellish"]={
             -- in_num=""
             -- out={in_num,inunit_code,divisionA,out_num,outunit_code,divisionB}
             out={out_num,outunit_code}
-            
+
             return table.concat(out)
         elseif disp=="output number only" then
             -- inunit_code=""
@@ -746,8 +746,13 @@ Convert["range_embellish"]={
             out={out_num}
 
             return table.concat(out)
+        elseif disp=="or" then--disp=or
+            divisionA,divisionB="或",""
+            out={in_num,inunit_code,divisionA,out_num,outunit_code,divisionB}
+
+            return table.concat(out)
         elseif disp=="b" then--disp=b，默认
-            divisionA,divisionB="[","]"
+            divisionA,divisionB="（","）"
             out={in_num,inunit_code,divisionA,out_num,outunit_code,divisionB}
 
             return table.concat(out)
@@ -885,7 +890,7 @@ Convert["range_embellish"]={
                             )
                         )
         inunit_code=(number_only_flag and "") or inunit_code
-        
+
         local outunit_code=Convert.link_builder(
                             lk_out_flag,
                             group_name,
@@ -911,7 +916,7 @@ Convert["range_embellish"]={
             -- in_num=""
             -- out={in_num,inunit_code,divisionA,out_num,outunit_code,divisionB}
             out={out_num,outunit_code}
-            
+
             return table.concat(out)
         elseif disp=="output number only" then
             -- inunit_code=""
@@ -921,8 +926,13 @@ Convert["range_embellish"]={
             out={out_num}
 
             return table.concat(out)
+        elseif disp=="or" then--disp=or
+            divisionA,divisionB="或",""
+            out={in_num,inunit_code,divisionA,out_num,outunit_code,divisionB}
+
+            return table.concat(out)
         elseif disp=="b" then--disp=b，默认
-            divisionA,divisionB="[","]"
+            divisionA,divisionB="（","）"
             out={in_num,inunit_code,divisionA,out_num,outunit_code,divisionB}
 
             return table.concat(out)
@@ -1063,7 +1073,7 @@ Convert["range_embellish"]={
                 )
         end
         inunit_code=(number_only_flag and {}) or inunit_code
-        
+
         local outunit_code=Convert.link_builder(lk_out_flag,group_name,out_unit,Convert.display_builder(group_name,out_unit,abbr_out_flag))
         if(not(disp=="output only") and number_only_flag) then
 			outunit_code=""
@@ -1080,7 +1090,7 @@ Convert["range_embellish"]={
             -- in_num={"",""}
             -- out={in_num[1],inunit_code[1],in_num[2],inunit_code[2],divisionA,out_num,outunit_code,divisionB}
             out={out_num,outunit_code}
-            
+
             return table.concat(out)
         elseif disp=="output number only" then
             -- inunit_code={"",""}
@@ -1088,10 +1098,15 @@ Convert["range_embellish"]={
             -- outunit_code=""
             -- out={in_num[1],inunit_code[1],in_num[2],inunit_code[2],divisionA,out_num,outunit_code,divisionB}
             out={out_num}
-            
+
+            return table.concat(out)
+        elseif disp=="or" then--disp=or
+            divisionA,divisionB="或",""
+            out={in_num[1],inunit_code[1],in_num[2],inunit_code[2],divisionA,out_num,outunit_code,divisionB}
+
             return table.concat(out)
         elseif disp=="b" then--disp=b，默认
-            divisionA,divisionB="[","]"
+            divisionA,divisionB="（","）"
             out={in_num[1],inunit_code[1],in_num[2],inunit_code[2],divisionA,out_num,outunit_code,divisionB}
 
             return table.concat(out)
@@ -1258,10 +1273,15 @@ Convert["range_embellish"]={
             -- outunit_code={"",""}
             -- out={in_num,inunit_code,divisionA,out_num[1],outunit_code[1],"，",out_num[2],outunit_code[2],divisionB}
             out={out_num[1]"，",out_num[2]}
-            
+
+            return table.concat(out)
+        elseif disp=="or" then--disp=or
+            divisionA,divisionB="或",""
+            out={in_num,inunit_code,divisionA,out_num[1],outunit_code[1],"，",out_num[2],outunit_code[2],divisionB}
+
             return table.concat(out)
         elseif disp=="b" then--disp=b，默认
-            divisionA,divisionB="[","]"
+            divisionA,divisionB="（","）"
             out={in_num,inunit_code,divisionA,out_num[1],outunit_code[1],"，",out_num[2],outunit_code[2],divisionB}
 
             return table.concat(out)
@@ -1419,12 +1439,12 @@ Convert["range_embellish"]={
         --]]
         local inunit_code=Convert.link_builder(lk_in_flag,group_name,in_unit,Convert.display_builder(group_name,in_unit,abbr_in_flag))
         inunit_code=(number_only_flag and "") or inunit_code
-        
+
         local outunit_code=Convert.link_builder(lk_out_flag,group_name,out_unit,Convert.display_builder(group_name,out_unit,abbr_out_flag))
         if(not(disp=="output only") and number_only_flag) then
 			outunit_code=""
 		end
-        
+
         --[[
             disp判断输出
         --]]
@@ -1471,12 +1491,33 @@ Convert["range_embellish"]={
                 if k<#embellish then
                     table.insert(out,embellish[k])
                 end
-            end            
+            end
             -- table.insert(out,divisionB)
 
             return table.concat(out)
+        elseif disp=="or" then--disp=or
+            divisionA,divisionB="或",""
+            for k,v in pairs(in_num) do
+                table.insert(out,v)
+                if k<=#embellish then
+                    table.insert(out,embellish[k])
+                end
+            end
+            table.insert(out,inunit_code)
+            table.insert(out,divisionA)
+
+            for k,v in pairs(out_num) do
+                table.insert(out,v)
+                if k<=#embellish then
+                    table.insert(out,embellish[k])
+                end
+            end
+            table.insert(out,outunit_code)
+            table.insert(out,divisionB)
+
+            return table.concat(out)
         elseif disp=="b" then--disp=b，默认
-            divisionA,divisionB="[","]"
+            divisionA,divisionB="（","）"
             for k,v in pairs(in_num) do
                 table.insert(out,v)
                 if k<=#embellish then
