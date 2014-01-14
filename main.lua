@@ -431,11 +431,11 @@ Convert["range_embellish"]={
                      args["sigfig_inindex"]=tonumber(args[args["last_mark"]+1])
                 end
 
-                print("TR ok")
+                --print("TR ok")
                 return args
             end
         end
-        print("TR miss")
+        --print("TR miss")
 
         groupA,flagA=Convert.unit_check(args[t_mark]);
         if flagA==true then--确认第一个是单位，以区分联系词（2个处理单元）
@@ -453,11 +453,11 @@ Convert["range_embellish"]={
                          args["sigfig_inindex"]=tonumber(args[args["last_mark"]+1])
                     end
 
-                    print("IT ok")
+                    --print("IT ok")
                     return args
                 end
             end
-            print("IT miss")
+            --print("IT miss")
 
             --确认是不是组合输出（索引数组3是不是同组单位）
             local out_together_flag,unitA,unitB=Convert.is_out_together(args[t_mark+1])
@@ -475,11 +475,11 @@ Convert["range_embellish"]={
                          args["sigfig_inindex"]=tonumber(args[args["last_mark"]+1])
                     end
 
-                    print("OT ok")
+                    --print("OT ok")
                     return args
                 end
             end
-            print("OT miss")
+           -- print("OT miss")
 
             --确认是不是普通的1个单元处理（索引数组3）
             groupB,flagB=Convert.unit_check(args[t_mark+1])
@@ -493,11 +493,11 @@ Convert["range_embellish"]={
                      args["sigfig_inindex"]=tonumber(args[args["last_mark"]+1])
                 end
 
-                print("P1 ok")
+                --print("P1 ok")
                 return args
             end
         end
-        print("P1 miss")
+        --print("P1 miss")
 
         local embellish,flag_embellish
         args["embellish"]={}
@@ -523,10 +523,10 @@ Convert["range_embellish"]={
                  args["sigfig_inindex"]=tonumber(args[args["last_mark"]+1])
             end
 
-            print("P2 ok")
+            --print("P2 ok")
             return args
         end
-        print("P2 miss")
+        --print("P2 miss")
 
         --[[
             检查是否3个处理单元
@@ -550,10 +550,10 @@ Convert["range_embellish"]={
                  args["sigfig_inindex"]=tonumber(args[args["last_mark"]+1])
             end
 
-            print("P3 ok")
+            --print("P3 ok")
             return args
         end
-        print("P3 miss")
+        --print("P3 miss")
 
         --[[
             检查是否4个处理单元
@@ -577,11 +577,11 @@ Convert["range_embellish"]={
                 args["sigfig_inindex"]=tonumber(args[args["last_mark"]+1])
             end
 
-            print("P4 ok")
+            --print("P4 ok")
             return args
         end
-        print("ALL miss")
-
+        --print("ALL miss")
+        args["error"]="没找到匹配模式，请检查参数格式是否正确"
         --结束
         return args
     end
@@ -614,7 +614,24 @@ Convert["range_embellish"]={
         end
         return switch[flag](args)
     end
-
+    
+    --输出错误
+    function Convert.bind_error(args)
+        return String.format('<span class="class">%s</span>',args["error"])
+    end
+    
+    --输出
+    function Convert.out(args)
+        local in_num,out_num={},{}
+        local in_unit,out_unit={},{}
+        local in_linkword,out_linkword={},{}
+        local function_convert
+        local embellish
+        
+        
+        
+    end
+    
     --[[
         args可能有：
         原生数据,
