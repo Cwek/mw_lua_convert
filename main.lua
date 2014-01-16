@@ -620,10 +620,15 @@ Convert["range_embellish"]={
         return String.format('<span class="class">%s</span>',args["error"])
     end
     
+    
+    --[[
+        in_num(n),in_num_linkafter(n-1),
+    
+    --]]
     --输出
     function Convert.out(args)
-        local in_num,out_num={},{}
-        local in_unit,out_unit={},{}
+        local in_num,out_num=args["in_num_out"] or {},args["out_num_out"] or {}
+        local in_unit,out_unit=args["in_unit_out"] or {},args["out_num_out"] or {}
         local in_linkword,out_linkword={},{}
         local function_convert
         local embellish
