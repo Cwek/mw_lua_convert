@@ -441,13 +441,13 @@ Convert["range_embellish"]={
         if flagA==true then--确认第一个是单位，以区分联系词（2个处理单元）
             if args[t_mark+1]==nil or tonumber(args[t_mark+1])~=nil then--索引3为空或索引3为数字（索引约位数）
                 local t_args3=args[t_mark+1] or nil--读出参数3
-                
+
                 local out_unit=Convert.base_unit(groupA)--查出输入单位所属基准单位
                 --替换掉
                 args[t_mark+1]=out_unit
                 args[t_mark+2]=t_args3
             end
-            
+
             --确认是不是组合输入（索引参数4是不是同组单位）
             if Convert.is_input_together(args[t_mark],args[t_mark+2])then
                 groupB,flagB=Convert.unit_check(args[t_mark+3])
@@ -590,7 +590,8 @@ Convert["range_embellish"]={
             return args
         end
         --print("ALL miss")
-
+        args["error"]="没找到匹配模式，请检查参数格式是否正确"
+        
         --结束
         return args
     end
@@ -622,6 +623,11 @@ Convert["range_embellish"]={
             flag="error"
         end
         return switch[flag](args)
+    end
+
+    --输出错误
+    function Convert.bind_error(args)
+       return String.format('<span class="class">%s</span>',args["error"])
     end
 
     --[[
